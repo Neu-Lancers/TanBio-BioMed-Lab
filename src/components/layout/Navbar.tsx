@@ -49,16 +49,16 @@ export default function Navbar() {
 
   const linkCls = (active: boolean) =>
     cn(
-      "relative rounded-full px-3.5 py-2 text-btn transition-colors duration-300 3xl:text-body",
-      "after:absolute after:inset-x-3.5 after:bottom-1 after:h-0.5 after:origin-left after:scale-x-0 after:rounded after:bg-brand after:transition-transform after:duration-500 after:ease-out hover:after:scale-x-100",
+      "relative rounded-full px-3 py-2 text-small font-medium transition-colors duration-300 xl:px-3.5 xl:text-body 3xl:text-lead",
+      "after:absolute after:inset-x-3 after:bottom-1 xl:after:inset-x-3.5 after:h-0.5 after:origin-left after:scale-x-0 after:rounded after:bg-brand after:transition-transform after:duration-500 after:ease-out hover:after:scale-x-100",
       active ? "text-brand after:scale-x-100" : "text-ink/80 hover:text-brand",
     );
 
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 w-full border-b backdrop-blur-xl transition-[background-color,box-shadow,border-color] duration-500",
-        scrolled ? "border-line bg-white/85 shadow-[0_12px_30px_-18px_rgba(10,54,200,.25)]" : "border-transparent bg-white/70",
+        "sticky top-0 z-50 w-full border-b bg-white/95 transition-[box-shadow,border-color] duration-300",
+        scrolled ? "border-line shadow-[0_10px_28px_-20px_rgba(10,54,200,.35)]" : "border-line/60",
       )}
     >
       <nav aria-label="Primary" className="container flex h-[var(--nav-h)] items-center justify-between gap-4">
@@ -81,34 +81,36 @@ export default function Navbar() {
           ))}
         </ul>
 
-        <div className="hidden items-center gap-3 lg:flex">
-          <a
-            href={SITE.phoneHref}
-            className="group flex items-center gap-2.5 rounded-full border border-line bg-white py-1.5 pl-1.5 pr-4 transition-all duration-300 hover:border-brand/40 hover:shadow-card"
-          >
-            <span className="grid h-9 w-9 place-items-center rounded-full bg-brand text-small text-white transition-transform duration-300 group-hover:scale-110 3xl:h-10 3xl:w-10">
-              <FaPhone aria-hidden="true" />
-            </span>
-            <span className="hidden leading-tight xl:block">
+        <div className="flex items-center gap-2.5 xl:gap-4">
+          {/* xl+: plain phone link; below xl: round icon button */}
+          <a href={SITE.phoneHref} aria-label={`Call us on ${SITE.phone}`} className="group hidden items-center gap-2.5 xl:flex">
+            <FaPhone aria-hidden="true" className="text-lg text-brand transition-transform duration-300 group-hover:rotate-12" />
+            <span className="leading-tight">
               <span className="block text-caption font-medium uppercase tracking-wider text-muted">Call us</span>
-              <span className="block text-small font-bold text-navy 3xl:text-body">{SITE.phone}</span>
+              <span className="block text-small font-bold text-navy transition-colors group-hover:text-brand 3xl:text-body">{SITE.phone}</span>
             </span>
           </a>
-          <Button variant="primary" arrow onClick={() => openBooking()} className="!px-5 !py-3">
+          <a
+            href={SITE.phoneHref}
+            aria-label={`Call us on ${SITE.phone}`}
+            className="grid h-11 w-11 place-items-center rounded-full border border-line bg-white text-base text-brand transition-colors hover:bg-sky-soft xl:hidden"
+          >
+            <FaPhone aria-hidden="true" />
+          </a>
+          <Button variant="primary" onClick={() => openBooking()} className="hidden !h-11 !px-6 !py-0 shadow-[0_6px_16px_-8px_rgba(10,54,200,.55)] lg:inline-flex">
             Book Appointment
           </Button>
+          <button
+            type="button"
+            className="grid h-11 w-11 place-items-center rounded-full border border-line bg-white text-lg text-navy transition-colors hover:bg-sky-soft lg:hidden"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            onClick={() => setOpen((o) => !o)}
+          >
+            {open ? <FaXmark /> : <FaBars />}
+          </button>
         </div>
-
-        <button
-          type="button"
-          className="grid h-11 w-11 place-items-center rounded-full border border-line bg-white text-lg text-navy transition-colors hover:bg-sky-soft lg:hidden"
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          aria-controls="mobile-menu"
-          onClick={() => setOpen((o) => !o)}
-        >
-          {open ? <FaXmark /> : <FaBars />}
-        </button>
       </nav>
 
       {/* Mobile menu */}
@@ -142,14 +144,11 @@ export default function Navbar() {
                 </Link>
               </li>
             ))}
-            <li className="mt-3 flex flex-col gap-2.5 sm:flex-row">
-              <Button href={SITE.phoneHref} variant="outline" className="flex-1">
-                <FaPhone aria-hidden="true" /> {SITE.phone}
-              </Button>
+            <li className="mt-3">
               <Button
                 variant="primary"
-                arrow
-                className="flex-1"
+                size="lg"
+                className="w-full"
                 onClick={() => {
                   setOpen(false);
                   openBooking();

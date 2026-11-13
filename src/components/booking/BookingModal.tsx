@@ -193,7 +193,7 @@ export default function BookingModal({ open, onClose, preselect }: Props) {
     <div
       onKeyDown={onKeyDown}
       className={cn(
-        "fixed inset-0 z-[100] flex items-stretch justify-center bg-ink/60 backdrop-blur-sm transition-opacity duration-200 ease-out md:items-center md:p-6",
+        "fixed inset-0 z-[100] flex items-stretch justify-center bg-ink/60 transition-opacity duration-200 ease-out md:items-center md:p-6",
         shown ? "opacity-100" : "opacity-0",
       )}
       onMouseDown={(e) => {

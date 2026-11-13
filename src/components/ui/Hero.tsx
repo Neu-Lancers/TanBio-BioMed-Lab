@@ -2,10 +2,16 @@ import type { ReactNode } from "react";
 import { FaHouseMedical, FaShieldHalved } from "react-icons/fa6";
 import patternBg from "@/assets/images/home-pattern.webp";
 import Tilt3D from "@/components/ui/Tilt3D";
+import BreadcrumbTrail, { type Crumb } from "@/components/ui/Breadcrumbs";
 
+export type { Crumb };
 export type HeroFeature = { icon: ReactNode; label: string; sub: string };
 
 type Props = {
+  /** Inline breadcrumb trail after Home (last item = current page) */
+  breadcrumbs?: Crumb[];
+  /** set false when the page already emits BreadcrumbList JSON-LD */
+  breadcrumbSchema?: boolean;
   /** Pill label above the heading */
   eyebrow?: string;
   /** Heading — `highlight` is rendered in brand blue on its own line */
@@ -25,18 +31,21 @@ type Props = {
  * one image panel (same size / radius / position), one feature-card row, one entrance sequence.
  * Pages only vary content. Stacks below lg (copy, then image at a fixed aspect ratio).
  */
-export default function Hero({ eyebrow, title, highlight, description, image, imageAlt, features, children }: Props) {
+export default function Hero({ breadcrumbs, breadcrumbSchema = true, eyebrow, title, highlight, description, image, imageAlt, features, children }: Props) {
   return (
     <section className="relative overflow-hidden lg:min-h-[var(--hero-h)]">
       {/* Brand-tinted backdrop */}
       <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${patternBg})` }} aria-hidden="true" />
       <div className="absolute inset-0 bg-gradient-to-br from-white/95 via-sky-soft/90 to-[#dfe8ff]/90" aria-hidden="true" />
-      <div className="pointer-events-none absolute -left-32 top-10 h-80 w-80 rounded-full bg-cyan-glow/15 blur-3xl" aria-hidden="true" />
+      <div className="pointer-events-none absolute -left-32 top-10 h-96 w-96 rounded-full bg-[radial-gradient(closest-side,rgba(52,227,240,.2),transparent)]" aria-hidden="true" />
 
-      <div className="container relative z-[1] grid items-center gap-8 py-10 sm:py-12 lg:min-h-[var(--hero-h)] lg:grid-cols-2 lg:gap-12 lg:py-10 xl:gap-16">
+      <div className="container relative z-[1] grid items-center gap-8 py-10 sm:py-12 lg:min-h-[var(--hero-h)] lg:grid-cols-[1.15fr_1fr] lg:gap-10 lg:py-10 xl:gap-14">
         {/* Copy */}
         <div className="mx-auto w-full max-w-[40rem] text-center lg:mx-0 lg:max-w-none lg:text-left">
-          {eyebrow && <span className="eyebrow animate-fade-up [animation-delay:100ms]">{eyebrow}</span>}
+          {breadcrumbs && breadcrumbs.length > 0 && (
+            <BreadcrumbTrail items={breadcrumbs} schema={breadcrumbSchema} className="mb-4 animate-fade-up [animation-delay:50ms]" />
+          )}
+          {eyebrow && !(breadcrumbs && breadcrumbs.length > 0) && <span className="eyebrow !text-small animate-fade-up [animation-delay:100ms]">{eyebrow}</span>}
           <h1 className="animate-fade-up text-display text-navy [animation-delay:200ms]">
             {title}
             {highlight && (
@@ -46,24 +55,24 @@ export default function Hero({ eyebrow, title, highlight, description, image, im
               </>
             )}
           </h1>
-          <p className="mx-auto mt-4 max-w-[34rem] animate-fade-up text-lead text-muted [animation-delay:300ms] lg:mx-0 3xl:max-w-[40rem]">
+          <p className="mx-auto mt-5 max-w-[38rem] animate-fade-up text-lead text-muted [animation-delay:300ms] lg:mx-0 3xl:max-w-[44rem]">
             {description}
           </p>
 
           {features && features.length > 0 && (
-            <ul className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
+            <ul className="mt-7 grid grid-cols-1 gap-3 sm:grid-cols-3">
               {features.slice(0, 3).map((f, i) => (
                 <li
                   key={f.label}
                   style={{ animationDelay: `${400 + i * 90}ms` }}
-                  className="group flex animate-fade-up items-center gap-3 rounded-2xl border border-line bg-white/85 px-3.5 py-3 text-left shadow-card backdrop-blur transition-all duration-500 ease-out hover:-translate-y-1 hover:border-brand/30 hover:shadow-lift"
+                  className="group flex animate-fade-up items-center gap-3 rounded-2xl border border-line bg-white/90 px-3.5 py-2.5 text-left sm:px-4 sm:py-3.5 shadow-card transition-all duration-500 ease-out hover:-translate-y-1 hover:border-brand/30 hover:shadow-lift"
                 >
-                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-brand/10 text-lg text-brand transition-colors duration-300 group-hover:bg-brand group-hover:text-white">
+                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-brand/10 text-lg sm:h-11 sm:w-11 sm:text-xl lg:max-xl:hidden text-brand transition-colors duration-300 group-hover:bg-brand group-hover:text-white">
                     {f.icon}
                   </span>
                   <span className="min-w-0 leading-snug">
-                    <span className="block text-small font-bold text-navy">{f.label}</span>
-                    <span className="block text-caption text-muted">{f.sub}</span>
+                    <span className="block text-body font-semibold text-navy">{f.label}</span>
+                    <span className="block text-small text-muted">{f.sub}</span>
                   </span>
                 </li>
               ))}
@@ -71,7 +80,7 @@ export default function Hero({ eyebrow, title, highlight, description, image, im
           )}
 
           {children && (
-            <div className="mt-7 flex animate-fade-up flex-col items-stretch gap-3 [animation-delay:700ms] sm:flex-row sm:flex-wrap sm:items-center sm:justify-center lg:justify-start">
+            <div className="mt-8 flex animate-fade-up flex-col items-stretch gap-3 [animation-delay:700ms] sm:flex-row sm:flex-wrap sm:items-center sm:justify-center lg:justify-start">
               {children}
             </div>
           )}
@@ -97,7 +106,7 @@ export default function Hero({ eyebrow, title, highlight, description, image, im
 
           {/* Floating glass chips (depth) — always inside the panel so nothing overflows */}
           <Tilt3D className="absolute bottom-3 left-3 z-[3] hidden sm:bottom-5 sm:left-5 sm:block" rest={{ x: 4, y: 8, z: 0 }} max={6}>
-            <div className="flex items-center gap-2.5 rounded-2xl border border-white/70 bg-white/85 px-3 py-2 shadow-lift backdrop-blur-xl sm:gap-3 sm:px-4 sm:py-3">
+            <div className="flex items-center gap-2.5 rounded-2xl border border-white/70 bg-white/90 px-3 py-2 shadow-lift sm:gap-3 sm:px-4 sm:py-3">
               <span className="grid h-8 w-8 place-items-center rounded-xl bg-brand text-sm text-white sm:h-10 sm:w-10 sm:text-base">
                 <FaShieldHalved aria-hidden="true" />
               </span>
@@ -108,7 +117,7 @@ export default function Hero({ eyebrow, title, highlight, description, image, im
             </div>
           </Tilt3D>
           <Tilt3D className="absolute right-3 top-3 z-[3] hidden sm:block lg:right-5 lg:top-5" rest={{ x: -4, y: -8, z: 0 }} max={6}>
-            <div className="flex items-center gap-3 rounded-2xl border border-white/70 bg-white/85 px-4 py-3 shadow-lift backdrop-blur-xl">
+            <div className="flex items-center gap-3 rounded-2xl border border-white/70 bg-white/90 px-4 py-3 shadow-lift">
               <span className="grid h-10 w-10 place-items-center rounded-xl bg-cyan-glow/90 text-navy">
                 <FaHouseMedical aria-hidden="true" />
               </span>

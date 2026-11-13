@@ -53,8 +53,8 @@ export default function StatTiles({ title, stats, className }: Props) {
   const { ref, inView } = useInView<HTMLDivElement>(0.25);
   return (
     <section ref={ref} className={cn("relative overflow-hidden bg-brand py-14 md:py-16 3xl:py-20", className)}>
-      <div className="pointer-events-none absolute -left-24 top-0 h-72 w-72 rounded-full bg-cyan-glow/15 blur-3xl" aria-hidden="true" />
-      <div className="pointer-events-none absolute -right-24 bottom-0 h-72 w-72 rounded-full bg-white/10 blur-3xl" aria-hidden="true" />
+      <div className="pointer-events-none absolute -left-24 top-0 h-72 w-72 rounded-full bg-[radial-gradient(closest-side,rgba(52,227,240,.22),transparent)]" aria-hidden="true" />
+      <div className="pointer-events-none absolute -right-24 bottom-0 h-72 w-72 rounded-full bg-[radial-gradient(closest-side,rgba(255,255,255,.16),transparent)]" aria-hidden="true" />
       <div className="container relative">
         {title && <h2 className="mb-9 text-center text-h2 text-white">{title}</h2>}
         <ul className={cn("grid gap-4 md:gap-5", stats.length >= 5 ? "grid-cols-2 lg:grid-cols-5" : "grid-cols-2 lg:grid-cols-4")}>

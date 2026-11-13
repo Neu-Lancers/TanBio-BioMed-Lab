@@ -4,6 +4,7 @@ import Reveal from "@/components/ui/Reveal";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { cn } from "@/lib/cn";
+import { subscribeScroll } from "@/lib/smoothScroll";
 
 const STEPS = [
   { icon: FaWhatsapp, title: "Book Your Test", text: "Message us on WhatsApp or call the lab and tell us which tests you need. We confirm a suitable time and share any preparation instructions." },
@@ -13,7 +14,7 @@ const STEPS = [
 ];
 
 const N = STEPS.length;
-const VH_PER_STEP = 0.55; // scroll distance per step, in viewport heights
+const VH_PER_STEP = 0.38; // scroll distance per step, in viewport heights
 
 const navHeight = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--nav-h")) || 72;
 
@@ -22,8 +23,8 @@ export default function HowItWorks() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const fillRef = useRef<HTMLSpanElement>(null);
-  const raf = useRef(0);
-  const geo = useRef({ pin: 72, travel: 0 });
+  // cached geometry: start = scroll position where the stage begins pinning (no layout reads per frame)
+  const geo = useRef({ start: 0, travel: 1, lastFill: -1 });
 
   const [active, setActive] = useState(0);
   const [stageH, setStageH] = useState(0);
@@ -37,7 +38,9 @@ export default function HowItWorks() {
     const h = stage.offsetHeight;
     const pin = Math.max(navHeight(), Math.round((window.innerHeight - h) / 2));
     const t = Math.round(N * VH_PER_STEP * window.innerHeight);
-    geo.current = { pin, travel: t };
+    const wrap = wrapRef.current;
+    const start = wrap ? wrap.getBoundingClientRect().top + window.scrollY - pin : 0;
+    geo.current = { start, travel: Math.max(1, t), lastFill: -1 };
     setStageH(h);
     setPinTop(pin);
     setTravel(t);
@@ -48,43 +51,35 @@ export default function HowItWorks() {
     measure();
     const ro = new ResizeObserver(measure);
     if (stageRef.current) ro.observe(stageRef.current);
+    ro.observe(document.body); // page height changes (images/fonts loading) shift the section's document offset
     window.addEventListener("resize", measure);
+    window.addEventListener("load", measure);
     return () => {
       ro.disconnect();
       window.removeEventListener("resize", measure);
+      window.removeEventListener("load", measure);
     };
   }, [measure, reduced]);
 
-  /* scroll → progress (Lenis already smooths scrolling, so no extra easing here) */
+  /* scroll → progress, driven by the shared Lenis ticker (same frame as the sticky position).
+     Only the progress bar is written per frame; React state changes only when the step changes. */
   useEffect(() => {
     if (reduced) return;
-    const frame = () => {
-      raf.current = 0;
-      const wrap = wrapRef.current;
-      if (!wrap) return;
-      const { pin, travel: t } = geo.current;
-      const start = wrap.getBoundingClientRect().top + window.scrollY - pin;
-      const p = Math.min(1, Math.max(0, (window.scrollY - start) / Math.max(1, t)));
+    return subscribeScroll((y) => {
+      const g = geo.current;
+      const p = Math.min(1, Math.max(0, (y - g.start) / g.travel));
+      const fill = Math.round(Math.min(1, (p * N) / (N - 1)) * 2000) / 2000;
+      if (fill !== g.lastFill) {
+        g.lastFill = fill;
+        if (fillRef.current) fillRef.current.style.transform = `scaleX(${fill})`;
+      }
       const idx = Math.min(N - 1, Math.floor(p * N));
-      if (fillRef.current) fillRef.current.style.transform = `scaleX(${Math.min(1, (p * N) / (N - 1))})`;
       if (idx !== activeRef.current) {
         activeRef.current = idx;
         setActive(idx);
       }
-    };
-    const kick = () => {
-      if (!raf.current) raf.current = requestAnimationFrame(frame);
-    };
-    kick();
-    window.addEventListener("scroll", kick, { passive: true });
-    window.addEventListener("resize", kick);
-    return () => {
-      window.removeEventListener("scroll", kick);
-      window.removeEventListener("resize", kick);
-      cancelAnimationFrame(raf.current);
-      raf.current = 0;
-    };
-  }, [reduced, travel, pinTop]);
+    });
+  }, [reduced]);
 
   const heading = (
     <SectionHeading eyebrow="How It Works" title="Simple Steps to" highlight="Your Results" description="From booking to reports — scroll to follow each step." />
@@ -118,7 +113,7 @@ export default function HowItWorks() {
 
   return (
     <section id="how-it-works" className="relative bg-sky-soft" aria-label="How it works">
-      {/* runway = stage + (steps × 55vh) of scrolling that drives the steps */}
+      {/* runway = stage + (steps × 38vh) of scrolling that drives the steps */}
       <div ref={wrapRef} style={{ height: stageH + travel }} className="relative">
         <div ref={stageRef} style={{ top: pinTop }} className="sticky py-8 md:py-10">
           <div className="container">
@@ -131,7 +126,7 @@ export default function HowItWorks() {
                 ref={fillRef}
                 aria-hidden="true"
                 style={{ transform: "scaleX(0)" }}
-                className="absolute left-[12.5%] right-[12.5%] top-7 h-1 origin-left -translate-y-1/2 rounded-full bg-gradient-to-r from-brand to-cyan-glow will-change-transform md:top-8"
+                className="absolute left-[12.5%] right-[12.5%] top-7 h-1 origin-left -translate-y-1/2 rounded-full bg-gradient-to-r from-brand to-cyan-glow md:top-8"
               />
               <ol className="relative grid grid-cols-4">
                 {STEPS.map(({ icon: Icon, title }, i) => {

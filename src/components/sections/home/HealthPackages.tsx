@@ -106,8 +106,8 @@ export default function HealthPackages() {
         {/* Home sample collection banner — one responsive layout, one image */}
         <Reveal delay={100} className="mt-10">
           <div className="relative overflow-hidden rounded-[2rem] bg-brand p-6 text-white shadow-lift sm:p-8 lg:px-12 lg:py-8">
-            <div className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-cyan-glow/25 blur-3xl" aria-hidden="true" />
-            <div className="pointer-events-none absolute -bottom-20 left-1/3 h-56 w-56 rounded-full bg-white/10 blur-3xl" aria-hidden="true" />
+            <div className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-[radial-gradient(closest-side,rgba(52,227,240,.3),transparent)]" aria-hidden="true" />
+            <div className="pointer-events-none absolute -bottom-20 left-1/3 h-56 w-56 rounded-full bg-[radial-gradient(closest-side,rgba(255,255,255,.14),transparent)]" aria-hidden="true" />
             <div className="relative flex flex-col items-center gap-6 text-center lg:flex-row lg:justify-between lg:text-left">
               <img
                 src={delivery}

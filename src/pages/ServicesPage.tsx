@@ -11,7 +11,6 @@ import TestsFaq from "@/components/sections/services/TestsFaq";
 import Button from "@/components/ui/Button";
 import FeatureBanner from "@/components/ui/FeatureBanner";
 import Hero from "@/components/ui/Hero";
-import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import ReportMockup from "@/components/ui/ReportMockup";
 import Seo from "@/components/ui/Seo";
 import StatTiles from "@/components/ui/StatTiles";
@@ -42,12 +41,11 @@ export default function ServicesPage() {
           })),
         }}
       />
-
-      <Breadcrumbs items={[{ label: "Services" }]} />
       <Hero
+        breadcrumbs={[{ label: "Services" }]}
         eyebrow="Our Services"
         title="Comprehensive Diagnostic"
-        highlight="Solutions Under One Roof"
+        highlight="Solutions"
         description="From routine blood tests to advanced genomic analysis, we provide accurate, reliable and timely results for better healthcare."
         image={serviceHero}
         imageAlt="TANBIO diagnostic services"

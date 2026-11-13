@@ -167,7 +167,7 @@ export default function Testimonials() {
               ref={bigRef}
               className="relative flex min-h-[320px] flex-col justify-between overflow-hidden rounded-3xl bg-brand p-6 text-white shadow-lift sm:p-9"
             >
-              <span className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-cyan-glow/20 blur-3xl" aria-hidden="true" />
+              <span className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-[radial-gradient(closest-side,rgba(52,227,240,.26),transparent)]" aria-hidden="true" />
               <FaQuoteLeft aria-hidden="true" className="absolute right-6 top-6 text-[6rem] text-white/10 sm:right-9 sm:text-[8rem]" />
 
               <div className="relative grid flex-1" aria-live="polite" aria-atomic="true">

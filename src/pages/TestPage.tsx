@@ -5,7 +5,6 @@ import OtherServices from "@/components/sections/services/OtherServices";
 import { TestDetail } from "@/components/sections/services/TestDetail";
 import Button from "@/components/ui/Button";
 import Hero from "@/components/ui/Hero";
-import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import Seo from "@/components/ui/Seo";
 import { getServiceBySlug } from "@/data/services";
 import { SITE } from "@/lib/site";
@@ -49,8 +48,9 @@ export default function TestPage() {
       />
       {/* key remounts on slug change so reveal/accordion state resets */}
       <div key={service.slug}>
-        <Breadcrumbs schema={false} items={[{ label: "Services", to: "/services" }, { label: service.title }]} />
         <Hero
+          breadcrumbs={[{ label: "Services", to: "/services" }, { label: service.title }]}
+          breadcrumbSchema={false}
           eyebrow="Diagnostic Service"
           title={service.title}
           description={service.description}
@@ -62,10 +62,10 @@ export default function TestPage() {
             { icon: <FaClock />, label: "Timely Reports", sub: "Accurate results" },
           ]}
         >
-          <Button arrow onClick={() => open({ preselect: service.slug })}>
+          <Button size="lg" arrow onClick={() => open({ preselect: service.slug })}>
             Book This Test
           </Button>
-          <Button to="/services" variant="outline">
+          <Button size="lg" to="/services" variant="outline">
             All Services
           </Button>
         </Hero>

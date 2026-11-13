@@ -12,14 +12,14 @@
 /* ───────── Design tokens ───────── */
 :root {
   --nav-h: 76px;
-  --hero-h: clamp(580px, 58vh, 680px); /* ONE hero height for every page */
+  --hero-h: clamp(680px, 80vh, 840px); /* ONE hero height for every page */
 }
 @media (max-width: 1023px) { :root { --nav-h: 64px; } }
 @media (min-width: 1920px) {
-  :root { --nav-h: 88px; --hero-h: clamp(640px, 56vh, 780px); }
+  :root { --nav-h: 88px; --hero-h: clamp(740px, 76vh, 900px); }
 }
 @media (min-width: 2560px) {
-  :root { --hero-h: clamp(740px, 54vh, 920px); }
+  :root { --hero-h: clamp(860px, 70vh, 1040px); }
 }
 
 /* Scale the whole (rem-based) UI on big displays */
@@ -54,8 +54,8 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 8px); -w
   .card-hover { @apply hover:-translate-y-1.5 hover:shadow-lift; }
 
   /* scroll-reveal (see Reveal.tsx) */
-  .reveal { opacity: 0; transform: translate3d(0, 28px, 0); transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1); will-change: opacity, transform; }
-  .reveal-in { opacity: 1; transform: none; will-change: auto; }
+  .reveal { opacity: 0; transform: translate3d(0, 28px, 0); transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1); }
+  .reveal-in { opacity: 1; transform: none; }
 
   /* hide scrollbar but keep scrolling */
   .no-scrollbar { scrollbar-width: none; }
@@ -75,4 +75,5 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 8px); -w
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
-.lenis.lenis-stopped { overflow: hidden; }
+.lenis.lenis-stopped { overflow: clip; }
+.lenis.lenis-smooth iframe { pointer-events: none; }

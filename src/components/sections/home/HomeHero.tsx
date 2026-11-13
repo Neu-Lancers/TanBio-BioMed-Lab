@@ -21,10 +21,10 @@ export default function HomeHero() {
       imageAlt="Laboratory professional at TANBIO Biomed Genomics Laboratory"
       features={features}
     >
-      <Button arrow onClick={() => open()}>
+      <Button size="lg" arrow onClick={() => open()}>
         <FaRegCalendarCheck aria-hidden="true" /> Book Appointment
       </Button>
-      <Button to="/services" variant="outline">
+      <Button size="lg" to="/services" variant="outline">
         <FaFlask aria-hidden="true" /> Explore Tests
       </Button>
     </Hero>

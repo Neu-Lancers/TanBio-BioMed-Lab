@@ -10,7 +10,7 @@ function Member({ m }: { m: TeamMember }) {
     <article className="card card-hover group flex h-full flex-col items-center p-6 text-center">
       <span className="relative">
         <span
-          className="absolute -inset-1.5 rounded-full bg-gradient-to-br from-cyan-glow/70 to-brand/40 opacity-70 blur-[3px] transition-opacity duration-500 group-hover:opacity-100"
+          className="absolute -inset-1.5 rounded-full bg-gradient-to-br from-cyan-glow/70 to-brand/40 opacity-70 transition-opacity duration-500 group-hover:opacity-100"
           aria-hidden="true"
         />
         <Avatar name={m.name} photo={m.photo} className="relative h-20 w-20 border-4 border-white text-xl shadow-card" />

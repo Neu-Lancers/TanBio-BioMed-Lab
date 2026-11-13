@@ -6,17 +6,20 @@ import { cn } from "@/lib/cn";
 type Variant = "primary" | "dark" | "outline" | "light" | "ghost-light";
 
 const base =
-  "group inline-flex items-center justify-center gap-2.5 rounded-full px-6 py-3 text-btn transition-all duration-300 ease-out hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand";
+  "group inline-flex items-center justify-center gap-2.5 rounded-full text-btn transition-all duration-300 ease-out hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand";
 
 const variants: Record<Variant, string> = {
   primary: "bg-brand text-white shadow-[0_10px_24px_-10px_rgba(10,54,200,.7)] hover:bg-brand-dark hover:shadow-lift",
   dark: "bg-sky-soft text-brand ring-1 ring-inset ring-brand/15 hover:bg-brand hover:text-white hover:shadow-lift",
   outline: "border-2 border-brand/25 bg-white text-brand hover:border-brand hover:bg-brand hover:text-white",
   light: "bg-white text-brand hover:bg-sky-soft hover:shadow-lift",
-  "ghost-light": "border border-white/50 bg-white/5 text-white backdrop-blur hover:bg-white hover:text-brand",
+  "ghost-light": "border border-white/50 bg-white/5 text-white hover:bg-white hover:text-brand",
 };
 
+const sizes = { md: "px-6 py-3", lg: "px-7 py-3.5 !text-[1rem]" } as const;
+
 type Common = {
+  size?: keyof typeof sizes;
   variant?: Variant;
   className?: string;
   children: ReactNode;
@@ -29,8 +32,8 @@ type AsAnchor = Common & { href: string; to?: undefined } & AnchorHTMLAttributes
 
 /** One button for everything: <Button to="/x"/> (router link), <Button href="…"/> (anchor) or <Button onClick/>. */
 export default function Button(props: AsButton | AsRoute | AsAnchor) {
-  const { variant = "primary", className, children, arrow, ...rest } = props;
-  const cls = cn(base, variants[variant], className);
+  const { variant = "primary", size = "md", className, children, arrow, ...rest } = props;
+  const cls = cn(base, sizes[size], variants[variant], className);
   const content = (
     <>
       {children}

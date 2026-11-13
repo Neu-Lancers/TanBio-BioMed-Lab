@@ -191,10 +191,10 @@ export default function Footer() {
               target="_blank"
               rel="noreferrer"
               aria-label="NeuLancers"
-              className="group relative inline-flex items-center gap-[7px] overflow-hidden rounded-full border border-[rgba(196,181,253,.35)] bg-[rgba(196,181,253,.12)] py-1.5 pl-2.5 pr-3.5 shadow-[inset_0_1px_0_rgba(255,255,255,.22)] backdrop-blur-[14px] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_18px_4px_rgba(167,139,250,.35),inset_0_1px_0_rgba(255,255,255,.28)]"
+              className="group relative inline-flex items-center gap-[7px] overflow-hidden rounded-full border border-[rgba(196,181,253,.35)] bg-[rgba(196,181,253,.12)] py-1.5 pl-2.5 pr-3.5 shadow-[inset_0_1px_0_rgba(255,255,255,.22)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_18px_4px_rgba(167,139,250,.35),inset_0_1px_0_rgba(255,255,255,.28)]"
             >
               <span className="pointer-events-none absolute inset-0 animate-nl-shimmer rounded-[inherit] bg-[linear-gradient(105deg,transparent_30%,rgba(196,181,253,.22)_50%,transparent_70%)] bg-[length:200%_100%]" />
-              <FaBolt aria-hidden="true" className="relative animate-nl-bolt text-caption text-[#a78bfa] [filter:drop-shadow(0_0_4px_#a78bfa)]" />
+              <FaBolt aria-hidden="true" className="relative animate-nl-bolt text-caption text-[#a78bfa]" />
               <span className="relative whitespace-nowrap bg-gradient-to-r from-white to-[#a78bfa] bg-clip-text text-caption font-bold tracking-[0.04em] text-transparent">NeuLancers</span>
             </a>
           </div>

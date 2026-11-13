@@ -28,7 +28,7 @@ function validate(v: Values): Errors {
 
 /* Frosted-glass pill used for every field (the original contact-form look) */
 const glass =
-  "group flex items-center rounded-full border-[1.5px] border-white/35 bg-white/20 shadow-[0_4px_18px_rgba(0,0,0,0.10)] backdrop-blur-[14px] transition-all duration-300 focus-within:border-white/70 focus-within:bg-white/25 focus-within:shadow-[0_0_0_3px_rgba(255,255,255,0.15),0_6px_24px_rgba(0,0,0,0.14)]";
+  "group flex items-center rounded-full border-[1.5px] border-white/35 bg-white/20 shadow-[0_4px_18px_rgba(0,0,0,0.10)]  transition-all duration-300 focus-within:border-white/70 focus-within:bg-white/25 focus-within:shadow-[0_0_0_3px_rgba(255,255,255,0.15),0_6px_24px_rgba(0,0,0,0.14)]";
 const inputBase =
   "w-full flex-1 bg-transparent py-[13px] pl-5 text-small font-medium text-white placeholder:font-normal placeholder:text-white/60 focus:outline-none [&:-webkit-autofill]:[-webkit-text-fill-color:#fff]";
 const iconCls = "w-[46px] min-w-[46px] shrink-0 text-center text-small text-white/65 transition-colors duration-300 group-focus-within:text-white";
@@ -114,7 +114,7 @@ export default function ContactForm() {
         <div ref={leftRef} className="relative hidden items-end justify-center overflow-hidden md:flex">
           {girl(
             cn(
-              "h-full w-[125%] max-w-none object-contain object-bottom drop-shadow-[4px_0_20px_rgba(0,0,0,0.22)] transition-[transform,opacity] duration-[1500ms] ease-out will-change-transform",
+              "h-full w-[125%] max-w-none object-contain object-bottom transition-[transform,opacity] duration-[1500ms] ease-out will-change-transform",
               inView ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0",
             ),
           )}
@@ -130,7 +130,7 @@ export default function ContactForm() {
           </p>
 
           {/* Mobile: girl between title and form */}
-          <div className="mb-6 flex justify-center md:hidden">{girl("h-auto w-full max-w-[17rem] object-contain drop-shadow-[0_8px_24px_rgba(0,0,0,0.25)]")}</div>
+          <div className="mb-6 flex justify-center md:hidden">{girl("h-auto w-full max-w-[17rem] object-contain")}</div>
 
           <form onSubmit={onSubmit} noValidate className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {input("name", "Full Name", <FaRegUser />, { autoComplete: "name" })}
