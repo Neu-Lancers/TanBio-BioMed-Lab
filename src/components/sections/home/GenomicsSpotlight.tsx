@@ -49,7 +49,7 @@ export default function GenomicsSpotlight() {
                 </span>
                 <span>
                   <span className="block font-bold text-navy">{title}</span>
-                  <span className="block text-sm">{text}</span>
+                  <span className="block text-small">{text}</span>
                 </span>
               </li>
             ))}

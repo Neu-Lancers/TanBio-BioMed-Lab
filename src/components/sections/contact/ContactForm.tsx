@@ -30,8 +30,8 @@ function validate(v: Values): Errors {
 const glass =
   "group flex items-center rounded-full border-[1.5px] border-white/35 bg-white/20 shadow-[0_4px_18px_rgba(0,0,0,0.10)] backdrop-blur-[14px] transition-all duration-300 focus-within:border-white/70 focus-within:bg-white/25 focus-within:shadow-[0_0_0_3px_rgba(255,255,255,0.15),0_6px_24px_rgba(0,0,0,0.14)]";
 const inputBase =
-  "w-full flex-1 bg-transparent py-[13px] pl-5 text-[0.92rem] font-medium text-white placeholder:font-normal placeholder:text-white/60 focus:outline-none [&:-webkit-autofill]:[-webkit-text-fill-color:#fff]";
-const iconCls = "w-[46px] min-w-[46px] shrink-0 text-center text-[0.88rem] text-white/65 transition-colors duration-300 group-focus-within:text-white";
+  "w-full flex-1 bg-transparent py-[13px] pl-5 text-small font-medium text-white placeholder:font-normal placeholder:text-white/60 focus:outline-none [&:-webkit-autofill]:[-webkit-text-fill-color:#fff]";
+const iconCls = "w-[46px] min-w-[46px] shrink-0 text-center text-small text-white/65 transition-colors duration-300 group-focus-within:text-white";
 
 export default function ContactForm() {
   const [values, setValues] = useState<Values>(EMPTY);
@@ -74,7 +74,7 @@ export default function ContactForm() {
         </span>
       </div>
       {errors[id] && (
-        <p id={`cf-${id}-err`} role="alert" className="mx-1 mt-1.5 text-[0.78rem] text-[#ffe1e1]">
+        <p id={`cf-${id}-err`} role="alert" className="mx-1 mt-1.5 text-caption text-[#ffe1e1]">
           {errors[id]}
         </p>
       )}
@@ -122,17 +122,17 @@ export default function ContactForm() {
 
         {/* Right: form */}
         <div className="flex flex-col justify-center px-4 pb-10 pt-8 sm:px-6 md:py-11 md:pl-7 md:pr-10 lg:pl-9 lg:pr-[52px]">
-          <h2 className="text-center text-[1.6rem] font-bold text-white [text-shadow:0_2px_10px_rgba(0,0,0,0.22)] sm:text-[1.8rem] md:text-left lg:text-[2.2rem]">
+          <h2 className="text-center text-h2 text-white [text-shadow:0_2px_10px_rgba(0,0,0,0.22)] md:text-left">
             Contact Us
           </h2>
-          <p className="mb-5 mt-2 text-center text-[0.93rem] leading-relaxed text-white/85 md:text-left">
+          <p className="mb-5 mt-2 text-center text-small leading-relaxed text-white/85 md:text-left">
             Have a question or need to book a service? We&apos;re here to help.
           </p>
 
           {/* Mobile: girl between title and form */}
           <div className="mb-6 flex justify-center md:hidden">{girl("h-auto w-full max-w-[17rem] object-contain drop-shadow-[0_8px_24px_rgba(0,0,0,0.25)]")}</div>
 
-          <form onSubmit={onSubmit} noValidate className="grid gap-4 sm:grid-cols-2">
+          <form onSubmit={onSubmit} noValidate className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {input("name", "Full Name", <FaRegUser />, { autoComplete: "name" })}
             {input("phone", "Phone Number", <FaPhoneAlt />, { type: "tel", inputMode: "numeric", autoComplete: "tel-national" })}
             {input("email", "Email Address", <FaRegEnvelope />, { type: "email", autoComplete: "email" })}
@@ -162,7 +162,7 @@ export default function ContactForm() {
             <div className="mt-1 flex justify-center sm:col-span-2">
               <button
                 type="submit"
-                className="inline-flex items-center gap-2 rounded-full border-2 border-white bg-white px-10 py-3 text-base font-bold tracking-wide text-[#0A36C8] shadow-[0_6px_24px_rgba(0,0,0,0.18)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-[#0A36C8] hover:bg-[#0A36C8] hover:text-white hover:shadow-[0_10px_32px_rgba(10,54,200,0.45)] focus-visible:-translate-y-0.5 focus-visible:border-[#0A36C8] focus-visible:bg-[#0A36C8] focus-visible:text-white active:translate-y-0 sm:px-14"
+                className="inline-flex items-center gap-2 rounded-full border-2 border-white bg-white px-10 py-3 text-btn tracking-wide text-[#0A36C8] shadow-[0_6px_24px_rgba(0,0,0,0.18)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-[#0A36C8] hover:bg-[#0A36C8] hover:text-white hover:shadow-[0_10px_32px_rgba(10,54,200,0.45)] focus-visible:-translate-y-0.5 focus-visible:border-[#0A36C8] focus-visible:bg-[#0A36C8] focus-visible:text-white active:translate-y-0 sm:px-14"
               >
                 Send via WhatsApp <FaWhatsapp aria-hidden="true" />
               </button>

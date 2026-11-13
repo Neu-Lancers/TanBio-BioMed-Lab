@@ -1,4 +1,4 @@
-import { FaHeartPulse, FaMicrochip, FaChartLine, FaUserNurse } from "react-icons/fa6";
+import { FaMicrochip, FaChartLine, FaUserNurse } from "react-icons/fa6";
 import aboutHero from "@/assets/images/about-hero.webp";
 import AboutIntro from "@/components/sections/about/AboutIntro";
 import MissionVisionValues from "@/components/sections/about/MissionVisionValues";
@@ -31,7 +31,6 @@ export default function AboutPage() {
       />
 
       <Hero
-        shape="diagonal"
         eyebrow="About Us"
         title="About TANBIO"
         highlight="Biomed Genomics Laboratory"
@@ -42,7 +41,6 @@ export default function AboutPage() {
           { icon: <FaMicrochip />, label: "Advanced", sub: "Technology" },
           { icon: <FaChartLine />, label: "Accurate", sub: "Results" },
           { icon: <FaUserNurse />, label: "Qualified", sub: "Professionals" },
-          { icon: <FaHeartPulse />, label: "Patient", sub: "Focused" },
         ]}
       />
 

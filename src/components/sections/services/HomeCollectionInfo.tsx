@@ -49,8 +49,8 @@ export default function HomeCollectionInfo() {
                 <FaHouseMedical aria-hidden="true" />
               </span>
               <div>
-                <p className="font-mono text-[.7rem] font-semibold uppercase tracking-[.2em] text-brand/70">Working hours</p>
-                <ul className="mt-1 space-y-0.5 text-[.95rem]">
+                <p className="font-mono text-caption font-semibold uppercase tracking-[.2em] text-brand/70">Working hours</p>
+                <ul className="mt-1 space-y-0.5 text-body">
                   {SITE.hours.map((h) => (
                     <li key={h.days}>
                       <span className="font-bold text-navy">{h.days}:</span> {h.open} – {h.close}
@@ -65,8 +65,8 @@ export default function HomeCollectionInfo() {
                   <span className="mb-2 block text-xl text-brand" aria-hidden="true">
                     {p.icon}
                   </span>
-                  <h3 className="mb-1 text-sm">{p.title}</h3>
-                  <p className="text-[.82rem] leading-snug">{p.text}</p>
+                  <h3 className="mb-1 text-small">{p.title}</h3>
+                  <p className="text-small leading-snug">{p.text}</p>
                 </li>
               ))}
             </ul>

@@ -14,8 +14,6 @@ export default function HomeHero() {
   const { open } = useBooking();
   return (
     <Hero
-      size="home"
-      shape="curve"
       title="Accurate Results,"
       highlight="Better Health"
       description="TANBIO Biomed Genomics Laboratory provides advanced diagnostic services with precision, care and reliability."
@@ -26,7 +24,7 @@ export default function HomeHero() {
       <Button arrow onClick={() => open()}>
         <FaRegCalendarCheck aria-hidden="true" /> Book Appointment
       </Button>
-      <Button to="/services" variant="dark">
+      <Button to="/services" variant="outline">
         <FaFlask aria-hidden="true" /> Explore Tests
       </Button>
     </Hero>

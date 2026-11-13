@@ -42,8 +42,8 @@ const socials = [
 ];
 
 const colTitle =
-  "mb-3.5 text-[0.78rem] font-bold uppercase tracking-[0.18em] text-white after:mt-2 after:block after:h-0.5 after:w-8 after:rounded after:bg-cyan-glow";
-const linkCls = "group inline-flex items-center gap-1.5 py-[3px] text-sm text-white/70 transition-colors duration-300 hover:text-white";
+  "mb-3.5 text-caption font-bold uppercase tracking-[0.18em] text-white after:mt-2 after:block after:h-0.5 after:w-8 after:rounded after:bg-cyan-glow";
+const linkCls = "group inline-flex items-center gap-1.5 py-[3px] text-small text-white/70 transition-colors duration-300 hover:text-white";
 const chev = <FaAngleRight aria-hidden="true" className="text-[0.7rem] text-cyan-glow transition-transform duration-300 group-hover:translate-x-1" />;
 
 /* Subtle wave-line backdrop (as in the original footer) */
@@ -75,44 +75,36 @@ export default function Footer() {
     <footer className="relative overflow-hidden bg-[#0d1f30] text-white/80">
       <WaveBg />
 
-      <div className="container relative grid gap-x-8 gap-y-9 py-10 sm:grid-cols-2 lg:grid-cols-[1.35fr_1fr_1fr_1.25fr] lg:py-12 3xl:py-16">
+      <div className="container relative grid grid-cols-1 gap-x-8 gap-y-9 py-10 sm:grid-cols-2 lg:grid-cols-[1.35fr_1fr_1fr_1.25fr] lg:py-12 3xl:py-16">
         {/* Brand + status */}
         <div>
           <Link to="/" aria-label={`${SITE.shortName} home`} className="inline-block rounded-2xl bg-white p-2.5">
             <img src={logo} alt={SITE.name} width={160} height={62} loading="lazy" decoding="async" className="h-12 w-auto" />
           </Link>
-          <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/70">
+          <p className="mt-4 max-w-sm text-small leading-relaxed text-white/70">
             {SITE.name} delivers accurate, reliable and affordable diagnostic services with cutting-edge technology and the
             highest standards of ethical practice.
           </p>
 
-          {/* Status badge — flips between Open/Closed and the next open/close time (bottom-to-top) */}
+          {/* Status badge — simple open/closed pill with the next open/close time */}
           <div
             role="status"
             aria-label={`${status.isOpen ? "Open now" : "Closed"}. ${status.label} ${status.time}`}
-            className="mt-5 h-10 w-[13.5rem] [perspective:600px]"
+            className={cn(
+              "mt-5 inline-flex items-center gap-2.5 rounded-full border px-4 py-2 text-small",
+              status.isOpen ? "border-emerald-400/40 bg-emerald-400/10" : "border-rose-400/40 bg-rose-400/10",
+            )}
           >
-            <div className="relative h-full w-full animate-ft-flip [transform-style:preserve-3d] motion-reduce:animate-none">
-              <div
-                className={cn(
-                  "absolute inset-0 flex items-center gap-2.5 rounded-full border px-4 [backface-visibility:hidden]",
-                  status.isOpen ? "border-emerald-400/40 bg-emerald-400/10" : "border-rose-400/40 bg-rose-400/10",
-                )}
-              >
-                <span className="relative flex h-2.5 w-2.5">
-                  <span className={cn("absolute inline-flex h-full w-full animate-ping rounded-full opacity-60", status.isOpen ? "bg-emerald-400" : "bg-rose-400")} />
-                  <span className={cn("relative inline-flex h-2.5 w-2.5 rounded-full", status.isOpen ? "bg-emerald-400" : "bg-rose-400")} />
-                </span>
-                <span className="text-sm font-semibold text-white">{status.isOpen ? "Open Now" : "Closed"}</span>
-              </div>
-              <div className="absolute inset-0 flex items-center gap-2.5 rounded-full border border-cyan-glow/30 bg-cyan-glow/10 px-4 [backface-visibility:hidden] [transform:rotateX(-180deg)_rotateY(180deg)]">
-                <FaRegClock aria-hidden="true" className="text-cyan-glow" />
-                <span className="flex flex-col leading-tight">
-                  <span className="text-[0.62rem] font-semibold uppercase tracking-wider text-white/60">{status.label}</span>
-                  <span className="text-sm font-bold text-white">{status.time}</span>
-                </span>
-              </div>
-            </div>
+            <span className="relative flex h-2.5 w-2.5">
+              <span className={cn("absolute inline-flex h-full w-full animate-ping rounded-full opacity-60", status.isOpen ? "bg-emerald-400" : "bg-rose-400")} />
+              <span className={cn("relative inline-flex h-2.5 w-2.5 rounded-full", status.isOpen ? "bg-emerald-400" : "bg-rose-400")} />
+            </span>
+            <span className="font-semibold text-white">{status.isOpen ? "Open Now" : "Closed"}</span>
+            <span className="text-white/40" aria-hidden="true">·</span>
+            <FaRegClock aria-hidden="true" className="text-cyan-glow" />
+            <span className="text-white/80">
+              {status.label} {status.time}
+            </span>
           </div>
         </div>
 
@@ -155,7 +147,7 @@ export default function Footer() {
         {/* Find us */}
         <div className="sm:col-span-2 lg:col-span-1">
           <h2 className={colTitle}>Find Us</h2>
-          <address className="space-y-3 text-sm not-italic">
+          <address className="space-y-3 text-small not-italic">
             <a href={SITE.mapsUrl} target="_blank" rel="noreferrer" className="flex gap-3 text-white/70 transition-colors hover:text-white">
               <FaLocationDot aria-hidden="true" className="mt-1 shrink-0 text-cyan-glow" />
               <span>
@@ -188,7 +180,7 @@ export default function Footer() {
       </div>
 
       <div className="relative border-t border-white/10">
-        <div className="container flex flex-col items-center justify-between gap-3 py-4 pr-4 text-center text-xs text-white/60 sm:flex-row sm:pr-24 sm:text-left">
+        <div className="container flex flex-col items-center justify-between gap-3 py-4 pr-4 text-center text-caption text-white/60 sm:flex-row sm:pr-24 sm:text-left">
           <p>
             © {new Date().getFullYear()} {SITE.name}. All Rights Reserved.
           </p>
@@ -202,8 +194,8 @@ export default function Footer() {
               className="group relative inline-flex items-center gap-[7px] overflow-hidden rounded-full border border-[rgba(196,181,253,.35)] bg-[rgba(196,181,253,.12)] py-1.5 pl-2.5 pr-3.5 shadow-[inset_0_1px_0_rgba(255,255,255,.22)] backdrop-blur-[14px] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_18px_4px_rgba(167,139,250,.35),inset_0_1px_0_rgba(255,255,255,.28)]"
             >
               <span className="pointer-events-none absolute inset-0 animate-nl-shimmer rounded-[inherit] bg-[linear-gradient(105deg,transparent_30%,rgba(196,181,253,.22)_50%,transparent_70%)] bg-[length:200%_100%]" />
-              <FaBolt aria-hidden="true" className="relative animate-nl-bolt text-xs text-[#a78bfa] [filter:drop-shadow(0_0_4px_#a78bfa)]" />
-              <span className="relative whitespace-nowrap bg-gradient-to-r from-white to-[#a78bfa] bg-clip-text text-[13px] font-bold tracking-[0.04em] text-transparent">NeuLancers</span>
+              <FaBolt aria-hidden="true" className="relative animate-nl-bolt text-caption text-[#a78bfa] [filter:drop-shadow(0_0_4px_#a78bfa)]" />
+              <span className="relative whitespace-nowrap bg-gradient-to-r from-white to-[#a78bfa] bg-clip-text text-caption font-bold tracking-[0.04em] text-transparent">NeuLancers</span>
             </a>
           </div>
         </div>

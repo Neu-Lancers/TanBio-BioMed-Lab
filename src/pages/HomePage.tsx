@@ -50,7 +50,7 @@ export default function HomePage() {
           imageAlt="Culture plate being examined in the microbiology laboratory"
           title="Beyond Reports Into Insight"
           description="Precise analysis and clear digital reports you can share with your doctor in a tap — so every result turns into a confident next step."
-          floating={<ReportMockup className="lg:w-[64%] lg:-translate-x-[8%]" />}
+          floating={<ReportMockup />}
         >
           <Button variant="dark" arrow onClick={() => open()}>
             Book a test

@@ -28,7 +28,7 @@ export default function LocationMap() {
               <FaClock className="mt-1 shrink-0 text-xl text-brand" aria-hidden="true" />
               <div>
                 <p className="mb-1 font-bold text-navy">Opening Hours</p>
-                <ul className="space-y-1 text-sm">
+                <ul className="space-y-1 text-small">
                   {SITE.hours.map((h) => (
                     <li key={h.days}>
                       <span className="font-semibold text-ink">{h.days}:</span> {h.open} - {h.close}

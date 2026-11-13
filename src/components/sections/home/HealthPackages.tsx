@@ -24,7 +24,7 @@ function PackageCard({ pkg }: { pkg: HealthPackage }) {
       style={{ "--accent": pkg.iconColor } as CSSProperties}
     >
       {pkg.badge && (
-        <span className="absolute right-4 top-4 rounded-full bg-amber-500 px-3 py-1 text-[.7rem] font-bold uppercase tracking-wide text-white">
+        <span className="absolute right-4 top-4 rounded-full bg-amber-500 px-3 py-1 text-caption font-bold uppercase tracking-wide text-white">
           {pkg.badge}
         </span>
       )}
@@ -36,20 +36,20 @@ function PackageCard({ pkg }: { pkg: HealthPackage }) {
         >
           <Icon aria-hidden="true" />
         </span>
-        <h3 className="text-base font-extrabold leading-snug">{pkg.title}</h3>
+        <h3 className="text-body font-extrabold leading-snug">{pkg.title}</h3>
       </header>
 
       <div className="mb-4 border-b border-line pb-4 text-center">
         <div className="flex items-center justify-center gap-2">
-          <span className="text-sm text-muted line-through">₹{pkg.originalPrice}</span>
-          <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-bold text-emerald-700">{discountPercent(pkg)}% OFF</span>
+          <span className="text-small text-muted line-through">₹{pkg.originalPrice}</span>
+          <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-caption font-bold text-emerald-700">{discountPercent(pkg)}% OFF</span>
         </div>
         <div className="text-3xl font-extrabold" style={{ color: pkg.iconColor }}>
           ₹{pkg.price}
         </div>
       </div>
 
-      <ul className="mb-6 flex-1 space-y-1.5 text-sm">
+      <ul className="mb-6 flex-1 space-y-1.5 text-small">
         {pkg.tests.map((t) => (
           <li key={t} className="flex items-start gap-2">
             <FaCircleCheck className="mt-1 shrink-0 text-[.8rem]" style={{ color: pkg.iconColor }} aria-hidden="true" />
@@ -84,9 +84,9 @@ export default function HealthPackages() {
           />
         </Reveal>
 
-        <ul className="mt-8 grid items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+        <ul className="mt-8 grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
           {list.map((p, i) => (
-            <Reveal as="li" key={p.id} delay={(i % 3) * 90} className="h-full">
+            <Reveal as="li" key={p.id} delay={(i % 3) * 90} className="h-full min-w-0">
               <PackageCard pkg={p} />
             </Reveal>
           ))}
@@ -120,7 +120,7 @@ export default function HealthPackages() {
               />
 
               <div className="max-w-md lg:flex-1">
-                <h3 className="text-2xl font-extrabold text-white">Home Sample Collection</h3>
+                <h3 className="text-h3 text-white">Home Sample Collection</h3>
                 <p className="mt-1 text-white/80">We collect samples from the comfort of your home.</p>
               </div>
 
@@ -131,8 +131,8 @@ export default function HealthPackages() {
                       <Icon aria-hidden="true" />
                     </span>
                     <span className="leading-tight">
-                      <span className="block text-sm font-bold">{label}</span>
-                      <span className="block text-xs text-white/70">{sub}</span>
+                      <span className="block text-small font-bold">{label}</span>
+                      <span className="block text-caption text-white/70">{sub}</span>
                     </span>
                   </li>
                 ))}

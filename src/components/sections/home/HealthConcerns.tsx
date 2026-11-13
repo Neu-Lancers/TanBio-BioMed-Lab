@@ -30,7 +30,7 @@ export default function HealthConcerns() {
           />
         </Reveal>
 
-        <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
+        <ul className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
           {CONCERNS.map((c, i) => {
             const Icon = c.icon;
             return (
@@ -42,9 +42,9 @@ export default function HealthConcerns() {
                   >
                     <Icon aria-hidden="true" />
                   </span>
-                  <h3 className="text-lg font-extrabold">{c.title}</h3>
-                  <p className="mt-1.5 flex-1 text-sm">{c.text}</p>
-                  <span className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-brand transition-all duration-300 group-hover:gap-3">
+                  <h3 className="text-h4 font-extrabold">{c.title}</h3>
+                  <p className="mt-1.5 flex-1 text-small">{c.text}</p>
+                  <span className="mt-5 inline-flex items-center gap-2 text-small font-bold text-brand transition-all duration-300 group-hover:gap-3">
                     View tests <FaArrowRight aria-hidden="true" />
                   </span>
                 </Link>

@@ -62,18 +62,18 @@ export default function SamplePrep() {
           />
         </Reveal>
 
-        <div className="mt-8 grid items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-3 md:mt-10">
+        <div className="mt-8 grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-3 md:mt-10">
           {guide.map((g, i) => (
             <Reveal key={g.title} delay={i * 110} className={cn("h-full", i === 2 && "sm:col-span-2 lg:col-span-1")}>
               <article className="card card-hover flex h-full flex-col p-6">
                 <div className="mb-5 flex items-center justify-between">
                   <span className="grid h-12 w-12 place-items-center rounded-2xl bg-brand text-xl text-white">{g.icon}</span>
-                  <span className="rounded-full border border-brand/15 bg-white px-3 py-1 font-mono text-[.68rem] font-semibold uppercase tracking-[.16em] text-brand">
+                  <span className="rounded-full border border-brand/15 bg-white px-3 py-1 font-mono text-caption font-semibold uppercase tracking-[.16em] text-brand">
                     {g.tag}
                   </span>
                 </div>
-                <h3 className="mb-3 text-lg">{g.title}</h3>
-                <ul className="space-y-2.5 text-[.92rem]">
+                <h3 className="mb-3 text-h4">{g.title}</h3>
+                <ul className="space-y-2.5 text-small">
                   {g.points.map((p) => (
                     <li key={p} className="flex gap-2.5">
                       <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />
@@ -92,8 +92,8 @@ export default function SamplePrep() {
               <div className="flex h-full gap-4 rounded-3xl border border-brand/15 bg-white p-6 shadow-card">
                 <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-sky-soft text-xl text-brand">{f.icon}</span>
                 <div>
-                  <h3 className="mb-1 text-base">{f.title}</h3>
-                  <p className="text-[.92rem]">{f.text}</p>
+                  <h3 className="mb-1 text-body">{f.title}</h3>
+                  <p className="text-small">{f.text}</p>
                 </div>
               </div>
             </Reveal>

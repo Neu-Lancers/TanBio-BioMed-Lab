@@ -9,7 +9,7 @@ export default function NotFoundPage() {
       <div className="container relative text-center">
         <span className="eyebrow">Error 404</span>
         <p className="bg-gradient-to-b from-brand to-brand-light bg-clip-text text-[clamp(5rem,3rem+10vw,10rem)] font-extrabold leading-none tracking-tighter text-transparent">404</p>
-        <h1 className="mt-2 text-2xl font-extrabold tracking-tight md:text-4xl">Page not found</h1>
+        <h1 className="mt-2 text-h2">Page not found</h1>
         <p className="mx-auto mt-3 max-w-md">The page you requested may have moved or no longer exists. Let&rsquo;s get you back on track.</p>
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <Button to="/" arrow>Go to Home</Button>

@@ -96,16 +96,16 @@ export default function HowItWorks() {
       <section id="how-it-works" className="section bg-sky-soft" aria-labelledby="how-title">
         <div className="container">
           {heading}
-          <ol className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <ol className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {STEPS.map(({ icon: Icon, title, text }, i) => (
               <li key={title} className="card flex h-full flex-col p-6">
                 <span className="grid h-12 w-12 place-items-center rounded-full bg-brand text-lg text-white">
                   <Icon aria-hidden="true" />
                 </span>
-                <h3 className="mt-4 text-lg">
+                <h3 className="mt-4 text-h4">
                   {i + 1}. {title}
                 </h3>
-                <p className="mt-2 text-sm">{text}</p>
+                <p className="mt-2 text-small">{text}</p>
               </li>
             ))}
           </ol>
@@ -151,13 +151,13 @@ export default function HowItWorks() {
                       </span>
                       <span
                         className={cn(
-                          "mt-3 hidden text-sm font-bold transition-colors duration-500 sm:block md:text-base",
+                          "mt-3 hidden text-small font-bold transition-colors duration-500 sm:block md:text-body",
                           on || done ? "text-navy" : "text-navy/40",
                         )}
                       >
                         {title}
                       </span>
-                      <span className={cn("mt-2 text-[0.7rem] font-bold transition-colors duration-500 sm:hidden", on || done ? "text-navy" : "text-navy/40")}>
+                      <span className={cn("mt-2 text-caption font-bold transition-colors duration-500 sm:hidden", on || done ? "text-navy" : "text-navy/40")}>
                         {i + 1}
                       </span>
                     </li>
@@ -181,11 +181,11 @@ export default function HowItWorks() {
                     <Icon aria-hidden="true" />
                   </span>
                   <div>
-                    <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-brand">
+                    <p className="font-mono text-caption font-semibold uppercase tracking-[0.2em] text-brand">
                       Step {i + 1} of {N}
                     </p>
-                    <h3 className="mt-1 text-xl md:text-2xl">{title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed md:text-base">{text}</p>
+                    <h3 className="mt-1 text-h3">{title}</h3>
+                    <p className="mt-2 text-small leading-relaxed md:text-body">{text}</p>
                   </div>
                 </article>
               ))}

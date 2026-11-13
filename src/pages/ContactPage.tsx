@@ -1,4 +1,4 @@
-import { FaHeadset, FaShieldHalved } from "react-icons/fa6";
+import { FaCalendarCheck, FaHeadset, FaShieldHalved } from "react-icons/fa6";
 import contactImg from "@/assets/images/contact-tanbio.webp";
 import ContactForm from "@/components/sections/contact/ContactForm";
 import ContactInfoCards from "@/components/sections/contact/ContactInfoCards";
@@ -30,7 +30,6 @@ export default function ContactPage() {
       />
 
       <Hero
-        shape="curve"
         eyebrow="Contact Us"
         title="We Are Here"
         highlight="To Help You"
@@ -38,8 +37,9 @@ export default function ContactPage() {
         image={contactImg}
         imageAlt="TANBIO Biomed Genomics Laboratory building"
         features={[
-          { icon: <FaHeadset />, label: "Quick Support", sub: "Always ready to assist you" },
-          { icon: <FaShieldHalved />, label: "Trusted Care", sub: "Accurate tests, reliable results" },
+          { icon: <FaHeadset />, label: "Quick Support", sub: "Always ready to help" },
+          { icon: <FaShieldHalved />, label: "Trusted Care", sub: "Reliable results" },
+          { icon: <FaCalendarCheck />, label: "Easy Booking", sub: "Call or WhatsApp" },
         ]}
       />
 

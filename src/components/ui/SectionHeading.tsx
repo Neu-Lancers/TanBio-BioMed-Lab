@@ -29,7 +29,7 @@ export default function SectionHeading({
       <h2 className={cn("heading", tone === "light" && "!text-white")}>
         {highlightFirst && hl} {title} {!highlightFirst && hl}
       </h2>
-      {description && <p className={cn("mt-4 text-[1.02rem] leading-relaxed", tone === "light" ? "text-white/80" : "text-muted")}>{description}</p>}
+      {description && <p className={cn("mt-4 text-lead", tone === "light" ? "text-white/80" : "text-muted")}>{description}</p>}
     </div>
   );
 }

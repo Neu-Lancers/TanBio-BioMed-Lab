@@ -43,20 +43,20 @@ const TIPS: Tip[] = [
 function TipCard({ tip }: { tip: Tip }) {
   return (
     <article className="card card-hover flex h-full flex-col p-6 sm:p-7">
-      <div className="flex items-center justify-between gap-3 text-xs">
-        <span className="rounded-full border border-brand/15 bg-sky-soft px-3 py-1 font-mono text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-brand">{tip.category}</span>
+      <div className="flex items-center justify-between gap-3 text-caption">
+        <span className="rounded-full border border-brand/15 bg-sky-soft px-3 py-1 font-mono text-caption font-semibold uppercase tracking-[0.14em] text-brand">{tip.category}</span>
         <span className="inline-flex items-center gap-1.5 text-muted">
           <FaRegClock aria-hidden="true" /> {tip.minutes} min read
         </span>
       </div>
-      <h3 className="mt-4 text-xl font-extrabold leading-snug">{tip.title}</h3>
-      <p className="mt-2 text-sm font-medium text-navy/80">{tip.summary}</p>
-      <div className="mt-3 flex-1 space-y-2.5 text-sm">
+      <h3 className="mt-4 text-h3 font-extrabold leading-snug">{tip.title}</h3>
+      <p className="mt-2 text-small font-medium text-navy/80">{tip.summary}</p>
+      <div className="mt-3 flex-1 space-y-2.5 text-small">
         {tip.body.map((p) => (
           <p key={p}>{p}</p>
         ))}
       </div>
-      <p className="mt-5 rounded-xl bg-sky-soft/70 p-3 text-xs text-navy">
+      <p className="mt-5 rounded-xl bg-sky-soft/70 p-3 text-caption text-navy">
         General information, not medical advice — please consult your doctor.
       </p>
     </article>

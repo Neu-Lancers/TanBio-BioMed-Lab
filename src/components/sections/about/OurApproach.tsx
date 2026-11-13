@@ -21,15 +21,15 @@ export default function OurApproach() {
             description="A simple, careful process from sample to report."
           />
         </Reveal>
-        <ol className="mt-10 grid items-stretch gap-x-5 gap-y-9 sm:grid-cols-2 lg:grid-cols-4 md:mt-12">
+        <ol className="mt-10 grid grid-cols-1 items-stretch gap-x-5 gap-y-9 sm:grid-cols-2 lg:grid-cols-4 md:mt-12">
           {steps.map((s, i) => (
             <Reveal as="li" key={s.title} delay={i * 110} className="card card-hover relative flex h-full flex-col items-center p-6 pt-9 text-center">
-              <span className="absolute -top-4 left-1/2 grid h-8 w-8 -translate-x-1/2 place-items-center rounded-full bg-brand text-sm font-bold text-white shadow-card ring-4 ring-white">
+              <span className="absolute -top-4 left-1/2 grid h-8 w-8 -translate-x-1/2 place-items-center rounded-full bg-brand text-small font-bold text-white shadow-card ring-4 ring-white">
                 {i + 1}
               </span>
               <span className="mx-auto mb-3 grid h-14 w-14 place-items-center rounded-full bg-sky-soft text-2xl text-brand">{s.icon}</span>
-              <h3 className="mb-2 text-base">{s.title}</h3>
-              <p className="text-sm">{s.text}</p>
+              <h3 className="mb-2 text-body">{s.title}</h3>
+              <p className="text-small">{s.text}</p>
             </Reveal>
           ))}
         </ol>

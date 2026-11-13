@@ -52,15 +52,15 @@ export default function MissionVisionValues() {
         <Reveal>
           <SectionHeading eyebrow="What Drives Us" title="Purpose, Direction &" highlight="Principles" />
         </Reveal>
-        <div className="mt-8 grid items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-3 md:mt-10">
+        <div className="mt-8 grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-3 md:mt-10">
           {cards.map((c, i) => (
             <Reveal key={c.title} delay={i * 120} className={cn("h-full", i === 2 && "sm:col-span-2 lg:col-span-1")}>
                 <div className="card card-hover relative flex h-full flex-col overflow-hidden p-7">
                   <span className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-brand/5" aria-hidden="true" />
                   <span className="mb-6 grid h-14 w-14 place-items-center rounded-2xl bg-brand text-2xl text-white shadow-[0_12px_24px_-10px_rgba(10,54,200,.7)]">{c.icon}</span>
-                  <span className="mb-2 block font-mono text-[.7rem] font-semibold uppercase tracking-[.2em] text-brand/70">{c.tag}</span>
-                  <h3 className="mb-3 text-xl">{c.title}</h3>
-                  <div className="text-[.95rem] leading-relaxed">{c.body}</div>
+                  <span className="mb-2 block font-mono text-caption font-semibold uppercase tracking-[.2em] text-brand/70">{c.tag}</span>
+                  <h3 className="mb-3 text-h3">{c.title}</h3>
+                  <div className="text-body leading-relaxed">{c.body}</div>
                 </div>
             </Reveal>
           ))}

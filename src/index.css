@@ -12,16 +12,14 @@
 /* ───────── Design tokens ───────── */
 :root {
   --nav-h: 76px;
-  --hero-h: clamp(400px, 48vh, 560px);
-  --hero-h-home: clamp(520px, calc(100svh - var(--nav-h)), 760px);
-  --hero-stack-img: clamp(220px, 42vw, 380px);
+  --hero-h: clamp(580px, 58vh, 680px); /* ONE hero height for every page */
 }
 @media (max-width: 1023px) { :root { --nav-h: 64px; } }
 @media (min-width: 1920px) {
-  :root { --nav-h: 88px; --hero-h: clamp(460px, 48vh, 640px); --hero-h-home: clamp(600px, calc(100svh - var(--nav-h)), 860px); }
+  :root { --nav-h: 88px; --hero-h: clamp(640px, 56vh, 780px); }
 }
 @media (min-width: 2560px) {
-  :root { --hero-h: clamp(560px, 46vh, 760px); --hero-h-home: clamp(700px, calc(100svh - var(--nav-h)), 1000px); }
+  :root { --hero-h: clamp(740px, 54vh, 920px); }
 }
 
 /* Scale the whole (rem-based) UI on big displays */
@@ -32,7 +30,7 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 8px); -w
 
 @layer base {
   body {
-    @apply bg-white font-sans text-base leading-relaxed text-muted antialiased;
+    @apply bg-white font-sans text-body text-muted antialiased;
     overflow-x: clip; /* `clip` (not hidden) keeps position:sticky working */
   }
   h1, h2, h3, h4 { @apply font-extrabold text-navy; }
@@ -47,7 +45,7 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 8px); -w
 @layer components {
   .section { @apply relative py-10 md:py-14 xl:py-16 3xl:py-20; }
   .eyebrow { @apply mb-3 inline-flex items-center rounded-full border border-brand/15 bg-white px-4 py-1.5 font-mono text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-brand shadow-[0_1px_0_rgba(11,22,51,.04)]; }
-  .heading { @apply text-[clamp(1.75rem,1.1rem+2.2vw,3.1rem)] font-extrabold leading-[1.12] tracking-[-0.025em] text-navy; }
+  .heading { @apply text-h2 text-navy; }
   .heading-hl { @apply text-brand; }
   .divider-glow { @apply h-0.5 w-14 rounded-full bg-gradient-to-r from-cyan-glow to-transparent; }
   .card { @apply rounded-3xl border border-line bg-white shadow-card transition-all duration-500 ease-out; }

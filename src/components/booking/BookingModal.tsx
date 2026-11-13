@@ -26,8 +26,8 @@ const todayISO = () => {
 };
 
 const inputCls =
-  "w-full rounded-xl border border-navy/20 bg-white px-3.5 py-2.5 text-[0.95rem] text-ink placeholder:text-muted/60 transition focus:border-brand focus:outline-none focus:ring-4 focus:ring-brand/20 aria-[invalid=true]:border-red-500 aria-[invalid=true]:ring-red-100";
-const labelCls = "mb-1.5 block text-[0.82rem] font-bold text-navy";
+  "w-full rounded-xl border border-navy/20 bg-white px-3.5 py-2.5 text-body text-ink placeholder:text-muted/60 transition focus:border-brand focus:outline-none focus:ring-4 focus:ring-brand/20 aria-[invalid=true]:border-red-500 aria-[invalid=true]:ring-red-100";
+const labelCls = "mb-1.5 block text-small font-bold text-navy";
 
 const FOCUSABLE = 'a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
 
@@ -179,7 +179,7 @@ export default function BookingModal({ open, onClose, preselect }: Props) {
 
   const err = (k: keyof Errors) =>
     errors[k] ? (
-      <p id={`${uid}-${k}-err`} role="alert" className="mt-1 text-xs text-red-600">
+      <p id={`${uid}-${k}-err`} role="alert" className="mt-1 text-caption text-red-600">
         {errors[k]}
       </p>
     ) : null;
@@ -223,7 +223,7 @@ export default function BookingModal({ open, onClose, preselect }: Props) {
         {/* Right panel — on mobile its children join the column flow (like the original) */}
         <div className="relative z-[1] flex min-w-0 flex-1 flex-col max-md:contents">
           <header className="order-1 md:order-none flex shrink-0 items-center justify-between gap-3 border-b border-navy/10 bg-white/95 px-5 py-4 max-md:sticky max-md:top-0 max-md:z-10 md:px-6">
-            <h2 id={`${uid}-title`} className="flex items-center gap-2.5 text-[clamp(1rem,.9rem+.5vw,1.25rem)] font-extrabold text-navy">
+            <h2 id={`${uid}-title`} className="flex items-center gap-2.5 text-h4 text-navy">
               <FaClipboardList aria-hidden="true" className="text-brand" />
               Book Your Test
             </h2>
@@ -298,15 +298,15 @@ export default function BookingModal({ open, onClose, preselect }: Props) {
                     const highlighted = target?.serviceId === svc.id;
                     return (
                       <div key={svc.id} id={`${uid}-cat-${svc.id}`} className={cn("rounded-xl transition-colors duration-500", highlighted && "bg-sky-soft/70 p-2 -m-2")}>
-                        <p className="mb-2 flex items-center gap-2 text-[0.82rem] font-bold text-navy">
+                        <p className="mb-2 flex items-center gap-2 text-small font-bold text-navy">
                           <Icon aria-hidden="true" style={{ color: svc.iconColor }} />
                           {svc.title}
                         </p>
-                        <div className="grid gap-x-3 gap-y-1.5 sm:grid-cols-2 lg:grid-cols-3">
+                        <div className="grid grid-cols-1 gap-x-3 gap-y-1.5 sm:grid-cols-2 lg:grid-cols-3">
                           {svc.tests.map((t, i) => {
                             const cid = `${uid}-t-${svc.id}-${i}`;
                             return (
-                              <label key={cid} htmlFor={cid} className="flex cursor-pointer items-start gap-2 rounded-md py-0.5 text-[0.78rem] leading-snug text-muted transition-colors hover:text-navy">
+                              <label key={cid} htmlFor={cid} className="flex cursor-pointer items-start gap-2 rounded-md py-0.5 text-caption leading-snug text-muted transition-colors hover:text-navy">
                                 <input
                                   id={cid}
                                   type="checkbox"
@@ -324,7 +324,7 @@ export default function BookingModal({ open, onClose, preselect }: Props) {
                   })}
                 </div>
                 {errors.tests && (
-                  <p id={`${uid}-tests-err`} role="alert" className="mt-1.5 text-xs text-red-600">
+                  <p id={`${uid}-tests-err`} role="alert" className="mt-1.5 text-caption text-red-600">
                     {errors.tests}
                   </p>
                 )}

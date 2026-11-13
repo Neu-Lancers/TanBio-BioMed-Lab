@@ -47,9 +47,9 @@ export default function ContactInfoCards() {
 
   return (
     <section className="section pb-6 md:pb-8" id="contact-info">
-      <div className="container grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="container grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {cards.map((c, i) => (
-          <Reveal key={c.title} delay={i * 90} className="h-full">
+          <Reveal key={c.title} delay={i * 90} className="h-full min-w-0">
             <a
               href={c.href}
               {...(c.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
@@ -58,9 +58,9 @@ export default function ContactInfoCards() {
             >
               <span className={`grid h-14 w-14 shrink-0 place-items-center rounded-2xl text-xl text-white shadow-[0_12px_24px_-10px_rgba(10,54,200,.55)] ${c.tone}`}>{c.icon}</span>
               <span className="min-w-0">
-                <span className="block font-mono text-[.7rem] font-semibold uppercase tracking-[.18em] text-brand/80">{c.title}</span>
-                <span className="block break-words font-semibold text-ink">{c.primary}</span>
-                <span className="block text-sm">{c.secondary}</span>
+                <span className="block font-mono text-caption font-semibold uppercase tracking-[.18em] text-brand/80">{c.title}</span>
+                <span className="block font-semibold text-ink [overflow-wrap:anywhere]">{c.primary}</span>
+                <span className="block text-small">{c.secondary}</span>
               </span>
             </a>
           </Reveal>

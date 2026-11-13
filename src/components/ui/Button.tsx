@@ -6,11 +6,11 @@ import { cn } from "@/lib/cn";
 type Variant = "primary" | "dark" | "outline" | "light" | "ghost-light";
 
 const base =
-  "group inline-flex items-center justify-center gap-2.5 rounded-full px-6 py-3 text-[0.95rem] font-semibold leading-none transition-all duration-300 ease-out hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand";
+  "group inline-flex items-center justify-center gap-2.5 rounded-full px-6 py-3 text-btn transition-all duration-300 ease-out hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand";
 
 const variants: Record<Variant, string> = {
   primary: "bg-brand text-white shadow-[0_10px_24px_-10px_rgba(10,54,200,.7)] hover:bg-brand-dark hover:shadow-lift",
-  dark: "bg-[#2b2f3a] text-white hover:bg-navy hover:shadow-[0_18px_34px_-14px_rgba(11,22,51,.6)]",
+  dark: "bg-sky-soft text-brand ring-1 ring-inset ring-brand/15 hover:bg-brand hover:text-white hover:shadow-lift",
   outline: "border-2 border-brand/25 bg-white text-brand hover:border-brand hover:bg-brand hover:text-white",
   light: "bg-white text-brand hover:bg-sky-soft hover:shadow-lift",
   "ghost-light": "border border-white/50 bg-white/5 text-white backdrop-blur hover:bg-white hover:text-brand",

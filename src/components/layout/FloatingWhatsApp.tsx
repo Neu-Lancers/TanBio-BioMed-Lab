@@ -17,7 +17,7 @@ export default function FloatingWhatsApp() {
       <span className="grid h-14 w-14 place-items-center text-3xl 3xl:h-16 3xl:w-16">
         <FaWhatsapp aria-hidden="true" />
       </span>
-      <span className="max-w-0 overflow-hidden whitespace-nowrap text-sm font-semibold opacity-0 transition-all duration-500 ease-out group-hover:max-w-[8rem] group-hover:opacity-100 max-lg:hidden">
+      <span className="max-w-0 overflow-hidden whitespace-nowrap text-small font-semibold opacity-0 transition-all duration-500 ease-out group-hover:max-w-[8rem] group-hover:opacity-100 max-lg:hidden">
         Chat with us
       </span>
     </a>

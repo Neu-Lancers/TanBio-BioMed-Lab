@@ -50,13 +50,13 @@ export default function WhyChoose() {
               <span className="eyebrow !border-white/25 !bg-white/10 !text-white">Our Promise</span>
               <ul className="space-y-3.5">
                 {REASONS.map((r) => (
-                  <li key={r} className="flex items-center gap-3 text-base font-semibold text-white sm:text-lg">
+                  <li key={r} className="flex items-center gap-3 text-body font-semibold text-white sm:text-lead">
                     <FaCircleCheck className="shrink-0 text-cyan-glow" aria-hidden="true" />
                     {r}
                   </li>
                 ))}
               </ul>
-              <p className="mt-6 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm text-white/85">
+              <p className="mt-6 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-small text-white/85">
                 <FaAward className="text-cyan-glow" aria-hidden="true" /> Care-first diagnostics in Thiruvarur
               </p>
             </div>
@@ -69,8 +69,8 @@ export default function WhyChoose() {
                 <span className="mb-4 grid h-12 w-12 place-items-center rounded-2xl bg-brand/10 text-xl text-brand transition-colors duration-500 group-hover:bg-brand group-hover:text-white">
                   <Icon aria-hidden="true" />
                 </span>
-                <h3 className="text-base font-extrabold">{title}</h3>
-                <p className="mt-1.5 text-sm">{text}</p>
+                <h3 className="text-body font-extrabold">{title}</h3>
+                <p className="mt-1.5 text-small">{text}</p>
               </Reveal>
             ))}
           </div>

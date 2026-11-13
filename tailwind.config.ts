@@ -22,6 +22,18 @@ export default {
         muted: "#55607A",
         line: "#E3E9F5",
       },
+      /* Standard type scale — use these instead of arbitrary text-[…] sizes */
+      fontSize: {
+        display: ["clamp(2rem, 1.2rem + 2.8vw, 3.5rem)", { lineHeight: "1.1", letterSpacing: "-0.03em", fontWeight: "800" }],
+        h2: ["clamp(1.65rem, 1.1rem + 1.9vw, 2.75rem)", { lineHeight: "1.15", letterSpacing: "-0.025em", fontWeight: "800" }],
+        h3: ["clamp(1.15rem, 1rem + 0.55vw, 1.5rem)", { lineHeight: "1.3", letterSpacing: "-0.01em", fontWeight: "700" }],
+        h4: ["1.0625rem", { lineHeight: "1.35", fontWeight: "700" }],
+        lead: ["clamp(1rem, 0.95rem + 0.25vw, 1.15rem)", { lineHeight: "1.7" }],
+        body: ["1rem", { lineHeight: "1.7" }],
+        small: ["0.875rem", { lineHeight: "1.6" }],
+        caption: ["0.75rem", { lineHeight: "1.5" }],
+        btn: ["0.95rem", { lineHeight: "1", fontWeight: "600" }],
+      },
       fontFamily: {
         sans: ["Plus Jakarta Sans", "system-ui", "sans-serif"],
         mono: ["ui-monospace", "SFMono-Regular", "Menlo", "Consolas", "monospace"],

@@ -48,20 +48,20 @@ export default function ServiceRectCard({ svc }: { svc: Service }) {
 
       {/* content */}
       <div className="relative flex min-w-0 flex-1 flex-col p-5 sm:p-6 3xl:p-7">
-        <span className="absolute right-4 top-4 hidden rounded-full border border-brand/15 bg-sky-soft px-2.5 py-1 font-mono text-[0.6rem] font-semibold tracking-[0.14em] text-brand sm:inline-block">
+        <span className="absolute right-4 top-4 hidden rounded-full border border-brand/15 bg-sky-soft px-2.5 py-1 font-mono text-caption font-semibold tracking-[0.14em] text-brand sm:inline-block">
           {tag}
         </span>
 
-        <h3 className="pr-0 text-[1.15rem] font-extrabold leading-tight tracking-tight text-navy sm:pr-24 md:text-[1.3rem]">
+        <h3 className="pr-0 text-h3 text-navy sm:pr-24">
           {first} {last && <span className="heading-hl">{last}</span>}
         </h3>
         <span className="divider-glow my-3" aria-hidden="true" />
 
-        <p className="line-clamp-2 text-[.82rem] leading-relaxed md:text-sm">{svc.short}</p>
+        <p className="line-clamp-2 text-small leading-relaxed md:text-small">{svc.short}</p>
 
         <ul className="mt-3 space-y-1.5">
           {samples.map((t) => (
-            <li key={t.name} className="flex items-start gap-2 text-xs font-medium text-navy">
+            <li key={t.name} className="flex items-start gap-2 text-caption font-medium text-navy">
               <FaCircleCheck aria-hidden="true" className="mt-0.5 shrink-0 text-brand/70" />
               <span className="line-clamp-1">{t.name}</span>
             </li>
@@ -72,14 +72,14 @@ export default function ServiceRectCard({ svc }: { svc: Service }) {
           <Link
             to={`/tests/${svc.slug}`}
             draggable={false}
-            className="group/btn inline-flex items-center gap-2 rounded-full bg-[#2b2f3a] px-4 py-2.5 text-[.8rem] font-semibold text-white transition-all duration-300 hover:bg-brand hover:shadow-lift focus-visible:outline-brand"
+            className="group/btn inline-flex items-center gap-2 rounded-full bg-sky-soft px-5 py-2.5 text-small font-semibold text-brand ring-1 ring-inset ring-brand/15 transition-all duration-300 hover:bg-brand hover:text-white hover:shadow-lift focus-visible:outline-brand"
           >
             View Tests <FaArrowRight aria-hidden="true" className="text-[.75em] transition-transform duration-300 group-hover/btn:translate-x-1" />
           </Link>
           <button
             type="button"
             onClick={() => open({ preselect: svc.slug })}
-            className="rounded-md px-2 py-1 text-xs font-semibold text-muted underline-offset-4 transition-colors duration-300 hover:text-brand hover:underline focus-visible:outline-brand"
+            className="rounded-md px-2 py-1 text-caption font-semibold text-muted underline-offset-4 transition-colors duration-300 hover:text-brand hover:underline focus-visible:outline-brand"
           >
             Book
           </button>

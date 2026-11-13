@@ -66,7 +66,7 @@ export default function FaqSection() {
             const isOpen = open === i;
             return (
               <Reveal key={f.q} delay={i * 50} className={cn("card overflow-hidden !rounded-2xl", open === i && "!border-brand/30 shadow-lift")}>
-                <h3 className="text-base">
+                <h3 className="text-body">
                   <button
                     type="button"
                     id={`faq-btn-${i}`}
@@ -86,7 +86,7 @@ export default function FaqSection() {
                   className={cn("grid transition-[grid-template-rows] duration-300 ease-out", isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]")}
                 >
                   <div className="overflow-hidden">
-                    <p className="px-5 pb-5 text-sm md:px-6 md:text-base">{f.a}</p>
+                    <p className="px-5 pb-5 text-small md:px-6 md:text-body">{f.a}</p>
                   </div>
                 </div>
               </Reveal>

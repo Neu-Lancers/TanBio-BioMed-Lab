@@ -26,7 +26,7 @@ export default function ServiceCard({ service: s, delay = 0, compact, className 
             decoding="async"
             className="aspect-[3/2] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           />
-          <span className="absolute right-3 top-3 rounded-full border border-brand/15 bg-white/95 px-3 py-1 font-mono text-[.68rem] font-semibold uppercase tracking-[.16em] text-brand shadow-card">
+          <span className="absolute right-3 top-3 rounded-full border border-brand/15 bg-white/95 px-3 py-1 font-mono text-caption font-semibold uppercase tracking-[.16em] text-brand shadow-card">
             {s.tests.length} tests
           </span>
         </div>
@@ -34,19 +34,19 @@ export default function ServiceCard({ service: s, delay = 0, compact, className 
           <span className="mb-3 grid h-11 w-11 place-items-center rounded-xl text-xl" style={{ background: s.iconBg, color: s.iconColor }}>
             <Icon aria-hidden="true" />
           </span>
-          <h3 className="text-[1.1rem] leading-snug">{s.title}</h3>
-          {!compact && <p className="mt-2 line-clamp-2 text-sm">{s.short}</p>}
+          <h3 className="text-h4 leading-snug">{s.title}</h3>
+          {!compact && <p className="mt-2 line-clamp-2 text-small">{s.short}</p>}
           {!compact && (
-            <ul className="mb-4 mt-3 space-y-1.5 text-sm">
+            <ul className="mb-4 mt-3 space-y-1.5 text-small">
               {s.tests.slice(0, 3).map((t) => (
                 <li key={t.name} className="flex items-start gap-2">
-                  <FaCheck className="mt-1 shrink-0 text-xs text-brand" aria-hidden="true" />
+                  <FaCheck className="mt-1 shrink-0 text-caption text-brand" aria-hidden="true" />
                   <span className="line-clamp-1">{t.name}</span>
                 </li>
               ))}
             </ul>
           )}
-          <span className="mt-auto inline-flex w-fit items-center gap-2 rounded-full bg-[#2b2f3a] px-5 py-2.5 text-sm font-semibold text-white transition-all duration-300 group-hover:bg-brand group-hover:shadow-lift">
+          <span className="mt-auto inline-flex w-fit items-center gap-2 rounded-full bg-sky-soft px-5 py-2.5 text-small font-semibold text-brand ring-1 ring-inset ring-brand/15 transition-all duration-300 group-hover:bg-brand group-hover:text-white group-hover:shadow-lift">
             View Tests <span className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">→</span>
           </span>
         </div>

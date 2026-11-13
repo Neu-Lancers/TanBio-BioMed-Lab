@@ -11,7 +11,7 @@ export default function OtherServices({ currentId }: { currentId: number }) {
         <Reveal>
           <SectionHeading eyebrow="Explore More" title="Other Diagnostic" highlight="Services" />
         </Reveal>
-        <div className="mt-8 grid items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 md:mt-10">
+        <div className="mt-8 grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 md:mt-10">
           {others.map((s, i) => (
             <ServiceCard key={s.id} service={s} compact delay={(i % 3) * 90} />
           ))}

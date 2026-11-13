@@ -51,7 +51,7 @@ export default function TestsFaq() {
             return (
               <Reveal key={f.q} delay={i * 60}>
                 <div className={cn("card overflow-hidden", isOpen && "!border-brand/40 shadow-lift")}>
-                  <h3 className="text-base">
+                  <h3 className="text-body">
                     <button
                       type="button"
                       id={`tfaq-btn-${i}`}
@@ -63,7 +63,7 @@ export default function TestsFaq() {
                       {f.q}
                       <span
                         className={cn(
-                          "grid h-8 w-8 shrink-0 place-items-center rounded-full bg-sky-soft text-xs text-brand transition-all duration-300",
+                          "grid h-8 w-8 shrink-0 place-items-center rounded-full bg-sky-soft text-caption text-brand transition-all duration-300",
                           isOpen && "rotate-45 bg-brand text-white",
                         )}
                       >
@@ -78,7 +78,7 @@ export default function TestsFaq() {
                     className={cn("grid transition-[grid-template-rows] duration-300 ease-out", isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]")}
                   >
                     <div className="overflow-hidden">
-                      <p className="px-6 pb-5 text-[.95rem]">{f.a}</p>
+                      <p className="px-6 pb-5 text-body">{f.a}</p>
                     </div>
                   </div>
                 </div>

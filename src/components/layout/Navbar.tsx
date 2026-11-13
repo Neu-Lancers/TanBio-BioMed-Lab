@@ -49,7 +49,7 @@ export default function Navbar() {
 
   const linkCls = (active: boolean) =>
     cn(
-      "relative rounded-full px-3.5 py-2 text-[0.93rem] font-semibold transition-colors duration-300 3xl:text-base",
+      "relative rounded-full px-3.5 py-2 text-btn transition-colors duration-300 3xl:text-body",
       "after:absolute after:inset-x-3.5 after:bottom-1 after:h-0.5 after:origin-left after:scale-x-0 after:rounded after:bg-brand after:transition-transform after:duration-500 after:ease-out hover:after:scale-x-100",
       active ? "text-brand after:scale-x-100" : "text-ink/80 hover:text-brand",
     );
@@ -86,15 +86,15 @@ export default function Navbar() {
             href={SITE.phoneHref}
             className="group flex items-center gap-2.5 rounded-full border border-line bg-white py-1.5 pl-1.5 pr-4 transition-all duration-300 hover:border-brand/40 hover:shadow-card"
           >
-            <span className="grid h-9 w-9 place-items-center rounded-full bg-brand text-sm text-white transition-transform duration-300 group-hover:scale-110 3xl:h-10 3xl:w-10">
+            <span className="grid h-9 w-9 place-items-center rounded-full bg-brand text-small text-white transition-transform duration-300 group-hover:scale-110 3xl:h-10 3xl:w-10">
               <FaPhone aria-hidden="true" />
             </span>
             <span className="hidden leading-tight xl:block">
-              <span className="block text-[0.68rem] font-medium uppercase tracking-wider text-muted">Call us</span>
-              <span className="block text-[0.9rem] font-bold text-navy 3xl:text-base">{SITE.phone}</span>
+              <span className="block text-caption font-medium uppercase tracking-wider text-muted">Call us</span>
+              <span className="block text-small font-bold text-navy 3xl:text-body">{SITE.phone}</span>
             </span>
           </a>
-          <Button variant="dark" arrow onClick={() => openBooking()} className="!px-5 !py-3">
+          <Button variant="primary" arrow onClick={() => openBooking()} className="!px-5 !py-3">
             Book Appointment
           </Button>
         </div>
@@ -147,7 +147,7 @@ export default function Navbar() {
                 <FaPhone aria-hidden="true" /> {SITE.phone}
               </Button>
               <Button
-                variant="dark"
+                variant="primary"
                 arrow
                 className="flex-1"
                 onClick={() => {

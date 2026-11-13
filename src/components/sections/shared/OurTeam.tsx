@@ -16,14 +16,14 @@ function Member({ m }: { m: TeamMember }) {
         <Avatar name={m.name} photo={m.photo} className="relative h-20 w-20 border-4 border-white text-xl shadow-card" />
       </span>
 
-      <h3 className="mt-5 text-[1.05rem] font-extrabold leading-snug">{m.name}</h3>
-      <p className="mt-1 font-mono text-[.8rem] text-brand">{m.qualification}</p>
+      <h3 className="mt-5 text-h4 font-extrabold leading-snug">{m.name}</h3>
+      <p className="mt-1 font-mono text-caption text-brand">{m.qualification}</p>
 
-      <span className="mt-4 inline-flex rounded-full bg-sky-soft px-3.5 py-1 text-[.78rem] font-semibold text-brand">{m.role}</span>
+      <span className="mt-4 inline-flex rounded-full bg-sky-soft px-3.5 py-1 text-caption font-semibold text-brand">{m.role}</span>
 
       <span className="mb-5 mt-auto h-px w-full bg-line" aria-hidden="true" />
 
-      <p className="mt-0 flex items-start gap-2 text-left text-[.78rem] leading-snug text-muted">
+      <p className="mt-0 flex items-start gap-2 text-left text-caption leading-snug text-muted">
         <FaLocationDot aria-hidden="true" className="mt-0.5 shrink-0 text-brand" />
         <span>
           <span className="block font-semibold text-navy">{TEAM_ORG.name}</span>
@@ -47,7 +47,7 @@ export default function OurTeam() {
           />
         </Reveal>
 
-        <ul className="mt-8 grid items-stretch gap-5 sm:grid-cols-2 xl:grid-cols-4 md:mt-10 3xl:gap-8">
+        <ul className="mt-8 grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2 xl:grid-cols-4 md:mt-10 3xl:gap-8">
           {TEAM.map((m, i) => (
             <Reveal as="li" key={m.id} delay={i * 90} className="h-full">
               <Member m={m} />

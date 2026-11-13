@@ -185,14 +185,14 @@ export default function Testimonials() {
                       )}
                     >
                       <Stars n={t.rating} className="mb-5 text-lg" />
-                      <blockquote className="text-[clamp(1.2rem,1rem+1vw,1.9rem)] font-semibold leading-snug tracking-tight text-white">
+                      <blockquote className="text-h3 font-semibold text-white">
                         “{t.review}”
                       </blockquote>
                       <figcaption className="mt-6 flex items-center gap-4">
                         <Avatar name={t.name} photo={t.photo} className="h-14 w-14 border-2 border-white/60 !bg-white/15 text-lg" />
                         <span className="leading-tight">
-                          <span className="block text-lg font-bold">{t.name}</span>
-                          <span className="mt-1 flex items-center gap-1.5 text-sm text-white/75">
+                          <span className="block text-h4">{t.name}</span>
+                          <span className="mt-1 flex items-center gap-1.5 text-small text-white/75">
                             <FaLocationDot aria-hidden="true" className="text-cyan-glow" /> {t.location}
                           </span>
                         </span>
@@ -203,7 +203,7 @@ export default function Testimonials() {
               </div>
 
               <div className="relative mt-6 flex items-center justify-between gap-4">
-                <span className="font-mono text-sm tracking-widest text-white/70">
+                <span className="font-mono text-small tracking-widest text-white/70">
                   {String(pos).padStart(2, "0")} / {String(ids.length).padStart(2, "0")}
                 </span>
                 <div className="flex gap-2">
@@ -256,14 +256,14 @@ export default function Testimonials() {
                       className="card card-hover flex w-full flex-col gap-3 p-5 text-left will-change-transform"
                     >
                       <span className="flex items-center gap-3">
-                        <Avatar name={t.name} photo={t.photo} className="h-11 w-11 shrink-0 text-base" />
+                        <Avatar name={t.name} photo={t.photo} className="h-11 w-11 shrink-0 text-body" />
                         <span className="min-w-0 flex-1">
                           <span className="block truncate font-bold text-navy">{t.name}</span>
-                          <span className="block truncate text-sm text-muted">{t.location}</span>
+                          <span className="block truncate text-small text-muted">{t.location}</span>
                         </span>
-                        <Stars n={t.rating} className="text-xs" dim="text-line" />
+                        <Stars n={t.rating} className="text-caption" dim="text-line" />
                       </span>
-                      <span className="line-clamp-3 block text-[.88rem] leading-snug text-muted">“{t.review}”</span>
+                      <span className="line-clamp-3 block text-small leading-snug text-muted">“{t.review}”</span>
                     </button>
                   </li>
                 );

@@ -56,7 +56,7 @@ export default function StatTiles({ title, stats, className }: Props) {
       <div className="pointer-events-none absolute -left-24 top-0 h-72 w-72 rounded-full bg-cyan-glow/15 blur-3xl" aria-hidden="true" />
       <div className="pointer-events-none absolute -right-24 bottom-0 h-72 w-72 rounded-full bg-white/10 blur-3xl" aria-hidden="true" />
       <div className="container relative">
-        {title && <h2 className="mb-9 text-center text-[clamp(1.5rem,1rem+1.8vw,2.4rem)] font-extrabold tracking-tight text-white">{title}</h2>}
+        {title && <h2 className="mb-9 text-center text-h2 text-white">{title}</h2>}
         <ul className={cn("grid gap-4 md:gap-5", stats.length >= 5 ? "grid-cols-2 lg:grid-cols-5" : "grid-cols-2 lg:grid-cols-4")}>
           {stats.map((s, i) => (
             <li
@@ -73,7 +73,7 @@ export default function StatTiles({ title, stats, className }: Props) {
                 {s.suffix}
                 {s.unit && <span className="ml-1.5 text-[0.4em] font-semibold">{s.unit}</span>}
               </p>
-              <p className="mt-2.5 text-[0.85rem] font-medium text-brand/80">{s.label}</p>
+              <p className="mt-2.5 text-small font-medium text-brand/80">{s.label}</p>
             </li>
           ))}
         </ul>

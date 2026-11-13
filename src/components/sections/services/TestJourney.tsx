@@ -16,7 +16,7 @@ export default function TestJourney() {
         <Reveal>
           <SectionHeading eyebrow="Your Journey" title="How Your Test" highlight="Works" description="Four simple steps from booking to report." />
         </Reveal>
-        <ol className="relative mt-10 grid items-stretch gap-x-5 gap-y-8 sm:grid-cols-2 lg:grid-cols-4 md:mt-12">
+        <ol className="relative mt-10 grid grid-cols-1 items-stretch gap-x-5 gap-y-8 sm:grid-cols-2 lg:grid-cols-4 md:mt-12">
           <span
             className="absolute left-[12%] right-[12%] top-8 hidden h-px bg-gradient-to-r from-transparent via-brand/30 to-transparent lg:block"
             aria-hidden="true"
@@ -26,11 +26,11 @@ export default function TestJourney() {
               <span className="relative z-[1] mx-auto mb-5 grid h-16 w-16 place-items-center rounded-full bg-white text-2xl text-brand shadow-glow">
                 {s.icon}
               </span>
-              <span className="mb-2 block font-mono text-[.7rem] font-semibold uppercase tracking-[.2em] text-brand/70">
+              <span className="mb-2 block font-mono text-caption font-semibold uppercase tracking-[.2em] text-brand/70">
                 Step {String(i + 1).padStart(2, "0")}
               </span>
-              <h3 className="mb-2 text-lg">{s.title}</h3>
-              <p className="mx-auto max-w-[16rem] text-sm">{s.text}</p>
+              <h3 className="mb-2 text-h4">{s.title}</h3>
+              <p className="mx-auto max-w-[16rem] text-small">{s.text}</p>
             </Reveal>
           ))}
         </ol>

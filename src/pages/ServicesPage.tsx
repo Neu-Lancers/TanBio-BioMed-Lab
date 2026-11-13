@@ -1,4 +1,4 @@
-import { FaCircleCheck, FaRegClock, FaShieldHalved, FaUserGroup } from "react-icons/fa6";
+import { FaCircleCheck, FaRegClock, FaShieldHalved } from "react-icons/fa6";
 import chooseImg from "@/assets/images/choose-image.webp";
 import serviceHero from "@/assets/images/service-hero.webp";
 import { useBooking } from "@/components/booking/BookingProvider";
@@ -43,7 +43,6 @@ export default function ServicesPage() {
       />
 
       <Hero
-        shape="fade"
         eyebrow="Our Services"
         title="Comprehensive Diagnostic"
         highlight="Solutions Under One Roof"
@@ -54,7 +53,6 @@ export default function ServicesPage() {
           { icon: <FaCircleCheck />, label: "Accurate", sub: "Results" },
           { icon: <FaRegClock />, label: "Quick", sub: "Turnaround" },
           { icon: <FaShieldHalved />, label: "Safe &", sub: "Reliable" },
-          { icon: <FaUserGroup />, label: "Expert", sub: "Professionals" },
         ]}
       />
 

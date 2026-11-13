@@ -30,8 +30,8 @@ export default function AboutIntro() {
                 <FaLocationDot aria-hidden="true" />
               </span>
               <span className="leading-tight">
-                <span className="block text-sm font-bold text-navy">Thiruvarur</span>
-                <span className="block text-xs text-muted">Tamil Nadu</span>
+                <span className="block text-small font-bold text-navy">Thiruvarur</span>
+                <span className="block text-caption text-muted">Tamil Nadu</span>
               </span>
             </div>
           </div>
@@ -52,9 +52,9 @@ export default function AboutIntro() {
             </p>
           </Reveal>
           <Reveal delay={200}>
-            <ul className="mt-7 grid gap-x-6 gap-y-3.5 sm:grid-cols-2">
+            <ul className="mt-7 grid grid-cols-1 gap-x-6 gap-y-3.5 sm:grid-cols-2">
               {highlights.map((h) => (
-                <li key={h} className="flex items-start gap-2.5 text-[.95rem] font-medium text-navy">
+                <li key={h} className="flex items-start gap-2.5 text-body font-medium text-navy">
                   <FaCircleCheck className="mt-1 shrink-0 text-brand" aria-hidden="true" />
                   {h}
                 </li>
