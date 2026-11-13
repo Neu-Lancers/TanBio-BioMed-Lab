@@ -49,7 +49,7 @@ export default function Navbar() {
 
   const linkCls = (active: boolean) =>
     cn(
-      "relative rounded-full px-3 py-2 text-small font-medium transition-colors duration-300 xl:px-3.5 xl:text-body 3xl:text-lead",
+      "relative rounded-full px-3 py-2 text-[0.8125rem] font-medium transition-colors duration-300 xl:px-3.5 3xl:text-body",
       "after:absolute after:inset-x-3 after:bottom-1 xl:after:inset-x-3.5 after:h-0.5 after:origin-left after:scale-x-0 after:rounded after:bg-brand after:transition-transform after:duration-500 after:ease-out hover:after:scale-x-100",
       active ? "text-brand after:scale-x-100" : "text-ink/80 hover:text-brand",
     );
@@ -87,7 +87,7 @@ export default function Navbar() {
             <FaPhone aria-hidden="true" className="text-lg text-brand transition-transform duration-300 group-hover:rotate-12" />
             <span className="leading-tight">
               <span className="block text-caption font-medium uppercase tracking-wider text-muted">Call us</span>
-              <span className="block text-small font-bold text-navy transition-colors group-hover:text-brand 3xl:text-body">{SITE.phone}</span>
+              <span className="block text-small font-bold text-navy transition-colors group-hover:text-brand">{SITE.phone}</span>
             </span>
           </a>
           <a
@@ -135,7 +135,7 @@ export default function Navbar() {
                   to={l.to}
                   onClick={() => handleClick(l.to)}
                   className={cn(
-                    "flex items-center justify-between rounded-2xl px-4 py-3.5 font-semibold transition-colors",
+                    "flex items-center justify-between rounded-2xl px-4 py-3 text-small font-semibold transition-colors",
                     isActive(l.to, pathname, hash) ? "bg-sky-soft text-brand" : "text-ink hover:bg-sky-soft",
                   )}
                 >
