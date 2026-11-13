@@ -5,6 +5,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import FloatingWhatsApp from "@/components/layout/FloatingWhatsApp";
 import ScrollManager from "@/components/layout/ScrollManager";
+import { BookingProvider } from "@/components/booking/BookingProvider";
 import HomePage from "@/pages/HomePage";
 
 /* Route-level code splitting — only Home ships in the first bundle */
@@ -17,6 +18,7 @@ const NotFoundPage = lazy(() => import("@/pages/NotFoundPage"));
 export default function App() {
   return (
     <BrowserRouter>
+      <BookingProvider>
       <ScrollManager />
       <Navbar />
       <main id="main" className="page-in">
@@ -34,6 +36,7 @@ export default function App() {
       </main>
       <FloatingWhatsApp />
       <Footer />
+      </BookingProvider>
     </BrowserRouter>
   );
 }

@@ -1,16 +1,14 @@
-import { FaChevronLeft, FaChevronRight, FaDroplet, FaRegClock, FaWhatsapp } from "react-icons/fa6";
+import { FaChevronLeft, FaChevronRight, FaDroplet, FaRegCalendarCheck, FaRegClock } from "react-icons/fa6";
 
 import Reveal from "@/components/ui/Reveal";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { useCarousel } from "@/hooks/useCarousel";
 import { cn } from "@/lib/cn";
-import { whatsappUrl } from "@/lib/site";
+import { useBooking } from "@/components/booking/BookingProvider";
 import { POPULAR_TESTS, type PopularTest } from "@/data/popularTests";
 
-const bookUrl = (t: PopularTest) =>
-  whatsappUrl(`Hi, I'm interested in booking the *${t.name}* (${t.subtitle}). Please share the available slots.`);
-
 function TestCard({ test }: { test: PopularTest }) {
+  const { open } = useBooking();
   return (
     <article className="group card card-hover relative h-full overflow-hidden focus-within:-translate-y-1.5 focus-within:shadow-lift">
       {/* FRONT */}
@@ -42,14 +40,13 @@ function TestCard({ test }: { test: PopularTest }) {
               <span className="font-bold text-navy">{test.reportTime}</span>
             </span>
           </div>
-          <a
-            href={bookUrl(test)}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            type="button"
+            onClick={() => open({ preselect: test.name })}
             className="mt-5 inline-flex items-center justify-center gap-2 rounded-lg bg-brand px-4 py-2.5 text-sm font-semibold text-white transition-all duration-300 ease-out hover:bg-navy"
           >
-            <FaWhatsapp className="text-lg" aria-hidden="true" /> Book Test
-          </a>
+            <FaRegCalendarCheck className="text-lg" aria-hidden="true" /> Book Test
+          </button>
         </div>
       </div>
 
@@ -59,14 +56,13 @@ function TestCard({ test }: { test: PopularTest }) {
         <p className="text-sm text-white/75">{test.subtitle}</p>
         <div className="mx-auto my-4 h-0.5 w-12 rounded bg-sky" />
         <p className="text-sm leading-relaxed text-white/90">{test.hoverDetail}</p>
-        <a
-          href={bookUrl(test)}
-          target="_blank"
-          rel="noopener noreferrer"
+        <button
+          type="button"
+          onClick={() => open({ preselect: test.name })}
           className="mx-auto mt-5 inline-flex items-center gap-2 rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-brand transition-transform duration-300 ease-out hover:-translate-y-0.5"
         >
-          <FaWhatsapp className="text-lg" aria-hidden="true" /> Book Now
-        </a>
+          <FaRegCalendarCheck className="text-lg" aria-hidden="true" /> Book Now
+        </button>
       </div>
     </article>
   );

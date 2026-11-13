@@ -3,6 +3,8 @@ import aboutHero from "@/assets/images/about-hero.webp";
 import AboutIntro from "@/components/sections/about/AboutIntro";
 import MissionVisionValues from "@/components/sections/about/MissionVisionValues";
 import OurApproach from "@/components/sections/about/OurApproach";
+import OurTeam from "@/components/sections/shared/OurTeam";
+import Testimonials from "@/components/sections/shared/Testimonials";
 import Hero from "@/components/ui/Hero";
 import Seo from "@/components/ui/Seo";
 import { SITE } from "@/lib/site";
@@ -46,6 +48,8 @@ export default function AboutPage() {
       <AboutIntro />
       <MissionVisionValues />
       <OurApproach />
+      <OurTeam />
+      <Testimonials />
     </>
   );
 }

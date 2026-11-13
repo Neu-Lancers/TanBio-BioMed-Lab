@@ -1,8 +1,10 @@
-import { useState, type ChangeEvent, type FormEvent } from "react";
-import { FaWhatsapp } from "react-icons/fa6";
+import { useState, type ChangeEvent, type FormEvent, type ReactNode } from "react";
+import { FaRegEnvelope, FaRegMessage, FaRegUser, FaTag, FaWhatsapp } from "react-icons/fa6";
+import { FaPhoneAlt } from "react-icons/fa";
+
 import contactGirl from "@/assets/images/contact-girl.webp";
 import contactPattern from "@/assets/images/contact-pattern1.webp";
-import Reveal from "@/components/ui/Reveal";
+import { useInView } from "@/hooks/useInView";
 import { cn } from "@/lib/cn";
 import { whatsappUrl } from "@/lib/site";
 
@@ -24,14 +26,19 @@ function validate(v: Values): Errors {
   return e;
 }
 
-const inputCls =
-  "w-full rounded-lg border border-line bg-white px-4 py-3 text-ink placeholder:text-muted/70 transition focus:border-sky focus:outline-none focus:ring-4 focus:ring-sky/20 aria-[invalid=true]:border-red-500 aria-[invalid=true]:ring-red-100";
+/* Frosted-glass pill used for every field (the original contact-form look) */
+const glass =
+  "group flex items-center rounded-full border-[1.5px] border-white/35 bg-white/20 shadow-[0_4px_18px_rgba(0,0,0,0.10)] backdrop-blur-[14px] transition-all duration-300 focus-within:border-white/70 focus-within:bg-white/25 focus-within:shadow-[0_0_0_3px_rgba(255,255,255,0.15),0_6px_24px_rgba(0,0,0,0.14)]";
+const inputBase =
+  "w-full flex-1 bg-transparent py-[13px] pl-5 text-[0.92rem] font-medium text-white placeholder:font-normal placeholder:text-white/60 focus:outline-none [&:-webkit-autofill]:[-webkit-text-fill-color:#fff]";
+const iconCls = "w-[46px] min-w-[46px] shrink-0 text-center text-[0.88rem] text-white/65 transition-colors duration-300 group-focus-within:text-white";
 
 export default function ContactForm() {
   const [values, setValues] = useState<Values>(EMPTY);
   const [errors, setErrors] = useState<Errors>({});
+  const { ref: leftRef, inView } = useInView<HTMLDivElement>(0);
 
-  /* Name: letters/spaces only. Phone: digits only, max 10 (same input rules as before). */
+  /* Name: letters/spaces only. Phone: digits only, max 10 (same input rules as the original). */
   const onChange = (field: Field) => (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const value = e.target.value;
     if (field === "name" && !/^[A-Za-z\s]*$/.test(value)) return;
@@ -58,76 +65,109 @@ export default function ContactForm() {
     setErrors({});
   };
 
-  const field = (id: Field, label: string, props: { type?: string; inputMode?: "numeric"; autoComplete?: string } = {}) => (
+  const wrap = (id: Field, icon: ReactNode, control: ReactNode, textarea = false) => (
     <div>
-      <label htmlFor={`cf-${id}`} className="mb-1.5 block text-sm font-semibold text-navy">
-        {label}*
-      </label>
-      <input
-        id={`cf-${id}`}
-        value={values[id]}
-        onChange={onChange(id)}
-        aria-invalid={!!errors[id]}
-        aria-describedby={errors[id] ? `cf-${id}-err` : undefined}
-        className={inputCls}
-        {...props}
-      />
+      <div className={cn(glass, textarea && "items-start rounded-[18px]", errors[id] && "!border-[#ff8a8a]")}>
+        {control}
+        <span aria-hidden="true" className={cn(iconCls, textarea && "pt-4")}>
+          {icon}
+        </span>
+      </div>
       {errors[id] && (
-        <p id={`cf-${id}-err`} role="alert" className="mt-1 text-sm text-red-600">
+        <p id={`cf-${id}-err`} role="alert" className="mx-1 mt-1.5 text-[0.78rem] text-[#ffe1e1]">
           {errors[id]}
         </p>
       )}
     </div>
   );
 
+  const input = (id: Field, label: string, icon: ReactNode, props: { type?: string; inputMode?: "numeric"; autoComplete?: string } = {}) =>
+    wrap(
+      id,
+      icon,
+      <>
+        <label htmlFor={`cf-${id}`} className="sr-only">
+          {label}
+        </label>
+        <input
+          id={`cf-${id}`}
+          value={values[id]}
+          onChange={onChange(id)}
+          placeholder={`${label}*`}
+          aria-invalid={!!errors[id]}
+          aria-describedby={errors[id] ? `cf-${id}-err` : undefined}
+          className={inputBase}
+          {...props}
+        />
+      </>,
+    );
+
+  const girl = (cls: string) => <img src={contactGirl} alt="Lab technician ready to help" width={800} height={1000} loading="lazy" decoding="async" className={cls} />;
+
   return (
-    <section className="section relative overflow-hidden" id="contact-form">
-      <img src={contactPattern} alt="" aria-hidden="true" loading="lazy" decoding="async" className="absolute inset-0 -z-10 h-full w-full object-cover opacity-40" />
-      <div className="container">
-        <Reveal className="card grid overflow-hidden bg-white/95 backdrop-blur md:grid-cols-[minmax(0,4fr)_minmax(0,7fr)]">
-          <div className="hidden items-end justify-center bg-sky-soft md:flex">
-            <img src={contactGirl} alt="Lab technician ready to help" width={800} height={1000} loading="lazy" decoding="async" className="max-h-[34rem] w-auto object-contain" />
-          </div>
+    <section id="contact-form" className="relative mx-2.5 my-4 overflow-hidden rounded-2xl sm:mx-3 sm:my-5 md:mx-4 lg:mx-5 lg:rounded-[28px]">
+      <img src={contactPattern} alt="" aria-hidden="true" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover" />
 
-          <div className="p-6 sm:p-10">
-            <h2 className="heading">Send Us a Message</h2>
-            <p className="mb-6 mt-2">Have a question or need to book a service? We are here to help.</p>
+      <div className="relative z-[1] grid md:min-h-[30rem] md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] 3xl:min-h-[36rem]">
+        {/* Left: girl slides in from the left, filling the column height */}
+        <div ref={leftRef} className="relative hidden items-end justify-center overflow-hidden md:flex">
+          {girl(
+            cn(
+              "h-full w-[125%] max-w-none object-contain object-bottom drop-shadow-[4px_0_20px_rgba(0,0,0,0.22)] transition-[transform,opacity] duration-[1500ms] ease-out will-change-transform",
+              inView ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0",
+            ),
+          )}
+        </div>
 
-            <form onSubmit={onSubmit} noValidate className="grid gap-4 sm:grid-cols-2">
-              {field("name", "Full Name", { autoComplete: "name" })}
-              {field("phone", "Phone Number", { type: "tel", inputMode: "numeric", autoComplete: "tel-national" })}
-              {field("email", "Email Address", { type: "email", autoComplete: "email" })}
-              {field("subject", "Subject")}
-              <div className="sm:col-span-2">
-                <label htmlFor="cf-message" className="mb-1.5 block text-sm font-semibold text-navy">
-                  Your Message*
-                </label>
-                <textarea
-                  id="cf-message"
-                  rows={4}
-                  value={values.message}
-                  onChange={onChange("message")}
-                  aria-invalid={!!errors.message}
-                  aria-describedby={errors.message ? "cf-message-err" : undefined}
-                  className={cn(inputCls, "resize-y")}
-                />
-                {errors.message && (
-                  <p id="cf-message-err" role="alert" className="mt-1 text-sm text-red-600">
-                    {errors.message}
-                  </p>
-                )}
-              </div>
-              <div className="sm:col-span-2">
-                <button
-                  type="submit"
-                  className="inline-flex items-center gap-2 rounded-lg bg-brand px-7 py-3 font-semibold text-white transition-all duration-300 ease-out hover:-translate-y-0.5 hover:bg-navy hover:shadow-lift"
-                >
-                  Send via WhatsApp <FaWhatsapp aria-hidden="true" />
-                </button>
-              </div>
-            </form>
-          </div>
-        </Reveal>
+        {/* Right: form */}
+        <div className="flex flex-col justify-center px-4 pb-10 pt-8 sm:px-6 md:py-11 md:pl-7 md:pr-10 lg:pl-9 lg:pr-[52px]">
+          <h2 className="text-center text-[1.6rem] font-bold text-white [text-shadow:0_2px_10px_rgba(0,0,0,0.22)] sm:text-[1.8rem] md:text-left lg:text-[2.2rem]">
+            Contact Us
+          </h2>
+          <p className="mb-5 mt-2 text-center text-[0.93rem] leading-relaxed text-white/85 md:text-left">
+            Have a question or need to book a service? We&apos;re here to help.
+          </p>
+
+          {/* Mobile: girl between title and form */}
+          <div className="mb-6 flex justify-center md:hidden">{girl("h-auto w-full max-w-[17rem] object-contain drop-shadow-[0_8px_24px_rgba(0,0,0,0.25)]")}</div>
+
+          <form onSubmit={onSubmit} noValidate className="grid gap-4 sm:grid-cols-2">
+            {input("name", "Full Name", <FaRegUser />, { autoComplete: "name" })}
+            {input("phone", "Phone Number", <FaPhoneAlt />, { type: "tel", inputMode: "numeric", autoComplete: "tel-national" })}
+            {input("email", "Email Address", <FaRegEnvelope />, { type: "email", autoComplete: "email" })}
+            {input("subject", "Subject", <FaTag />)}
+            <div className="sm:col-span-2">
+              {wrap(
+                "message",
+                <FaRegMessage />,
+                <>
+                  <label htmlFor="cf-message" className="sr-only">
+                    Your Message
+                  </label>
+                  <textarea
+                    id="cf-message"
+                    rows={4}
+                    value={values.message}
+                    onChange={onChange("message")}
+                    placeholder="Your Message*"
+                    aria-invalid={!!errors.message}
+                    aria-describedby={errors.message ? "cf-message-err" : undefined}
+                    className={cn(inputBase, "resize-none py-3.5 leading-relaxed")}
+                  />
+                </>,
+                true,
+              )}
+            </div>
+            <div className="mt-1 flex justify-center sm:col-span-2">
+              <button
+                type="submit"
+                className="inline-flex items-center gap-2 rounded-full border-2 border-white bg-white px-10 py-3 text-base font-bold tracking-wide text-[#1a6fd4] shadow-[0_6px_24px_rgba(0,0,0,0.18)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-[#1a6fd4] hover:bg-[#1a6fd4] hover:text-white hover:shadow-[0_10px_32px_rgba(26,111,212,0.45)] focus-visible:-translate-y-0.5 focus-visible:border-[#1a6fd4] focus-visible:bg-[#1a6fd4] focus-visible:text-white active:translate-y-0 sm:px-14"
+              >
+                Send via WhatsApp <FaWhatsapp aria-hidden="true" />
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </section>
   );

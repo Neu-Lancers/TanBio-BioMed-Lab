@@ -1,4 +1,4 @@
-import { FaCircleCheck, FaMicrochip, FaRegClock, FaShieldHalved, FaUserGroup } from "react-icons/fa6";
+import { FaCircleCheck, FaRegClock, FaShieldHalved, FaUserGroup } from "react-icons/fa6";
 import serviceHero from "@/assets/images/service-hero.webp";
 import ChooseTanbio from "@/components/sections/services/ChooseTanbio";
 import DiagnosticServicesGrid from "@/components/sections/services/DiagnosticServicesGrid";
@@ -44,7 +44,6 @@ export default function ServicesPage() {
           { icon: <FaRegClock />, label: "Quick", sub: "Turnaround" },
           { icon: <FaShieldHalved />, label: "Safe &", sub: "Reliable" },
           { icon: <FaUserGroup />, label: "Expert", sub: "Professionals" },
-          { icon: <FaMicrochip />, label: "Advanced", sub: "Technology" },
         ]}
       />
 

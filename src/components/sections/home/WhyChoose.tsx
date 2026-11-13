@@ -22,7 +22,7 @@ const BENEFITS = [
 
 export default function WhyChoose() {
   return (
-    <section className="section bg-sky-soft/50" aria-label="Why choose TanBio">
+    <section className="section bg-white" aria-label="Why choose TanBio">
       <div className="container">
         <Reveal>
           <SectionHeading

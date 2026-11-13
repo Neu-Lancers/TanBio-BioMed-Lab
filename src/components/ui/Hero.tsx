@@ -101,18 +101,29 @@ export default function Hero({
               </>
             )}
           </h1>
-          <p className="mx-auto mb-6 mt-3.5 max-w-[34rem] animate-fade-up text-[clamp(.95rem,.9rem+.2vw,1.1rem)] [animation-delay:300ms] lg:mx-0 3xl:max-w-[40rem]">
+          <p className="mx-auto mb-8 mt-4 max-w-[34rem] animate-fade-up text-[clamp(.95rem,.9rem+.2vw,1.1rem)] [animation-delay:300ms] lg:mx-0 3xl:max-w-[40rem]">
             {description}
           </p>
 
-          {features && (
-            <ul className="mb-6 flex animate-fade-up flex-wrap justify-center gap-x-6 gap-y-4 [animation-delay:400ms] lg:justify-start">
-              {features.map((f) => (
-                <li key={f.label} className="flex items-center gap-2.5">
-                  <span className="grid h-10 w-10 place-items-center rounded-full bg-brand/10 text-xl text-brand">{f.icon}</span>
-                  <span className="text-left leading-tight">
-                    <span className="block text-[.82rem] font-bold text-navy">{f.label}</span>
-                    <span className="block text-[.72rem] text-muted">{f.sub}</span>
+          {features && features.length > 0 && (
+            <ul
+              className={cn(
+                "mx-auto mb-9 grid max-w-[34rem] grid-cols-1 gap-3 xs:grid-cols-2 sm:gap-4 lg:mx-0 xl:max-w-[38rem]",
+                features.length === 4 ? "xl:grid-cols-2" : "xl:grid-cols-3",
+              )}
+            >
+              {features.slice(0, 4).map((f, i) => (
+                <li
+                  key={f.label}
+                  style={{ animationDelay: `${400 + i * 90}ms` }}
+                  className="group flex animate-fade-up items-center gap-3.5 rounded-xl border border-line bg-white/80 px-4 py-3 text-left shadow-card backdrop-blur transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lift"
+                >
+                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-brand/10 text-xl text-brand transition-colors duration-300 group-hover:bg-brand group-hover:text-white">
+                    {f.icon}
+                  </span>
+                  <span className="min-w-0 leading-snug">
+                    <span className="block text-[.95rem] font-semibold text-navy">{f.label}</span>
+                    <span className="block text-[.8rem] text-muted">{f.sub}</span>
                   </span>
                 </li>
               ))}
@@ -120,7 +131,7 @@ export default function Hero({
           )}
 
           {children && (
-            <div className="flex animate-fade-up flex-col items-center gap-3 [animation-delay:500ms] sm:flex-row sm:flex-wrap sm:justify-center lg:justify-start">
+            <div className="flex animate-fade-up flex-col items-center gap-3 [animation-delay:700ms] sm:flex-row sm:flex-wrap sm:justify-center lg:justify-start">
               {children}
             </div>
           )}

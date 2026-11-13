@@ -1,8 +1,8 @@
-import { FaBullseye, FaClock, FaFlask, FaShieldHalved, FaWhatsapp } from "react-icons/fa6";
+import { FaBullseye, FaClock, FaFlask, FaRegCalendarCheck, FaShieldHalved } from "react-icons/fa6";
 import Hero, { type HeroFeature } from "@/components/ui/Hero";
 import Button from "@/components/ui/Button";
+import { useBooking } from "@/components/booking/BookingProvider";
 import heroImg from "@/assets/images/home-hero.webp";
-import { BOOK_MESSAGE, whatsappUrl } from "@/lib/site";
 import StatsBar from "./StatsBar";
 
 const features: HeroFeature[] = [
@@ -12,6 +12,7 @@ const features: HeroFeature[] = [
 ];
 
 export default function HomeHero() {
+  const { open } = useBooking();
   return (
     <Hero
       size="home"
@@ -24,8 +25,8 @@ export default function HomeHero() {
       features={features}
       footer={<StatsBar />}
     >
-      <Button href={whatsappUrl(BOOK_MESSAGE)} target="_blank" rel="noopener noreferrer">
-        <FaWhatsapp aria-hidden="true" /> Book Appointment
+      <Button onClick={() => open()}>
+        <FaRegCalendarCheck aria-hidden="true" /> Book Appointment
       </Button>
       <Button to="/services" variant="outline">
         <FaFlask aria-hidden="true" /> Explore Tests

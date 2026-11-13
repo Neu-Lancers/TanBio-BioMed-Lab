@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import { FaArrowRight, FaChevronLeft, FaChevronRight, FaCircleCheck, FaClock, FaRegCalendarCheck, FaShieldHalved, FaUserCheck, FaWhatsapp } from "react-icons/fa6";
+import { FaArrowRight, FaChevronLeft, FaChevronRight, FaCircleCheck, FaClock, FaRegCalendarCheck, FaShieldHalved, FaUserCheck } from "react-icons/fa6";
 
 import delivery from "@/assets/images/delivery3.webp";
 import Button from "@/components/ui/Button";
@@ -7,7 +7,7 @@ import Reveal from "@/components/ui/Reveal";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { useCarousel } from "@/hooks/useCarousel";
 import { cn } from "@/lib/cn";
-import { whatsappUrl } from "@/lib/site";
+import { useBooking } from "@/components/booking/BookingProvider";
 import { discountPercent, HEALTH_PACKAGES, type HealthPackage } from "@/data/packages";
 
 const COLLECTION_FEATURES = [
@@ -16,12 +16,9 @@ const COLLECTION_FEATURES = [
   { icon: FaClock, label: "On-time", sub: "Report Delivery" },
 ];
 
-const bookUrl = (p: HealthPackage) =>
-  whatsappUrl(`Hi, I'm interested in booking the *${p.title}* (₹${p.price}, originally ₹${p.originalPrice}). Please share the available slots.`);
-
-const SCHEDULE_URL = whatsappUrl("Hi, I'd like to schedule a home sample collection. Please share the available slots.");
 
 function PackageCard({ pkg }: { pkg: HealthPackage }) {
+  const { open } = useBooking();
   const Icon = pkg.icon;
   return (
     <article
@@ -63,21 +60,22 @@ function PackageCard({ pkg }: { pkg: HealthPackage }) {
         ))}
       </ul>
 
-      <Button href={bookUrl(pkg)} target="_blank" rel="noopener noreferrer" className="w-full">
-        <FaWhatsapp className="text-lg" aria-hidden="true" /> Book Now
+      <Button onClick={() => open({ preselect: pkg.title })} className="w-full">
+        <FaRegCalendarCheck className="text-lg" aria-hidden="true" /> Book Now
       </Button>
     </article>
   );
 }
 
 export default function HealthPackages() {
+  const { open } = useBooking();
   const { trackRef, active, canPrev, canNext, scrollPage, scrollTo } = useCarousel();
 
   const arrow =
     "absolute top-1/2 z-10 hidden h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-line bg-white text-brand shadow-card transition-all duration-300 ease-out hover:bg-brand hover:text-white disabled:pointer-events-none disabled:opacity-0 md:grid 3xl:h-14 3xl:w-14";
 
   return (
-    <section id="packages" className="section" aria-label="Health packages">
+    <section id="packages" className="section bg-sky-soft/50" aria-label="Health packages">
       <div className="container">
         <Reveal>
           <SectionHeading
@@ -172,7 +170,7 @@ export default function HealthPackages() {
                 ))}
               </ul>
 
-              <Button href={SCHEDULE_URL} target="_blank" rel="noopener noreferrer" variant="light" className="shrink-0">
+              <Button onClick={() => open({ preselect: "Home sample collection" })} variant="light" className="shrink-0">
                 <FaRegCalendarCheck aria-hidden="true" /> Schedule Collection
               </Button>
             </div>

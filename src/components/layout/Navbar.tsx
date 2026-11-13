@@ -3,8 +3,10 @@ import { Link, useLocation } from "react-router-dom";
 import { FaBars, FaPhone, FaWhatsapp, FaXmark } from "react-icons/fa6";
 
 import logo from "@/assets/images/Logo.webp";
-import { BOOK_MESSAGE, NAV_LINKS, SITE, whatsappUrl } from "@/lib/site";
+import { useBooking } from "@/components/booking/BookingProvider";
+import { NAV_LINKS, SITE } from "@/lib/site";
 import { cn } from "@/lib/cn";
+import { scrollToElement, scrollToTop } from "@/lib/smoothScroll";
 
 function isActive(to: string, pathname: string, hash: string) {
   if (to.includes("#")) {
@@ -19,6 +21,7 @@ export default function Navbar() {
   const { pathname, hash } = useLocation();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { open: openBooking } = useBooking();
 
   useEffect(() => setOpen(false), [pathname, hash]);
 
@@ -34,9 +37,12 @@ export default function Navbar() {
     setOpen(false);
     if (to.includes("#")) {
       const [p, h] = to.split("#");
-      if ((p || "/") === pathname) document.getElementById(h)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      if ((p || "/") === pathname) {
+        const el = document.getElementById(h);
+        if (el) scrollToElement(el);
+      }
     } else if (to === pathname) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      scrollToTop(false);
     }
   };
 
@@ -79,14 +85,9 @@ export default function Navbar() {
               <span className="block text-[0.95rem] font-bold text-navy 3xl:text-base">{SITE.phone}</span>
             </span>
           </a>
-          <a
-            href={whatsappUrl(BOOK_MESSAGE)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-lg bg-brand px-5 py-2.5 text-[0.95rem] font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-navy hover:shadow-lift"
-          >
+          <button type="button" onClick={() => openBooking()} className="inline-flex items-center gap-2 rounded-lg bg-brand px-5 py-2.5 text-[0.95rem] font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-navy hover:shadow-lift">
             <FaWhatsapp aria-hidden="true" /> Book Appointment
-          </a>
+          </button>
         </div>
 
         <button
@@ -131,14 +132,16 @@ export default function Navbar() {
               <a href={SITE.phoneHref} className="inline-flex flex-1 items-center justify-center gap-2 rounded-lg border-2 border-brand px-4 py-2.5 font-semibold text-brand">
                 <FaPhone aria-hidden="true" /> {SITE.phone}
               </a>
-              <a
-                href={whatsappUrl(BOOK_MESSAGE)}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                type="button"
+                onClick={() => {
+                  setOpen(false);
+                  openBooking();
+                }}
                 className="inline-flex flex-1 items-center justify-center gap-2 rounded-lg bg-brand px-4 py-2.5 font-semibold text-white"
               >
                 <FaWhatsapp aria-hidden="true" /> Book Appointment
-              </a>
+              </button>
             </li>
           </ul>
         </div>
