@@ -46,9 +46,9 @@ function TipCard({ tip, index }: { tip: Tip; index: number }) {
   const [open, setOpen] = useState(false);
   const panelId = `tip-panel-${index}`;
   return (
-    <article className="card card-hover flex h-full flex-col p-7">
+    <article className="card card-hover flex h-full flex-col p-7 sm:p-8">
       <div className="flex items-center justify-between gap-3 text-xs">
-        <span className="rounded-full bg-sky-soft px-3 py-1 font-bold uppercase tracking-wider text-brand">{tip.category}</span>
+        <span className="rounded-full border border-brand/15 bg-sky-soft px-3 py-1 font-mono text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-brand">{tip.category}</span>
         <span className="inline-flex items-center gap-1.5 text-muted">
           <FaRegClock aria-hidden="true" /> {tip.minutes} min read
         </span>

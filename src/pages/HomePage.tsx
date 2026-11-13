@@ -1,5 +1,11 @@
 import Seo from "@/components/ui/Seo";
+import Button from "@/components/ui/Button";
+import FeatureBanner from "@/components/ui/FeatureBanner";
+import ReportMockup from "@/components/ui/ReportMockup";
+import StatTiles, { type Stat } from "@/components/ui/StatTiles";
+import { useBooking } from "@/components/booking/BookingProvider";
 import { SITE } from "@/lib/site";
+import bannerImg from "@/assets/images/microbiology.webp";
 import HomeHero from "@/components/sections/home/HomeHero";
 import ServicesShowcase from "@/components/sections/home/ServicesShowcase";
 import HealthConcerns from "@/components/sections/home/HealthConcerns";
@@ -14,9 +20,17 @@ import Testimonials from "@/components/sections/shared/Testimonials";
 import HealthTips from "@/components/sections/home/HealthTips";
 import FaqSection from "@/components/sections/home/FaqSection";
 import VisitUs from "@/components/sections/home/VisitUs";
-import CtaBand from "@/components/sections/home/CtaBand";
+
+const STATS: Stat[] = [
+  { value: 5000, suffix: "+", label: "Happy Patients" },
+  { value: 150, suffix: "+", label: "Diagnostic Tests" },
+  { value: 10, suffix: "+", label: "Years of Excellence" },
+  { value: 7, label: "Specialised Departments" },
+  { value: 7, label: "Days a Week" },
+];
 
 export default function HomePage() {
+  const { open } = useBooking();
   return (
     <>
       <Seo
@@ -26,8 +40,28 @@ export default function HomePage() {
       />
       <HomeHero />
       <ServicesShowcase />
+      <StatTiles title="Trusted. Every Day." stats={STATS} />
       <HealthConcerns />
       <PopularTests />
+
+      {/* Split banner with the floating 3D report mockup */}
+      <section className="bg-white py-16 md:py-24 3xl:py-32" aria-label="Digital reports">
+        <FeatureBanner
+          image={bannerImg}
+          imageAlt="Culture plate being examined in the microbiology laboratory"
+          title="Beyond Reports Into Insight"
+          description="Precise analysis and clear digital reports you can share with your doctor in a tap — so every result turns into a confident next step."
+          floating={<ReportMockup className="lg:w-[64%] lg:-translate-x-[8%]" />}
+        >
+          <Button variant="dark" arrow onClick={() => open()}>
+            Book a test
+          </Button>
+          <Button to="/services" variant="ghost-light">
+            View services
+          </Button>
+        </FeatureBanner>
+      </section>
+
       <GenomicsSpotlight />
       <HealthPackages />
       <WhyChoose />
@@ -38,7 +72,6 @@ export default function HomePage() {
       <HealthTips />
       <FaqSection />
       <VisitUs />
-      <CtaBand />
     </>
   );
 }

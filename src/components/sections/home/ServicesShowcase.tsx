@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import SectionHeading from "@/components/ui/SectionHeading";
+import bgPattern from "@/assets/images/home-pattern1.webp";
 import { SERVICES } from "@/data/services";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import ServiceRectCard from "./ServiceRectCard";
@@ -118,10 +119,16 @@ export default function ServicesShowcase() {
     window.scrollTo({ top: start + x, behavior: "instant" as ScrollBehavior });
   };
 
+  /* soft photo/pattern backdrop with a white→blue wash so the white cards pop */
+  const backdrop = (
+    <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+      <img src={bgPattern} alt="" width={1600} height={900} loading="lazy" decoding="async" className="h-full w-full object-cover opacity-60" />
+      <div className="absolute inset-0 bg-gradient-to-b from-white/85 via-sky-soft/70 to-brand/10" />
+    </div>
+  );
+
   const heading = (
     <SectionHeading
-      align="left"
-      className="!mx-0 !text-center md:!text-left"
       eyebrow="Our Services"
       title="Comprehensive Diagnostic"
       highlight="Solutions"
@@ -132,7 +139,8 @@ export default function ServicesShowcase() {
   /* ── reduced motion: plain native snap row, no pinning ───────────────── */
   if (reduced) {
     return (
-      <section id="services" className="section bg-sky-soft/60" aria-labelledby="services-title">
+      <section id="services" className="section relative isolate bg-sky-soft" aria-labelledby="services-title">
+        {backdrop}
         <div className="container" id="services-title">
           {heading}
         </div>
@@ -148,10 +156,11 @@ export default function ServicesShowcase() {
   }
 
   return (
-    <section id="services" aria-labelledby="services-title" className="relative bg-sky-soft/60">
+    <section id="services" aria-labelledby="services-title" className="relative bg-sky-soft">
       {/* tall runway: its height is the scroll distance that drives the horizontal travel */}
       <div ref={wrapRef} style={{ height: `calc(${runway}px + 100svh - var(--nav-h))` }} className="relative">
-        <div className="sticky top-[var(--nav-h)] flex h-[calc(100svh-var(--nav-h))] min-h-[520px] flex-col justify-center gap-6 py-6 md:gap-10 3xl:gap-14">
+        <div className="sticky top-[var(--nav-h)] isolate flex h-[calc(100svh-var(--nav-h))] min-h-[520px] flex-col justify-center gap-6 py-6 md:gap-10 3xl:gap-14">
+          {backdrop}
           <div className="container" id="services-title">
             {heading}
           </div>

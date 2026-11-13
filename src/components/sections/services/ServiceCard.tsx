@@ -1,4 +1,4 @@
-import { FaArrowRight, FaCheck } from "react-icons/fa6";
+import { FaCheck } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import Reveal from "@/components/ui/Reveal";
 import type { Service } from "@/data/services";
@@ -12,16 +12,10 @@ export default function ServiceCard({ service: s, delay = 0, compact }: Props) {
     <Reveal delay={delay} className="h-full">
       <Link
         to={`/tests/${s.slug}`}
-        className="card card-hover group flex h-full flex-col overflow-hidden p-4 text-inherit hover:text-inherit"
+        className="card card-hover group flex h-full flex-col overflow-hidden p-3 text-inherit hover:text-inherit"
         aria-label={`${s.title} - view tests`}
       >
-        <div className="mb-3 flex items-center gap-3">
-          <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl text-xl" style={{ background: s.iconBg, color: s.iconColor }}>
-            <Icon aria-hidden="true" />
-          </span>
-          <h3 className="text-base leading-snug">{s.title}</h3>
-        </div>
-        <div className="mb-3 overflow-hidden rounded-xl">
+        <div className="relative mb-4 overflow-hidden rounded-[1.25rem]">
           <img
             src={s.image}
             alt={s.title}
@@ -31,20 +25,30 @@ export default function ServiceCard({ service: s, delay = 0, compact }: Props) {
             decoding="async"
             className="aspect-[3/2] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           />
+          <span className="absolute right-3 top-3 rounded-full border border-brand/15 bg-white/95 px-3 py-1 font-mono text-[.68rem] font-semibold uppercase tracking-[.16em] text-brand shadow-card">
+            {s.tests.length} tests
+          </span>
         </div>
-        {!compact && (
-          <ul className="mb-4 space-y-1.5 text-sm">
-            {s.tests.slice(0, 5).map((t) => (
-              <li key={t.name} className="flex items-start gap-2">
-                <FaCheck className="mt-1 shrink-0 text-xs text-sky" aria-hidden="true" />
-                <span>{t.name}</span>
-              </li>
-            ))}
-          </ul>
-        )}
-        <span className="mt-auto inline-flex items-center justify-center gap-1.5 rounded-lg bg-brand/10 px-4 py-2 text-sm font-semibold text-brand transition-colors group-hover:bg-brand group-hover:text-white">
-          View Tests <FaArrowRight className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
-        </span>
+        <div className="flex flex-1 flex-col px-3 pb-3">
+          <span className="mb-3 grid h-11 w-11 place-items-center rounded-xl text-xl" style={{ background: s.iconBg, color: s.iconColor }}>
+            <Icon aria-hidden="true" />
+          </span>
+          <h3 className="text-[1.1rem] leading-snug">{s.title}</h3>
+          {!compact && <p className="mt-2 line-clamp-2 text-sm">{s.short}</p>}
+          {!compact && (
+            <ul className="mb-4 mt-3 space-y-1.5 text-sm">
+              {s.tests.slice(0, 3).map((t) => (
+                <li key={t.name} className="flex items-start gap-2">
+                  <FaCheck className="mt-1 shrink-0 text-xs text-brand" aria-hidden="true" />
+                  <span className="line-clamp-1">{t.name}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+          <span className="mt-auto inline-flex w-fit items-center gap-2 rounded-full bg-[#2b2f3a] px-5 py-2.5 text-sm font-semibold text-white transition-all duration-300 group-hover:bg-brand group-hover:shadow-lift">
+            View Tests <span className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">→</span>
+          </span>
+        </div>
       </Link>
     </Reveal>
   );

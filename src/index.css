@@ -1,8 +1,9 @@
-@import "@fontsource/poppins/latin-400.css";
-@import "@fontsource/poppins/latin-500.css";
-@import "@fontsource/poppins/latin-600.css";
-@import "@fontsource/poppins/latin-700.css";
-@import "@fontsource/poppins/latin-800.css";
+
+@import "@fontsource/plus-jakarta-sans/latin-400.css";
+@import "@fontsource/plus-jakarta-sans/latin-500.css";
+@import "@fontsource/plus-jakarta-sans/latin-600.css";
+@import "@fontsource/plus-jakarta-sans/latin-700.css";
+@import "@fontsource/plus-jakarta-sans/latin-800.css";
 
 @tailwind base;
 @tailwind components;
@@ -10,7 +11,7 @@
 
 /* ───────── Design tokens ───────── */
 :root {
-  --nav-h: 72px;
+  --nav-h: 76px;
   --hero-h: clamp(440px, 54vh, 640px);
   --hero-h-home: clamp(560px, calc(100svh - var(--nav-h)), 900px);
   --hero-stack-img: clamp(220px, 42vw, 380px);
@@ -36,18 +37,20 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 8px); -w
   }
   h1, h2, h3, h4 { @apply font-extrabold text-navy; }
   img { @apply block h-auto max-w-full; }
-  ::selection { background: rgba(37, 181, 233, 0.25); color: #2C587D; }
+  ::selection { background: rgba(52, 227, 240, 0.3); color: #0B1633; }
   ::-webkit-scrollbar { width: 8px; height: 8px; }
-  ::-webkit-scrollbar-track { background: #EAF6FF; }
-  ::-webkit-scrollbar-thumb { background: #25B5E9; border-radius: 4px; }
+  ::-webkit-scrollbar-track { background: #EEF3FF; }
+  ::-webkit-scrollbar-thumb { background: #0A36C8; border-radius: 4px; }
   :focus-visible { outline: 2px solid #25B5E9; outline-offset: 2px; }
 }
 
 @layer components {
   .section { @apply relative py-16 md:py-20 3xl:py-28; }
-  .eyebrow { @apply mb-2.5 inline-block text-sm font-extrabold uppercase tracking-[3px] text-sky md:text-base; }
-  .heading { @apply text-[clamp(1.5rem,1rem+1.6vw,2.4rem)] font-extrabold leading-tight tracking-tight text-navy; }
-  .card { @apply rounded-2xl border border-line bg-white shadow-card transition-all duration-500 ease-out; }
+  .eyebrow { @apply mb-4 inline-flex items-center rounded-full border border-brand/15 bg-white px-4 py-1.5 font-mono text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-brand shadow-[0_1px_0_rgba(11,22,51,.04)]; }
+  .heading { @apply text-[clamp(1.75rem,1.1rem+2.2vw,3.1rem)] font-extrabold leading-[1.12] tracking-[-0.025em] text-navy; }
+  .heading-hl { @apply text-brand; }
+  .divider-glow { @apply h-0.5 w-14 rounded-full bg-gradient-to-r from-cyan-glow to-transparent; }
+  .card { @apply rounded-3xl border border-line bg-white shadow-card transition-all duration-500 ease-out; }
   .card-hover { @apply hover:-translate-y-1.5 hover:shadow-lift; }
 
   /* scroll-reveal (see Reveal.tsx) */

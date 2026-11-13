@@ -105,8 +105,9 @@ export default function ContactForm() {
   const girl = (cls: string) => <img src={contactGirl} alt="Lab technician ready to help" width={800} height={1000} loading="lazy" decoding="async" className={cls} />;
 
   return (
-    <section id="contact-form" className="relative mx-2.5 my-4 overflow-hidden rounded-2xl sm:mx-3 sm:my-5 md:mx-4 lg:mx-5 lg:rounded-[28px]">
+    <section id="contact-form" className="relative mx-2.5 my-4 overflow-hidden rounded-3xl sm:mx-3 sm:my-5 md:mx-4 lg:mx-5 lg:rounded-[2.5rem]">
       <img src={contactPattern} alt="" aria-hidden="true" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover" />
+      <div className="absolute inset-0 bg-gradient-to-br from-brand/70 via-brand/50 to-brand-light/40 mix-blend-multiply" aria-hidden="true" />
 
       <div className="relative z-[1] grid md:min-h-[30rem] md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] 3xl:min-h-[36rem]">
         {/* Left: girl slides in from the left, filling the column height */}
@@ -161,7 +162,7 @@ export default function ContactForm() {
             <div className="mt-1 flex justify-center sm:col-span-2">
               <button
                 type="submit"
-                className="inline-flex items-center gap-2 rounded-full border-2 border-white bg-white px-10 py-3 text-base font-bold tracking-wide text-[#1a6fd4] shadow-[0_6px_24px_rgba(0,0,0,0.18)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-[#1a6fd4] hover:bg-[#1a6fd4] hover:text-white hover:shadow-[0_10px_32px_rgba(26,111,212,0.45)] focus-visible:-translate-y-0.5 focus-visible:border-[#1a6fd4] focus-visible:bg-[#1a6fd4] focus-visible:text-white active:translate-y-0 sm:px-14"
+                className="inline-flex items-center gap-2 rounded-full border-2 border-white bg-white px-10 py-3 text-base font-bold tracking-wide text-[#0A36C8] shadow-[0_6px_24px_rgba(0,0,0,0.18)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-[#0A36C8] hover:bg-[#0A36C8] hover:text-white hover:shadow-[0_10px_32px_rgba(10,54,200,0.45)] focus-visible:-translate-y-0.5 focus-visible:border-[#0A36C8] focus-visible:bg-[#0A36C8] focus-visible:text-white active:translate-y-0 sm:px-14"
               >
                 Send via WhatsApp <FaWhatsapp aria-hidden="true" />
               </button>

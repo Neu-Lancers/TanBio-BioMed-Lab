@@ -13,10 +13,10 @@ const POINTS = [
 export default function GenomicsSpotlight() {
   const { open } = useBooking();
   return (
-    <section id="genomics" className="section overflow-hidden bg-white" aria-labelledby="genomics-title">
+    <section id="genomics" className="section overflow-hidden bg-sky-soft" aria-labelledby="genomics-title">
       <div className="container grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
         <Reveal className="relative order-last lg:order-first">
-          <div aria-hidden="true" className="absolute -left-4 -top-4 h-full w-full rounded-3xl border-2 border-sky/40 sm:-left-6 sm:-top-6" />
+          <div aria-hidden="true" className="absolute -left-4 -top-4 h-full w-full rounded-3xl border-2 border-brand/25 sm:-left-6 sm:-top-6" />
           <div className="relative overflow-hidden rounded-3xl shadow-lift">
             <img
               src={img}
@@ -34,7 +34,7 @@ export default function GenomicsSpotlight() {
         <Reveal delay={100}>
           <span className="eyebrow">Genomics</span>
           <h2 id="genomics-title" className="heading">
-            Where diagnostics meets <span className="text-sky">genomics</span>
+            Where diagnostics meets <span className="heading-hl">genomics</span>
           </h2>
           <p className="mt-4 max-w-xl">
             Modern healthcare is moving from &quot;what is wrong&quot; to &quot;why it is happening&quot;. Molecular and genomic
@@ -44,7 +44,7 @@ export default function GenomicsSpotlight() {
           <ul className="mt-8 space-y-5">
             {POINTS.map(({ icon: Icon, title, text }) => (
               <li key={title} className="flex gap-4">
-                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-sky-soft text-xl text-brand">
+                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-white text-xl text-brand shadow-card">
                   <Icon aria-hidden="true" />
                 </span>
                 <span>
@@ -56,8 +56,8 @@ export default function GenomicsSpotlight() {
           </ul>
 
           <div className="mt-9 flex flex-wrap gap-3">
-            <Button onClick={() => open({ preselect: "Genomic / molecular diagnostics enquiry" })}>Talk to our team</Button>
-            <Button to="/about" variant="outline">
+            <Button arrow onClick={() => open({ preselect: "Genomic / molecular diagnostics enquiry" })}>Talk to our team</Button>
+            <Button to="/about" variant="dark">
               About the lab
             </Button>
           </div>

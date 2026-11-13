@@ -3,8 +3,10 @@ import contactImg from "@/assets/images/contact-tanbio.webp";
 import ContactForm from "@/components/sections/contact/ContactForm";
 import ContactInfoCards from "@/components/sections/contact/ContactInfoCards";
 import LocationMap from "@/components/sections/contact/LocationMap";
+import FaqSection from "@/components/sections/home/FaqSection";
 import Hero from "@/components/ui/Hero";
 import Seo from "@/components/ui/Seo";
+import StatTiles from "@/components/ui/StatTiles";
 import { SITE } from "@/lib/site";
 
 const TITLE = "Contact TanBio | Book a Test or Home Sample Collection, Thiruvarur";
@@ -42,8 +44,21 @@ export default function ContactPage() {
       />
 
       <ContactInfoCards />
+
+      <StatTiles
+        title="We're Here When You Need Us"
+        stats={[
+          { value: 7, label: "Days a Week" },
+          { value: 12, label: "Hours Open Mon–Sat" },
+          { value: 150, suffix: "+", label: "Diagnostic Tests" },
+          { value: 24, label: "Hr Email Reply" },
+        ]}
+      />
+
       <LocationMap />
       <ContactForm />
+      {/* FaqSection renders its own FAQPage JSON-LD */}
+      <FaqSection />
     </>
   );
 }

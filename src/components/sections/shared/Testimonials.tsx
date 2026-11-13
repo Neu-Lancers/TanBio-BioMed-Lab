@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { FaArrowLeft, FaArrowRight, FaLocationDot, FaQuoteLeft, FaStar } from "react-icons/fa6";
 import Avatar from "@/components/ui/Avatar";
 import Reveal from "@/components/ui/Reveal";
@@ -8,22 +8,41 @@ import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { cn } from "@/lib/cn";
 
 const INTERVAL = 6000;
-const arrow =
-  "grid h-10 w-10 place-items-center rounded-full border-2 border-brand text-brand transition-all duration-300 hover:bg-brand hover:text-white";
+
+function Stars({ n, className }: { n: number; className?: string }) {
+  return (
+    <span className={cn("flex gap-1", className)} role="img" aria-label={`${n} out of 5 stars`}>
+      {Array.from({ length: 5 }).map((_, i) => (
+        <FaStar key={i} aria-hidden="true" className={i < n ? "text-amber-400" : "text-white/25"} />
+      ))}
+    </span>
+  );
+}
 
 export default function Testimonials() {
   const reduced = useReducedMotion();
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
+  const tabs = useRef<Array<HTMLButtonElement | null>>([]);
   const n = TESTIMONIALS.length;
 
   const go = useCallback((i: number) => setActive(((i % n) + n) % n), [n]);
+  const autoplay = !reduced && !paused;
 
   useEffect(() => {
-    if (reduced || paused) return;
-    const id = window.setInterval(() => setActive((a) => (a + 1) % n), INTERVAL);
-    return () => window.clearInterval(id);
-  }, [reduced, paused, n, active]);
+    if (!autoplay) return;
+    const id = window.setTimeout(() => setActive((a) => (a + 1) % n), INTERVAL);
+    return () => window.clearTimeout(id);
+  }, [autoplay, n, active]);
+
+  const onKey = (e: React.KeyboardEvent) => {
+    const dir = e.key === "ArrowDown" || e.key === "ArrowRight" ? 1 : e.key === "ArrowUp" || e.key === "ArrowLeft" ? -1 : 0;
+    if (!dir) return;
+    e.preventDefault();
+    const next = (((active + dir) % n) + n) % n;
+    go(next);
+    tabs.current[next]?.focus();
+  };
 
   return (
     <section className="section" id="testimonials">
@@ -32,7 +51,10 @@ export default function Testimonials() {
           <SectionHeading eyebrow="Testimonials" title="What Our" highlight="Patients Say" description="Real experiences from the people we serve." />
         </Reveal>
 
-        <Reveal delay={100} className="mx-auto mt-12 max-w-3xl 3xl:max-w-4xl">
+        <Reveal
+          delay={100}
+          className="mt-12 grid gap-5 lg:grid-cols-[1.5fr_1fr] 3xl:gap-8"
+        >
           <div
             role="region"
             aria-roledescription="carousel"
@@ -41,63 +63,126 @@ export default function Testimonials() {
             onMouseLeave={() => setPaused(false)}
             onFocus={() => setPaused(true)}
             onBlur={() => setPaused(false)}
+            className="contents"
           >
-            <div className="card relative overflow-hidden px-6 py-10 text-center sm:px-14 sm:py-12">
-              <FaQuoteLeft className="absolute left-6 top-6 text-5xl text-sky/15 sm:text-7xl" aria-hidden="true" />
-              <div className="grid">
+            {/* Featured quote */}
+            <div className="relative flex min-h-[340px] flex-col justify-between overflow-hidden rounded-3xl bg-brand p-7 text-white shadow-lift sm:p-10">
+              <span className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-cyan-glow/20 blur-3xl" aria-hidden="true" />
+              <FaQuoteLeft aria-hidden="true" className="absolute right-6 top-6 text-[6rem] text-white/10 sm:right-10 sm:text-[8rem]" />
+
+              <div className="relative grid" aria-live={paused ? "polite" : "off"}>
                 {TESTIMONIALS.map((t, i) => (
                   <figure
                     key={t.id}
+                    id={`testimonial-panel-${i}`}
+                    role="tabpanel"
+                    aria-labelledby={`testimonial-tab-${i}`}
                     aria-hidden={i !== active}
                     className={cn(
-                      "col-start-1 row-start-1 flex flex-col items-center transition-all duration-700 ease-out",
-                      i === active ? "translate-x-0 opacity-100" : "pointer-events-none translate-x-6 opacity-0",
+                      "col-start-1 row-start-1 flex flex-col justify-between transition-all duration-700 ease-out motion-reduce:transition-none",
+                      i === active ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0",
                     )}
                   >
-                    <Avatar name={t.name} photo={t.photo} className="h-16 w-16 text-xl shadow-card" />
-                    <div className="mt-4 flex gap-1 text-amber-400" role="img" aria-label={`${t.rating} out of 5 stars`}>
-                      {Array.from({ length: 5 }).map((_, s) => (
-                        <FaStar key={s} className={s < t.rating ? "" : "text-line"} aria-hidden="true" />
-                      ))}
-                    </div>
-                    <blockquote className="mt-5 max-w-xl text-[1.05rem] font-medium leading-relaxed text-navy sm:text-lg">
-                      &ldquo;{t.review}&rdquo;
+                    <Stars n={t.rating} className="mb-6 text-lg" />
+                    <blockquote className="text-[clamp(1.25rem,1rem+1.1vw,2rem)] font-semibold leading-snug tracking-tight text-white">
+                      “{t.review}”
                     </blockquote>
-                    <figcaption className="mt-6">
-                      <span className="block font-extrabold text-navy">{t.name}</span>
-                      <span className="mt-0.5 inline-flex items-center gap-1.5 text-sm">
-                        <FaLocationDot className="text-sky" aria-hidden="true" />
-                        {t.location}
+                    <figcaption className="mt-8 flex items-center gap-4">
+                      <Avatar name={t.name} photo={t.photo} className="h-14 w-14 border-2 border-white/60 !bg-white/15 text-lg" />
+                      <span className="leading-tight">
+                        <span className="block text-lg font-bold">{t.name}</span>
+                        <span className="mt-1 flex items-center gap-1.5 text-sm text-white/75">
+                          <FaLocationDot aria-hidden="true" className="text-cyan-glow" /> {t.location}
+                        </span>
                       </span>
                     </figcaption>
                   </figure>
                 ))}
               </div>
+
+              <div className="relative mt-8 flex items-center justify-between gap-4">
+                <span className="font-mono text-sm tracking-widest text-white/70">
+                  {String(active + 1).padStart(2, "0")} / {String(n).padStart(2, "0")}
+                </span>
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => go(active - 1)}
+                    aria-label="Previous testimonial"
+                    className="grid h-11 w-11 place-items-center rounded-full border border-white/40 text-white transition-all duration-300 hover:-translate-x-0.5 hover:bg-white hover:text-brand"
+                  >
+                    <FaArrowLeft aria-hidden="true" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => go(active + 1)}
+                    aria-label="Next testimonial"
+                    className="grid h-11 w-11 place-items-center rounded-full bg-white text-brand transition-all duration-300 hover:translate-x-0.5 hover:bg-cyan-glow hover:text-navy"
+                  >
+                    <FaArrowRight aria-hidden="true" />
+                  </button>
+                </div>
+              </div>
             </div>
 
-            <div className="mt-6 flex items-center justify-center gap-4">
-              <button type="button" onClick={() => go(active - 1)} aria-label="Previous testimonial" className={arrow}>
-                <FaArrowLeft aria-hidden="true" />
-              </button>
-              <div className="flex items-center gap-2">
-                {TESTIMONIALS.map((t, i) => (
+            {/* Reviewer selector */}
+            <div
+              role="tablist"
+              aria-label="Choose a testimonial"
+              aria-orientation="vertical"
+              onKeyDown={onKey}
+              className="no-scrollbar -mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 lg:mx-0 lg:flex-col lg:overflow-visible lg:px-0 lg:pb-0"
+            >
+              {TESTIMONIALS.map((t, i) => {
+                const on = i === active;
+                return (
                   <button
                     key={t.id}
+                    ref={(el) => {
+                      tabs.current[i] = el;
+                    }}
                     type="button"
+                    role="tab"
+                    id={`testimonial-tab-${i}`}
+                    aria-selected={on}
+                    aria-controls={`testimonial-panel-${i}`}
+                    tabIndex={on ? 0 : -1}
                     onClick={() => go(i)}
-                    aria-label={`Show testimonial ${i + 1}`}
-                    aria-current={i === active}
-                    className={cn("h-2.5 rounded-full transition-all duration-500 ease-out", i === active ? "w-8 bg-brand" : "w-2.5 bg-brand/25 hover:bg-brand/50")}
-                  />
-                ))}
-              </div>
-              <button type="button" onClick={() => go(active + 1)} aria-label="Next testimonial" className={arrow}>
-                <FaArrowRight aria-hidden="true" />
-              </button>
+                    className={cn(
+                      "relative min-w-[16rem] shrink-0 snap-start overflow-hidden rounded-2xl border bg-white p-4 text-left transition-all duration-500 ease-out lg:min-w-0 lg:flex-1",
+                      on ? "border-transparent shadow-glow" : "border-line shadow-card hover:-translate-y-0.5 hover:border-brand/30",
+                    )}
+                  >
+                    <span className="flex items-center gap-3">
+                      <Avatar name={t.name} photo={t.photo} className="h-12 w-12 shrink-0 text-base" />
+                      <span className="min-w-0 flex-1">
+                        <span className="block truncate font-bold text-navy">{t.name}</span>
+                        <span className="block truncate text-sm text-muted">{t.location}</span>
+                      </span>
+                      <Stars n={t.rating} className="hidden text-xs sm:flex [&>svg:not(.text-amber-400)]:text-line" />
+                    </span>
+                    <span className="mt-3 line-clamp-2 block text-[.85rem] leading-snug text-muted">{t.review}</span>
+                    {/* autoplay progress */}
+                    <span className="absolute inset-x-0 bottom-0 h-[3px] bg-line/70" aria-hidden="true">
+                      {on && (
+                        <span
+                          key={`${active}-${autoplay}`}
+                          className="block h-full origin-left bg-brand"
+                          style={{
+                            transform: autoplay ? undefined : "scaleX(1)",
+                            animation: autoplay ? `tbProgress ${INTERVAL}ms linear forwards` : undefined,
+                          }}
+                        />
+                      )}
+                    </span>
+                  </button>
+                );
+              })}
             </div>
           </div>
         </Reveal>
       </div>
+      <style>{`@keyframes tbProgress{from{transform:scaleX(0)}to{transform:scaleX(1)}}`}</style>
     </section>
   );
 }

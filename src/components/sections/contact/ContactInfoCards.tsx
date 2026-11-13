@@ -54,11 +54,11 @@ export default function ContactInfoCards() {
               href={c.href}
               {...(c.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
               aria-label={`${c.title}: ${c.primary}`}
-              className="card card-hover flex h-full items-center gap-4 p-5 text-inherit hover:text-inherit"
+              className="card card-hover flex h-full items-center gap-4 p-6 text-inherit hover:text-inherit"
             >
-              <span className={`grid h-14 w-14 shrink-0 place-items-center rounded-full text-xl text-white ${c.tone}`}>{c.icon}</span>
+              <span className={`grid h-14 w-14 shrink-0 place-items-center rounded-2xl text-xl text-white shadow-[0_12px_24px_-10px_rgba(10,54,200,.55)] ${c.tone}`}>{c.icon}</span>
               <span className="min-w-0">
-                <span className="block text-sm font-bold uppercase tracking-wide text-navy">{c.title}</span>
+                <span className="block font-mono text-[.7rem] font-semibold uppercase tracking-[.18em] text-brand/80">{c.title}</span>
                 <span className="block break-words font-semibold text-ink">{c.primary}</span>
                 <span className="block text-sm">{c.secondary}</span>
               </span>

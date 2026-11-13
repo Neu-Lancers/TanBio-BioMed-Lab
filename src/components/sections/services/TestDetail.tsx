@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { FaArrowLeft, FaChevronDown, FaClock, FaHouseMedical, FaPhoneVolume, FaVial, FaWhatsapp } from "react-icons/fa6";
+import { FaArrowLeft, FaChevronDown, FaClock, FaHouseMedical, FaPhoneVolume, FaVial } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import { useBooking } from "@/components/booking/BookingProvider";
 import Button from "@/components/ui/Button";
 import Reveal from "@/components/ui/Reveal";
 import SectionHeading from "@/components/ui/SectionHeading";
 import type { Service } from "@/data/services";
 import { cn } from "@/lib/cn";
-import { SITE, whatsappUrl } from "@/lib/site";
+import { SITE } from "@/lib/site";
 
 /** Dark image hero for a single service */
 export function TestHero({ service: s }: { service: Service }) {
@@ -45,8 +46,8 @@ export function TestHero({ service: s }: { service: Service }) {
           <p className="mb-6 text-white/85">{s.description}</p>
           <ul className="flex flex-wrap gap-3">
             {chips.map((c) => (
-              <li key={c.text} className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-sm backdrop-blur">
-                <span className="text-sky" aria-hidden="true">{c.icon}</span>
+              <li key={c.text} className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-sm backdrop-blur">
+                <span className="text-cyan-glow" aria-hidden="true">{c.icon}</span>
                 {c.text}
               </li>
             ))}
@@ -59,9 +60,9 @@ export function TestHero({ service: s }: { service: Service }) {
 
 /** Summary card + expandable list of every test */
 export function TestDetail({ service: s }: { service: Service }) {
+  const { open: openBooking } = useBooking();
   const [open, setOpen] = useState<number | null>(0);
   const Icon = s.icon;
-  const bookMsg = `Hi, I'd like to book ${s.title} at TANBIO Biomed Genomics Laboratory. Please share the available slots.`;
 
   return (
     <section className="section" id="tests">
@@ -82,8 +83,8 @@ export function TestDetail({ service: s }: { service: Service }) {
             <div className="space-y-4 p-6">
               <p className="text-sm">{s.description}</p>
               <p className="text-sm font-semibold text-navy">{s.tests.length} tests available</p>
-              <Button href={whatsappUrl(bookMsg)} target="_blank" rel="noopener noreferrer" className="w-full">
-                <FaWhatsapp aria-hidden="true" /> Book This Test
+              <Button variant="dark" arrow className="w-full" onClick={() => openBooking({ preselect: s.slug })}>
+                Book This Test
               </Button>
               <a href={SITE.phoneHref} className="flex items-center justify-center gap-2 font-semibold text-brand">
                 <FaPhoneVolume aria-hidden="true" /> {SITE.phone}
@@ -96,7 +97,7 @@ export function TestDetail({ service: s }: { service: Service }) {
               const isOpen = open === i;
               return (
                 <Reveal as="li" key={t.name} delay={Math.min(i, 6) * 50}>
-                  <div className={cn("card overflow-hidden", isOpen && "!border-sky")}>
+                  <div className={cn("card overflow-hidden", isOpen && "!border-brand/40 shadow-lift")}>
                     <h3 className="text-base">
                       <button
                         type="button"
@@ -106,13 +107,13 @@ export function TestDetail({ service: s }: { service: Service }) {
                         className="flex w-full items-center gap-3 p-4 text-left"
                       >
                         <span
-                          className="grid h-9 w-9 shrink-0 place-items-center rounded-lg text-sm font-bold"
+                          className="grid h-9 w-9 shrink-0 place-items-center rounded-xl font-mono text-sm font-bold"
                           style={{ background: s.iconBg, color: s.iconColor }}
                         >
                           {String(i + 1).padStart(2, "0")}
                         </span>
                         <span className="flex-1 font-bold text-navy">{t.name}</span>
-                        <FaChevronDown className={cn("shrink-0 text-sky transition-transform duration-300", isOpen && "rotate-180")} aria-hidden="true" />
+                        <FaChevronDown className={cn("shrink-0 text-brand transition-transform duration-300", isOpen && "rotate-180")} aria-hidden="true" />
                       </button>
                     </h3>
                     <div

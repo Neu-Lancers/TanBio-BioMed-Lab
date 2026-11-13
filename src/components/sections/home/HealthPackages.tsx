@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import { FaArrowRight, FaChevronLeft, FaChevronRight, FaCircleCheck, FaClock, FaRegCalendarCheck, FaShieldHalved, FaUserCheck } from "react-icons/fa6";
+import { FaChevronLeft, FaChevronRight, FaCircleCheck, FaClock, FaRegCalendarCheck, FaShieldHalved, FaUserCheck } from "react-icons/fa6";
 
 import delivery from "@/assets/images/delivery3.webp";
 import Button from "@/components/ui/Button";
@@ -75,7 +75,7 @@ export default function HealthPackages() {
     "absolute top-1/2 z-10 hidden h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-line bg-white text-brand shadow-card transition-all duration-300 ease-out hover:bg-brand hover:text-white disabled:pointer-events-none disabled:opacity-0 md:grid 3xl:h-14 3xl:w-14";
 
   return (
-    <section id="packages" className="section bg-sky-soft/50" aria-label="Health packages">
+    <section id="packages" className="section bg-white" aria-label="Health packages">
       <div className="container">
         <Reveal>
           <SectionHeading
@@ -124,22 +124,23 @@ export default function HealthPackages() {
               aria-current={active === i}
               className={cn(
                 "h-2.5 rounded-full transition-all duration-300 ease-out",
-                active === i ? "w-7 bg-brand" : "w-2.5 bg-line hover:bg-sky",
+                active === i ? "w-7 bg-brand" : "w-2.5 bg-line hover:bg-brand/40",
               )}
             />
           ))}
         </div>
 
         <div className="mt-8 flex justify-center">
-          <Button to="/services" variant="outline">
-            View All Tests <FaArrowRight aria-hidden="true" />
+          <Button to="/services" variant="dark" arrow>
+            View All Tests
           </Button>
         </div>
 
         {/* Home sample collection banner — one responsive layout, one image */}
         <Reveal delay={100} className="mt-14">
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-navy via-navy to-brand p-6 text-white shadow-lift sm:p-8 lg:px-12 lg:py-8">
-            <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-sky/20 blur-2xl" aria-hidden="true" />
+          <div className="relative overflow-hidden rounded-[2rem] bg-brand p-6 text-white shadow-lift sm:p-8 lg:px-12 lg:py-8">
+            <div className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-cyan-glow/25 blur-3xl" aria-hidden="true" />
+            <div className="pointer-events-none absolute -bottom-20 left-1/3 h-56 w-56 rounded-full bg-white/10 blur-3xl" aria-hidden="true" />
             <div className="relative flex flex-col items-center gap-6 text-center lg:flex-row lg:justify-between lg:text-left">
               <img
                 src={delivery}
@@ -159,7 +160,7 @@ export default function HealthPackages() {
               <ul className="flex flex-wrap justify-center gap-x-6 gap-y-3 lg:flex-1 lg:justify-center">
                 {COLLECTION_FEATURES.map(({ icon: Icon, label, sub }) => (
                   <li key={label} className="flex items-center gap-2.5 text-left">
-                    <span className="grid h-10 w-10 place-items-center rounded-full bg-white/15 text-sky">
+                    <span className="grid h-10 w-10 place-items-center rounded-full bg-white/15 text-cyan-glow">
                       <Icon aria-hidden="true" />
                     </span>
                     <span className="leading-tight">
@@ -170,7 +171,7 @@ export default function HealthPackages() {
                 ))}
               </ul>
 
-              <Button onClick={() => open({ preselect: "Home sample collection" })} variant="light" className="shrink-0">
+              <Button onClick={() => open({ preselect: "Home sample collection" })} variant="light" arrow className="shrink-0">
                 <FaRegCalendarCheck aria-hidden="true" /> Schedule Collection
               </Button>
             </div>

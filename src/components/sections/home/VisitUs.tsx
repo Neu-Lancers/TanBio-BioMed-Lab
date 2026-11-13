@@ -20,10 +20,10 @@ export default function VisitUs() {
           />
         </Reveal>
 
-        <Reveal className="card mt-12 grid overflow-hidden lg:grid-cols-5" delay={80}>
+        <Reveal className="card mt-12 grid overflow-hidden !rounded-[2rem] lg:grid-cols-5" delay={80}>
           <div className="flex flex-col justify-center gap-7 p-7 sm:p-9 lg:col-span-2">
             <div className="flex gap-4">
-              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-sky-soft text-xl text-brand">
+              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-sky-soft text-xl text-brand">
                 <FaLocationDot aria-hidden="true" />
               </span>
               <address className="not-italic">
@@ -34,7 +34,7 @@ export default function VisitUs() {
               </address>
             </div>
             <div className="flex gap-4">
-              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-sky-soft text-xl text-brand">
+              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-sky-soft text-xl text-brand">
                 <FaClock aria-hidden="true" />
               </span>
               <div>
@@ -55,7 +55,7 @@ export default function VisitUs() {
               <Button href={whatsappUrl(BOOK_MESSAGE)} target="_blank" rel="noopener noreferrer" variant="outline">
                 <FaWhatsapp aria-hidden="true" /> WhatsApp
               </Button>
-              <Button href={SITE.mapsUrl} target="_blank" rel="noopener noreferrer" variant="outline">
+              <Button href={SITE.mapsUrl} target="_blank" rel="noopener noreferrer" variant="dark">
                 <FaRoute aria-hidden="true" /> Directions
               </Button>
             </div>

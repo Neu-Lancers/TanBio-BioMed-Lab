@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import { FaAngleRight, FaClock, FaEnvelope, FaFacebookF, FaInstagram, FaLocationDot, FaPhone, FaWhatsapp } from "react-icons/fa6";
 
 import logo from "@/assets/images/Logo.webp";
+import { useBooking } from "@/components/booking/BookingProvider";
+import Button from "@/components/ui/Button";
+import Reveal from "@/components/ui/Reveal";
 import { SERVICES } from "@/data/services";
 import { BOOK_MESSAGE, NAV_LINKS, SITE, whatsappUrl } from "@/lib/site";
 import { cn } from "@/lib/cn";
@@ -33,20 +36,20 @@ function getStatus() {
   return { isOpen, label: day === 6 ? "Opens Sunday" : "Opens tomorrow", time: fmt(schedule[(day + 1) % 7].open) };
 }
 
-const FOOTER_LINKS = [...NAV_LINKS.filter((l) => l.label !== "FAQ"), { label: "FAQ", to: "/#faq" }];
-
 const socials = [
   { label: "Instagram", href: SITE.social.instagram, Icon: FaInstagram, hover: "hover:bg-[#E1306C]" },
   { label: "Facebook", href: SITE.social.facebook, Icon: FaFacebookF, hover: "hover:bg-[#1877F2]" },
   { label: "WhatsApp", href: whatsappUrl(BOOK_MESSAGE), Icon: FaWhatsapp, hover: "hover:bg-[#25D366]" },
-  { label: "Email", href: `mailto:${SITE.email}`, Icon: FaEnvelope, hover: "hover:bg-sky" },
+  { label: "Email", href: `mailto:${SITE.email}`, Icon: FaEnvelope, hover: "hover:bg-brand" },
 ];
 
-const colTitle = "mb-4 text-sm font-bold uppercase tracking-[0.14em] text-white after:mt-2 after:block after:h-0.5 after:w-8 after:rounded after:bg-sky";
-const linkCls = "group inline-flex items-center gap-1.5 py-1 text-sm text-white/70 transition-colors duration-300 hover:text-sky";
+const colTitle =
+  "mb-4 text-[0.78rem] font-bold uppercase tracking-[0.18em] text-white after:mt-2.5 after:block after:h-0.5 after:w-8 after:rounded after:bg-cyan-glow";
+const linkCls = "group inline-flex items-center gap-1.5 py-1 text-sm text-white/70 transition-colors duration-300 hover:text-white";
 
 export default function Footer() {
   const [status, setStatus] = useState(getStatus);
+  const { open: openBooking } = useBooking();
 
   useEffect(() => {
     const t = window.setInterval(() => setStatus(getStatus()), 60_000);
@@ -54,11 +57,39 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="bg-navy-deep text-white/80">
+    <footer className="relative mt-24 bg-navy-deep text-white/80 md:mt-28">
+      {/* Overlapping CTA card */}
+      <div className="container">
+        <Reveal>
+          <div className="relative -mt-20 overflow-hidden rounded-3xl bg-gradient-to-br from-brand via-brand to-brand-light px-7 py-10 text-white shadow-lift md:-mt-24 md:px-12 md:py-12 3xl:py-16">
+            <div className="pointer-events-none absolute -right-16 -top-20 h-64 w-64 rounded-full bg-cyan-glow/25 blur-3xl" aria-hidden="true" />
+            <div className="pointer-events-none absolute -bottom-24 left-1/3 h-64 w-64 rounded-full bg-white/10 blur-3xl" aria-hidden="true" />
+            <div className="relative flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+              <div className="max-w-xl">
+                <h2 className="text-[clamp(1.6rem,1.1rem+1.8vw,2.5rem)] font-extrabold leading-[1.1] tracking-tight text-white">Book your test today</h2>
+                <span className="divider-glow my-4 block" aria-hidden="true" />
+                <p className="text-white/80">Accurate results, friendly service and home sample collection &mdash; reach us in a minute.</p>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                <Button variant="light" arrow onClick={() => openBooking()}>
+                  Book Appointment
+                </Button>
+                <Button variant="ghost-light" href={whatsappUrl(BOOK_MESSAGE)} target="_blank" rel="noopener noreferrer">
+                  <FaWhatsapp aria-hidden="true" /> WhatsApp
+                </Button>
+                <Button variant="ghost-light" href={SITE.phoneHref}>
+                  <FaPhone aria-hidden="true" /> Call
+                </Button>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+
       <div className="container grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4 3xl:py-20">
         {/* Brand */}
         <div className="sm:col-span-2 lg:col-span-1">
-          <Link to="/" aria-label={`${SITE.shortName} home`} className="inline-block rounded-lg bg-white p-2.5">
+          <Link to="/" aria-label={`${SITE.shortName} home`} className="inline-block rounded-2xl bg-white p-2.5">
             <img src={logo} alt={SITE.name} width={160} height={62} loading="lazy" decoding="async" className="h-12 w-auto" />
           </Link>
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/70">
@@ -87,10 +118,10 @@ export default function Footer() {
         <nav aria-label="Quick links">
           <h2 className={colTitle}>Quick Links</h2>
           <ul>
-            {FOOTER_LINKS.map((l) => (
+            {NAV_LINKS.map((l) => (
               <li key={l.label}>
                 <Link to={l.to} className={linkCls}>
-                  <FaAngleRight aria-hidden="true" className="text-sky transition-transform duration-300 group-hover:translate-x-1" />
+                  <FaAngleRight aria-hidden="true" className="text-cyan-glow transition-transform duration-300 group-hover:translate-x-1" />
                   {l.label}
                 </Link>
               </li>
@@ -105,7 +136,7 @@ export default function Footer() {
             {SERVICES.map((s) => (
               <li key={s.slug}>
                 <Link to={`/tests/${s.slug}`} className={linkCls}>
-                  <FaAngleRight aria-hidden="true" className="text-sky transition-transform duration-300 group-hover:translate-x-1" />
+                  <FaAngleRight aria-hidden="true" className="text-cyan-glow transition-transform duration-300 group-hover:translate-x-1" />
                   {s.title}
                 </Link>
               </li>
@@ -117,18 +148,18 @@ export default function Footer() {
         <div>
           <h2 className={colTitle}>Find Us</h2>
           <address className="space-y-3 text-sm not-italic">
-            <a href={SITE.mapsUrl} target="_blank" rel="noreferrer" className="flex gap-3 text-white/70 transition-colors hover:text-sky">
-              <FaLocationDot aria-hidden="true" className="mt-1 shrink-0 text-sky" />
+            <a href={SITE.mapsUrl} target="_blank" rel="noreferrer" className="flex gap-3 text-white/70 transition-colors hover:text-white">
+              <FaLocationDot aria-hidden="true" className="mt-1 shrink-0 text-cyan-glow" />
               <span>
                 {SITE.address.street},<br />
                 {SITE.address.locality} – {SITE.address.postalCode}
               </span>
             </a>
-            <a href={SITE.phoneHref} className="flex items-center gap-3 text-white/70 transition-colors hover:text-sky">
-              <FaPhone aria-hidden="true" className="shrink-0 text-sky" /> {SITE.phone}
+            <a href={SITE.phoneHref} className="flex items-center gap-3 text-white/70 transition-colors hover:text-white">
+              <FaPhone aria-hidden="true" className="shrink-0 text-cyan-glow" /> {SITE.phone}
             </a>
-            <a href={`mailto:${SITE.email}`} className="flex items-center gap-3 break-all text-white/70 transition-colors hover:text-sky">
-              <FaEnvelope aria-hidden="true" className="shrink-0 text-sky" /> {SITE.email}
+            <a href={`mailto:${SITE.email}`} className="flex items-center gap-3 break-all text-white/70 transition-colors hover:text-white">
+              <FaEnvelope aria-hidden="true" className="shrink-0 text-cyan-glow" /> {SITE.email}
             </a>
           </address>
           <div className="mt-5 flex gap-2.5">
@@ -155,7 +186,7 @@ export default function Footer() {
           </p>
           <p>
             Powered by{" "}
-            <a href="https://neulancers.com" target="_blank" rel="noreferrer" className="font-semibold text-sky transition-colors hover:text-white">
+            <a href="https://neulancers.com" target="_blank" rel="noreferrer" className="font-semibold text-cyan-glow transition-colors hover:text-white">
               NeuLancers
             </a>
           </p>

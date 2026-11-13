@@ -26,7 +26,7 @@ const todayISO = () => {
 };
 
 const inputCls =
-  "w-full rounded-lg border border-navy/20 bg-white px-3.5 py-2.5 text-[0.95rem] text-ink placeholder:text-muted/60 transition focus:border-sky focus:outline-none focus:ring-4 focus:ring-sky/25 aria-[invalid=true]:border-red-500 aria-[invalid=true]:ring-red-100";
+  "w-full rounded-xl border border-navy/20 bg-white px-3.5 py-2.5 text-[0.95rem] text-ink placeholder:text-muted/60 transition focus:border-brand focus:outline-none focus:ring-4 focus:ring-brand/20 aria-[invalid=true]:border-red-500 aria-[invalid=true]:ring-red-100";
 const labelCls = "mb-1.5 block text-[0.82rem] font-bold text-navy";
 
 const FOCUSABLE = 'a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
@@ -209,7 +209,7 @@ export default function BookingModal({ open, onClose, preselect }: Props) {
         style={{ backgroundImage: `url(${patternBg})` }}
         className={cn(
           "relative flex w-full max-w-[1100px] flex-col overflow-y-auto bg-cover bg-center shadow-lift transition-[opacity,transform] duration-300 ease-out",
-          "max-md:h-[100dvh] md:h-[min(85vh,820px)] md:flex-row md:overflow-hidden md:rounded-2xl 3xl:max-w-[1280px]",
+          "max-md:h-[100dvh] md:h-[min(85vh,820px)] md:flex-row md:overflow-hidden md:rounded-3xl 3xl:max-w-[1280px]",
           shown ? "translate-y-0 scale-100 opacity-100" : "translate-y-4 scale-[0.96] opacity-0",
         )}
       >
@@ -224,7 +224,7 @@ export default function BookingModal({ open, onClose, preselect }: Props) {
         <div className="relative z-[1] flex min-w-0 flex-1 flex-col max-md:contents">
           <header className="order-1 md:order-none flex shrink-0 items-center justify-between gap-3 border-b border-navy/10 bg-white/95 px-5 py-4 max-md:sticky max-md:top-0 max-md:z-10 md:px-6">
             <h2 id={`${uid}-title`} className="flex items-center gap-2.5 text-[clamp(1rem,.9rem+.5vw,1.25rem)] font-extrabold text-navy">
-              <FaClipboardList aria-hidden="true" className="text-sky" />
+              <FaClipboardList aria-hidden="true" className="text-brand" />
               Book Your Test
             </h2>
             <button
@@ -290,7 +290,7 @@ export default function BookingModal({ open, onClose, preselect }: Props) {
                   data-lenis-prevent
                   aria-describedby={errors.tests ? `${uid}-tests-err` : undefined}
                   className={cn(
-                    "max-h-[17rem] space-y-5 overflow-y-auto rounded-lg border bg-white p-4 outline-none max-sm:max-h-[14rem] max-sm:p-3",
+                    "max-h-[17rem] space-y-5 overflow-y-auto rounded-2xl border bg-white p-4 outline-none max-sm:max-h-[14rem] max-sm:p-3",
                     errors.tests ? "border-red-500" : "border-navy/20",
                   )}
                 >
@@ -298,7 +298,7 @@ export default function BookingModal({ open, onClose, preselect }: Props) {
                     const Icon = svc.icon;
                     const highlighted = target?.serviceId === svc.id;
                     return (
-                      <div key={svc.id} id={`${uid}-cat-${svc.id}`} className={cn("rounded-lg transition-colors duration-500", highlighted && "bg-sky-soft/70 p-2 -m-2")}>
+                      <div key={svc.id} id={`${uid}-cat-${svc.id}`} className={cn("rounded-xl transition-colors duration-500", highlighted && "bg-sky-soft/70 p-2 -m-2")}>
                         <p className="mb-2 flex items-center gap-2 text-[0.82rem] font-bold text-navy">
                           <Icon aria-hidden="true" style={{ color: svc.iconColor }} />
                           {svc.title}
@@ -337,7 +337,7 @@ export default function BookingModal({ open, onClose, preselect }: Props) {
             <button
               type="submit"
               form={`${uid}-form`}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#25d366] px-10 py-3 font-bold text-white transition-all duration-300 ease-out hover:-translate-y-0.5 hover:bg-[#1ebc59] hover:shadow-lift active:translate-y-0 md:w-auto"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#25d366] px-10 py-3 font-bold text-white transition-all duration-300 ease-out hover:-translate-y-0.5 hover:bg-[#1ebc59] hover:shadow-lift active:translate-y-0 md:w-auto"
             >
               <FaWhatsapp aria-hidden="true" className="text-lg" />
               Book Now

@@ -35,7 +35,7 @@ export default function HealthConcerns() {
             const Icon = c.icon;
             return (
               <Reveal as="li" key={c.title} delay={(i % 4) * 70}>
-                <Link to={c.to} className="card card-hover group flex h-full flex-col p-6 focus-visible:outline-sky">
+                <Link to={c.to} className="card card-hover group relative flex h-full flex-col overflow-hidden p-6 focus-visible:outline-brand before:absolute before:inset-x-0 before:bottom-0 before:h-1 before:origin-left before:scale-x-0 before:bg-gradient-to-r before:from-brand before:to-cyan-glow before:transition-transform before:duration-500 hover:before:scale-x-100">
                   <span
                     className="mb-5 grid h-14 w-14 place-items-center rounded-2xl text-2xl transition-transform duration-500 ease-out group-hover:-rotate-6 group-hover:scale-110"
                     style={{ background: c.bg, color: c.color }}

@@ -11,7 +11,7 @@ const ITEMS = [
 
 export default function LabTechnology() {
   return (
-    <section id="technology" className="section bg-sky-soft/50" aria-label="Quality and technology">
+    <section id="technology" className="section bg-white" aria-label="Quality and technology">
       <div className="container">
         <Reveal>
           <SectionHeading
@@ -28,11 +28,11 @@ export default function LabTechnology() {
               <article className="card card-hover group relative h-full overflow-hidden p-7">
                 <span
                   aria-hidden="true"
-                  className="pointer-events-none absolute -right-2 -top-4 select-none text-[6.5rem] font-extrabold leading-none text-brand/[.06] transition-all duration-700 ease-out group-hover:-translate-y-1 group-hover:text-sky/20"
+                  className="pointer-events-none absolute -right-2 -top-4 select-none text-[6.5rem] font-extrabold leading-none text-brand/[.06] transition-all duration-700 ease-out group-hover:-translate-y-1 group-hover:text-cyan-glow/30"
                 >
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <span className="relative mb-5 grid h-14 w-14 place-items-center rounded-2xl bg-brand text-2xl text-white transition-transform duration-500 ease-out group-hover:-translate-y-1 group-hover:rotate-3">
+                <span className="relative mb-5 grid h-14 w-14 place-items-center rounded-2xl bg-brand text-2xl text-white shadow-[0_12px_24px_-10px_rgba(10,54,200,.7)] transition-transform duration-500 ease-out group-hover:-translate-y-1 group-hover:rotate-3">
                   <Icon aria-hidden="true" />
                 </span>
                 <h3 className="relative text-lg font-extrabold">{title}</h3>

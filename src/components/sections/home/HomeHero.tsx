@@ -3,7 +3,6 @@ import Hero, { type HeroFeature } from "@/components/ui/Hero";
 import Button from "@/components/ui/Button";
 import { useBooking } from "@/components/booking/BookingProvider";
 import heroImg from "@/assets/images/home-hero.webp";
-import StatsBar from "./StatsBar";
 
 const features: HeroFeature[] = [
   { icon: <FaBullseye aria-hidden="true" />, label: "Accurate", sub: "Results" },
@@ -23,12 +22,11 @@ export default function HomeHero() {
       image={heroImg}
       imageAlt="Laboratory professional at TANBIO Biomed Genomics Laboratory"
       features={features}
-      footer={<StatsBar />}
     >
-      <Button onClick={() => open()}>
+      <Button arrow onClick={() => open()}>
         <FaRegCalendarCheck aria-hidden="true" /> Book Appointment
       </Button>
-      <Button to="/services" variant="outline">
+      <Button to="/services" variant="dark">
         <FaFlask aria-hidden="true" /> Explore Tests
       </Button>
     </Hero>

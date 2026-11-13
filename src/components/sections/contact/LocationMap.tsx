@@ -12,10 +12,10 @@ export default function LocationMap() {
           <SectionHeading eyebrow="Visit Us" title="Find Us" highlight="Here" />
         </Reveal>
 
-        <Reveal className="card mt-10 grid overflow-hidden lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]">
+        <Reveal className="card mt-10 grid overflow-hidden !rounded-[2rem] lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]">
           <div className="space-y-6 p-6 sm:p-8">
             <div className="flex gap-3">
-              <FaLocationDot className="mt-1 shrink-0 text-xl text-sky" aria-hidden="true" />
+              <FaLocationDot className="mt-1 shrink-0 text-xl text-brand" aria-hidden="true" />
               <address className="not-italic">
                 <p className="mb-1 font-bold text-navy">TANBIO Biomed Genomics Laboratory</p>
                 {a.street}, {a.locality} - {a.postalCode}, {a.region}
@@ -25,7 +25,7 @@ export default function LocationMap() {
               </address>
             </div>
             <div className="flex gap-3">
-              <FaClock className="mt-1 shrink-0 text-xl text-sky" aria-hidden="true" />
+              <FaClock className="mt-1 shrink-0 text-xl text-brand" aria-hidden="true" />
               <div>
                 <p className="mb-1 font-bold text-navy">Opening Hours</p>
                 <ul className="space-y-1 text-sm">

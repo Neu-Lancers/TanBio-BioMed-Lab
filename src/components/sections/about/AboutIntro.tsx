@@ -13,7 +13,7 @@ export default function AboutIntro() {
         {/* Image: fixed aspect so it never out-grows the copy */}
         <Reveal className="mx-auto w-full max-w-xl lg:max-w-none">
           <div className="relative pb-4 pl-4 sm:pb-5 sm:pl-5">
-            <span className="absolute bottom-0 left-0 right-6 top-6 rounded-3xl border-2 border-sky/40" aria-hidden="true" />
+            <span className="absolute bottom-0 left-0 right-6 top-6 rounded-3xl border-2 border-brand/25" aria-hidden="true" />
             <div className="relative overflow-hidden rounded-3xl shadow-lift">
               <img
                 src={aboutGirl}
@@ -55,13 +55,13 @@ export default function AboutIntro() {
             <ul className="mt-7 grid gap-x-6 gap-y-3.5 sm:grid-cols-2">
               {highlights.map((h) => (
                 <li key={h} className="flex items-start gap-2.5 text-[.95rem] font-medium text-navy">
-                  <FaCircleCheck className="mt-1 shrink-0 text-sky" aria-hidden="true" />
+                  <FaCircleCheck className="mt-1 shrink-0 text-brand" aria-hidden="true" />
                   {h}
                 </li>
               ))}
             </ul>
             <div className="mt-8">
-              <Button to="/services">Explore Our Services</Button>
+              <Button to="/services" arrow>Explore Our Services</Button>
             </div>
           </Reveal>
         </div>

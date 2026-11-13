@@ -53,7 +53,7 @@ export default function FaqSection() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="section bg-sky-soft/60" aria-labelledby="faq-title">
+    <section id="faq" className="section bg-sky-soft" aria-labelledby="faq-title">
       <Helmet>
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>
@@ -65,7 +65,7 @@ export default function FaqSection() {
           {faqs.map((f, i) => {
             const isOpen = open === i;
             return (
-              <Reveal key={f.q} delay={i * 50} className="card overflow-hidden">
+              <Reveal key={f.q} delay={i * 50} className={cn("card overflow-hidden !rounded-2xl", open === i && "!border-brand/30 shadow-lift")}>
                 <h3 className="text-base">
                   <button
                     type="button"
@@ -76,7 +76,7 @@ export default function FaqSection() {
                     className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left font-bold text-navy transition-colors hover:text-brand md:px-6 md:py-5"
                   >
                     {f.q}
-                    <FaChevronDown aria-hidden="true" className={cn("shrink-0 text-sky transition-transform duration-300", isOpen && "rotate-180")} />
+                    <FaChevronDown aria-hidden="true" className={cn("shrink-0 text-brand transition-transform duration-300", isOpen && "rotate-180")} />
                   </button>
                 </h3>
                 <div

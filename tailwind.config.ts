@@ -14,17 +14,22 @@ export default {
     },
     extend: {
       colors: {
-        navy: { DEFAULT: "#2C587D", dark: "#1e3f5a", deep: "#0d1f30" },
-        brand: { DEFAULT: "#0A4D9C", dark: "#083b78" },
-        sky: { DEFAULT: "#25B5E9", soft: "#EAF6FF" },
-        ink: "#1a1a2e",
-        muted: "#5a7090",
-        line: "#E6EDF7",
+        navy: { DEFAULT: "#0B1633", dark: "#070E22", deep: "#060B1A" },
+        brand: { DEFAULT: "#0A36C8", dark: "#072A9E", light: "#3B63E6" },
+        sky: { DEFAULT: "#1BA8E8", soft: "#EEF3FF" },
+        cyan: { glow: "#34E3F0" },
+        ink: "#0B1633",
+        muted: "#55607A",
+        line: "#E3E9F5",
       },
-      fontFamily: { sans: ["Poppins", "system-ui", "sans-serif"] },
+      fontFamily: {
+        sans: ["Plus Jakarta Sans", "system-ui", "sans-serif"],
+        mono: ["ui-monospace", "SFMono-Regular", "Menlo", "Consolas", "monospace"],
+      },
       boxShadow: {
-        card: "0 10px 30px -12px rgba(12,59,120,.18)",
-        lift: "0 22px 45px -18px rgba(12,59,120,.35)",
+        card: "0 18px 40px -22px rgba(10,54,200,.22), 0 2px 6px rgba(11,22,51,.04)",
+        lift: "0 30px 60px -24px rgba(10,54,200,.38)",
+        glow: "0 0 0 1px rgba(52,227,240,.9), 0 12px 30px -12px rgba(52,227,240,.55)",
       },
       transitionTimingFunction: { out: "cubic-bezier(0.22, 1, 0.36, 1)" },
       keyframes: {

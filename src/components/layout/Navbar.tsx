@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { FaBars, FaPhone, FaWhatsapp, FaXmark } from "react-icons/fa6";
+import { FaBars, FaPhone, FaXmark } from "react-icons/fa6";
 
 import logo from "@/assets/images/Logo.webp";
 import { useBooking } from "@/components/booking/BookingProvider";
+import Button from "@/components/ui/Button";
 import { NAV_LINKS, SITE } from "@/lib/site";
 import { cn } from "@/lib/cn";
 import { scrollToElement, scrollToTop } from "@/lib/smoothScroll";
@@ -48,16 +49,16 @@ export default function Navbar() {
 
   const linkCls = (active: boolean) =>
     cn(
-      "relative rounded-md px-3 py-2 text-[0.95rem] font-semibold transition-colors duration-300 3xl:text-base",
-      "after:absolute after:inset-x-3 after:bottom-0.5 after:h-0.5 after:origin-left after:scale-x-0 after:rounded after:bg-sky after:transition-transform after:duration-300 after:ease-out hover:after:scale-x-100",
-      active ? "text-brand after:scale-x-100" : "text-ink hover:text-brand",
+      "relative rounded-full px-3.5 py-2 text-[0.93rem] font-semibold transition-colors duration-300 3xl:text-base",
+      "after:absolute after:inset-x-3.5 after:bottom-1 after:h-0.5 after:origin-left after:scale-x-0 after:rounded after:bg-brand after:transition-transform after:duration-500 after:ease-out hover:after:scale-x-100",
+      active ? "text-brand after:scale-x-100" : "text-ink/80 hover:text-brand",
     );
 
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 w-full border-b bg-white/90 backdrop-blur-md transition-shadow duration-300",
-        scrolled ? "border-line shadow-card" : "border-transparent",
+        "sticky top-0 z-50 w-full border-b backdrop-blur-xl transition-[background-color,box-shadow,border-color] duration-500",
+        scrolled ? "border-line bg-white/85 shadow-[0_12px_30px_-18px_rgba(10,54,200,.25)]" : "border-transparent bg-white/70",
       )}
     >
       <nav aria-label="Primary" className="container flex h-[var(--nav-h)] items-center justify-between gap-4">
@@ -65,34 +66,42 @@ export default function Navbar() {
           <img src={logo} alt={SITE.name} width={180} height={70} loading="eager" decoding="async" className="h-11 w-auto lg:h-12 3xl:h-[70px]" />
         </Link>
 
-        <ul className="hidden items-center gap-1 lg:flex">
+        <ul className="hidden items-center gap-0.5 lg:flex">
           {NAV_LINKS.map((l) => (
             <li key={l.label}>
-              <Link to={l.to} onClick={() => handleClick(l.to)} className={linkCls(isActive(l.to, pathname, hash))} aria-current={isActive(l.to, pathname, hash) ? "page" : undefined}>
+              <Link
+                to={l.to}
+                onClick={() => handleClick(l.to)}
+                className={linkCls(isActive(l.to, pathname, hash))}
+                aria-current={isActive(l.to, pathname, hash) ? "page" : undefined}
+              >
                 {l.label}
               </Link>
             </li>
           ))}
         </ul>
 
-        <div className="hidden items-center gap-4 lg:flex">
-          <a href={SITE.phoneHref} className="group flex items-center gap-2.5">
-            <span className="grid h-10 w-10 place-items-center rounded-full bg-sky-soft text-brand transition-transform duration-300 group-hover:scale-110 3xl:h-11 3xl:w-11">
+        <div className="hidden items-center gap-3 lg:flex">
+          <a
+            href={SITE.phoneHref}
+            className="group flex items-center gap-2.5 rounded-full border border-line bg-white py-1.5 pl-1.5 pr-4 transition-all duration-300 hover:border-brand/40 hover:shadow-card"
+          >
+            <span className="grid h-9 w-9 place-items-center rounded-full bg-brand text-sm text-white transition-transform duration-300 group-hover:scale-110 3xl:h-10 3xl:w-10">
               <FaPhone aria-hidden="true" />
             </span>
             <span className="hidden leading-tight xl:block">
-              <span className="block text-xs text-muted">Call us</span>
-              <span className="block text-[0.95rem] font-bold text-navy 3xl:text-base">{SITE.phone}</span>
+              <span className="block text-[0.68rem] font-medium uppercase tracking-wider text-muted">Call us</span>
+              <span className="block text-[0.9rem] font-bold text-navy 3xl:text-base">{SITE.phone}</span>
             </span>
           </a>
-          <button type="button" onClick={() => openBooking()} className="inline-flex items-center gap-2 rounded-lg bg-brand px-5 py-2.5 text-[0.95rem] font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-navy hover:shadow-lift">
-            <FaWhatsapp aria-hidden="true" /> Book Appointment
-          </button>
+          <Button variant="dark" arrow onClick={() => openBooking()} className="!px-5 !py-3">
+            Book Appointment
+          </Button>
         </div>
 
         <button
           type="button"
-          className="grid h-10 w-10 place-items-center rounded-lg text-xl text-navy transition-colors hover:bg-sky-soft lg:hidden"
+          className="grid h-11 w-11 place-items-center rounded-full border border-line bg-white text-lg text-navy transition-colors hover:bg-sky-soft lg:hidden"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           aria-controls="mobile-menu"
@@ -106,42 +115,48 @@ export default function Navbar() {
       <div
         id="mobile-menu"
         className={cn(
-          "grid overflow-hidden border-line bg-white transition-[grid-template-rows,opacity] duration-300 ease-out lg:hidden",
-          open ? "grid-rows-[1fr] border-t opacity-100" : "grid-rows-[0fr] opacity-0",
+          "grid overflow-hidden bg-white transition-[grid-template-rows,opacity] duration-500 ease-out lg:hidden",
+          open ? "grid-rows-[1fr] border-t border-line opacity-100 shadow-lift" : "grid-rows-[0fr] opacity-0",
         )}
         aria-hidden={!open}
         inert={!open}
       >
         <div className="min-h-0 overflow-hidden">
-          <ul className="container flex flex-col gap-1 py-3">
-            {NAV_LINKS.map((l) => (
-              <li key={l.label}>
+          <ul className="container flex flex-col gap-1 py-4">
+            {NAV_LINKS.map((l, i) => (
+              <li
+                key={l.label}
+                style={{ transitionDelay: open ? `${i * 45}ms` : "0ms" }}
+                className={cn("transition-all duration-500 ease-out", open ? "translate-y-0 opacity-100" : "-translate-y-2 opacity-0")}
+              >
                 <Link
                   to={l.to}
                   onClick={() => handleClick(l.to)}
                   className={cn(
-                    "block rounded-lg px-3 py-3 font-semibold transition-colors",
+                    "flex items-center justify-between rounded-2xl px-4 py-3.5 font-semibold transition-colors",
                     isActive(l.to, pathname, hash) ? "bg-sky-soft text-brand" : "text-ink hover:bg-sky-soft",
                   )}
                 >
                   {l.label}
+                  <span aria-hidden="true" className="text-brand/50">→</span>
                 </Link>
               </li>
             ))}
-            <li className="mt-2 flex flex-col gap-2 sm:flex-row">
-              <a href={SITE.phoneHref} className="inline-flex flex-1 items-center justify-center gap-2 rounded-lg border-2 border-brand px-4 py-2.5 font-semibold text-brand">
+            <li className="mt-3 flex flex-col gap-2.5 sm:flex-row">
+              <Button href={SITE.phoneHref} variant="outline" className="flex-1">
                 <FaPhone aria-hidden="true" /> {SITE.phone}
-              </a>
-              <button
-                type="button"
+              </Button>
+              <Button
+                variant="dark"
+                arrow
+                className="flex-1"
                 onClick={() => {
                   setOpen(false);
                   openBooking();
                 }}
-                className="inline-flex flex-1 items-center justify-center gap-2 rounded-lg bg-brand px-4 py-2.5 font-semibold text-white"
               >
-                <FaWhatsapp aria-hidden="true" /> Book Appointment
-              </button>
+                Book Appointment
+              </Button>
             </li>
           </ul>
         </div>

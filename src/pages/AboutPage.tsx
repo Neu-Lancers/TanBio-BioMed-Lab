@@ -6,6 +6,7 @@ import OurApproach from "@/components/sections/about/OurApproach";
 import OurTeam from "@/components/sections/shared/OurTeam";
 import Testimonials from "@/components/sections/shared/Testimonials";
 import Hero from "@/components/ui/Hero";
+import StatTiles from "@/components/ui/StatTiles";
 import Seo from "@/components/ui/Seo";
 import { SITE } from "@/lib/site";
 
@@ -48,6 +49,15 @@ export default function AboutPage() {
       <AboutIntro />
       <MissionVisionValues />
       <OurApproach />
+      <StatTiles
+        title="Built on Care & Precision"
+        stats={[
+          { value: 7, label: "Specialised Departments" },
+          { value: 7, label: "Days a Week" },
+          { value: 150, suffix: "+", label: "Diagnostic Tests" },
+          { value: 10, suffix: "+", label: "Years of Excellence" },
+        ]}
+      />
       <OurTeam />
       <Testimonials />
     </>
