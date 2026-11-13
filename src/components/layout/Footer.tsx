@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { FaAngleRight, FaClock, FaEnvelope, FaFacebookF, FaInstagram, FaLocationDot, FaPhone, FaWhatsapp } from "react-icons/fa6";
+import { FaAngleRight, FaBolt, FaEnvelope, FaFacebookF, FaInstagram, FaLocationDot, FaPhone, FaRegClock, FaWhatsapp } from "react-icons/fa6";
 
 import logo from "@/assets/images/Logo.webp";
 import { useBooking } from "@/components/booking/BookingProvider";
-import Button from "@/components/ui/Button";
-import Reveal from "@/components/ui/Reveal";
 import { SERVICES } from "@/data/services";
 import { BOOK_MESSAGE, NAV_LINKS, SITE, whatsappUrl } from "@/lib/site";
 import { cn } from "@/lib/cn";
@@ -44,8 +42,25 @@ const socials = [
 ];
 
 const colTitle =
-  "mb-4 text-[0.78rem] font-bold uppercase tracking-[0.18em] text-white after:mt-2.5 after:block after:h-0.5 after:w-8 after:rounded after:bg-cyan-glow";
-const linkCls = "group inline-flex items-center gap-1.5 py-1 text-sm text-white/70 transition-colors duration-300 hover:text-white";
+  "mb-3.5 text-[0.78rem] font-bold uppercase tracking-[0.18em] text-white after:mt-2 after:block after:h-0.5 after:w-8 after:rounded after:bg-cyan-glow";
+const linkCls = "group inline-flex items-center gap-1.5 py-[3px] text-sm text-white/70 transition-colors duration-300 hover:text-white";
+const chev = <FaAngleRight aria-hidden="true" className="text-[0.7rem] text-cyan-glow transition-transform duration-300 group-hover:translate-x-1" />;
+
+/* Subtle wave-line backdrop (as in the original footer) */
+function WaveBg() {
+  return (
+    <div className="pointer-events-none absolute inset-0 opacity-[0.18]" aria-hidden="true">
+      <svg viewBox="0 0 1440 600" preserveAspectRatio="xMidYMid slice" className="h-full w-full">
+        {[80, 160, 240, 320, 400, 480].map((y, i) => (
+          <path key={y} d={`M0 ${y} Q360 ${y - 28 + i * 4} 720 ${y} Q1080 ${y + 28 - i * 3} 1440 ${y}`} fill="none" stroke="#34E3F0" strokeWidth="1" opacity={0.6 - i * 0.08} />
+        ))}
+        {[120, 200, 280, 360, 440, 520].map((y, i) => (
+          <path key={"b" + y} d={`M0 ${y} Q360 ${y + 20 - i * 3} 720 ${y} Q1080 ${y - 20 + i * 2} 1440 ${y}`} fill="none" stroke="#3B63E6" strokeWidth="0.8" opacity={0.5 - i * 0.06} />
+        ))}
+      </svg>
+    </div>
+  );
+}
 
 export default function Footer() {
   const [status, setStatus] = useState(getStatus);
@@ -57,60 +72,47 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="relative mt-24 bg-navy-deep text-white/80 md:mt-28">
-      {/* Overlapping CTA card */}
-      <div className="container">
-        <Reveal>
-          <div className="relative -mt-20 overflow-hidden rounded-3xl bg-gradient-to-br from-brand via-brand to-brand-light px-7 py-10 text-white shadow-lift md:-mt-24 md:px-12 md:py-12 3xl:py-16">
-            <div className="pointer-events-none absolute -right-16 -top-20 h-64 w-64 rounded-full bg-cyan-glow/25 blur-3xl" aria-hidden="true" />
-            <div className="pointer-events-none absolute -bottom-24 left-1/3 h-64 w-64 rounded-full bg-white/10 blur-3xl" aria-hidden="true" />
-            <div className="relative flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-              <div className="max-w-xl">
-                <h2 className="text-[clamp(1.6rem,1.1rem+1.8vw,2.5rem)] font-extrabold leading-[1.1] tracking-tight text-white">Book your test today</h2>
-                <span className="divider-glow my-4 block" aria-hidden="true" />
-                <p className="text-white/80">Accurate results, friendly service and home sample collection &mdash; reach us in a minute.</p>
-              </div>
-              <div className="flex flex-wrap gap-3">
-                <Button variant="light" arrow onClick={() => openBooking()}>
-                  Book Appointment
-                </Button>
-                <Button variant="ghost-light" href={whatsappUrl(BOOK_MESSAGE)} target="_blank" rel="noopener noreferrer">
-                  <FaWhatsapp aria-hidden="true" /> WhatsApp
-                </Button>
-                <Button variant="ghost-light" href={SITE.phoneHref}>
-                  <FaPhone aria-hidden="true" /> Call
-                </Button>
-              </div>
-            </div>
-          </div>
-        </Reveal>
-      </div>
+    <footer className="relative overflow-hidden bg-[#0d1f30] text-white/80">
+      <WaveBg />
 
-      <div className="container grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4 3xl:py-20">
-        {/* Brand */}
-        <div className="sm:col-span-2 lg:col-span-1">
+      <div className="container relative grid gap-x-8 gap-y-9 py-10 sm:grid-cols-2 lg:grid-cols-[1.35fr_1fr_1fr_1.25fr] lg:py-12 3xl:py-16">
+        {/* Brand + status */}
+        <div>
           <Link to="/" aria-label={`${SITE.shortName} home`} className="inline-block rounded-2xl bg-white p-2.5">
             <img src={logo} alt={SITE.name} width={160} height={62} loading="lazy" decoding="async" className="h-12 w-auto" />
           </Link>
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/70">
-            {SITE.name} delivers accurate, reliable and affordable diagnostic services with advanced technology and the
+            {SITE.name} delivers accurate, reliable and affordable diagnostic services with cutting-edge technology and the
             highest standards of ethical practice.
           </p>
+
+          {/* Status badge — flips between Open/Closed and the next open/close time (bottom-to-top) */}
           <div
             role="status"
-            className={cn(
-              "mt-5 inline-flex items-center gap-3 rounded-full border px-4 py-2 text-sm",
-              status.isOpen ? "border-emerald-400/40 bg-emerald-400/10" : "border-rose-400/40 bg-rose-400/10",
-            )}
+            aria-label={`${status.isOpen ? "Open now" : "Closed"}. ${status.label} ${status.time}`}
+            className="mt-5 h-10 w-[13.5rem] [perspective:600px]"
           >
-            <span className="relative flex h-2.5 w-2.5">
-              <span className={cn("absolute inline-flex h-full w-full animate-ping rounded-full opacity-60", status.isOpen ? "bg-emerald-400" : "bg-rose-400")} />
-              <span className={cn("relative inline-flex h-2.5 w-2.5 rounded-full", status.isOpen ? "bg-emerald-400" : "bg-rose-400")} />
-            </span>
-            <span className="font-semibold text-white">{status.isOpen ? "Open now" : "Closed"}</span>
-            <span className="flex items-center gap-1.5 text-white/60">
-              <FaClock aria-hidden="true" className="text-xs" /> {status.label} {status.time}
-            </span>
+            <div className="relative h-full w-full animate-ft-flip [transform-style:preserve-3d] motion-reduce:animate-none">
+              <div
+                className={cn(
+                  "absolute inset-0 flex items-center gap-2.5 rounded-full border px-4 [backface-visibility:hidden]",
+                  status.isOpen ? "border-emerald-400/40 bg-emerald-400/10" : "border-rose-400/40 bg-rose-400/10",
+                )}
+              >
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className={cn("absolute inline-flex h-full w-full animate-ping rounded-full opacity-60", status.isOpen ? "bg-emerald-400" : "bg-rose-400")} />
+                  <span className={cn("relative inline-flex h-2.5 w-2.5 rounded-full", status.isOpen ? "bg-emerald-400" : "bg-rose-400")} />
+                </span>
+                <span className="text-sm font-semibold text-white">{status.isOpen ? "Open Now" : "Closed"}</span>
+              </div>
+              <div className="absolute inset-0 flex items-center gap-2.5 rounded-full border border-cyan-glow/30 bg-cyan-glow/10 px-4 [backface-visibility:hidden] [transform:rotateX(-180deg)_rotateY(180deg)]">
+                <FaRegClock aria-hidden="true" className="text-cyan-glow" />
+                <span className="flex flex-col leading-tight">
+                  <span className="text-[0.62rem] font-semibold uppercase tracking-wider text-white/60">{status.label}</span>
+                  <span className="text-sm font-bold text-white">{status.time}</span>
+                </span>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -121,11 +123,17 @@ export default function Footer() {
             {NAV_LINKS.map((l) => (
               <li key={l.label}>
                 <Link to={l.to} className={linkCls}>
-                  <FaAngleRight aria-hidden="true" className="text-cyan-glow transition-transform duration-300 group-hover:translate-x-1" />
+                  {chev}
                   {l.label}
                 </Link>
               </li>
             ))}
+            <li>
+              <button type="button" onClick={() => openBooking()} className={linkCls}>
+                {chev}
+                Book Appointment
+              </button>
+            </li>
           </ul>
         </nav>
 
@@ -136,7 +144,7 @@ export default function Footer() {
             {SERVICES.map((s) => (
               <li key={s.slug}>
                 <Link to={`/tests/${s.slug}`} className={linkCls}>
-                  <FaAngleRight aria-hidden="true" className="text-cyan-glow transition-transform duration-300 group-hover:translate-x-1" />
+                  {chev}
                   {s.title}
                 </Link>
               </li>
@@ -145,7 +153,7 @@ export default function Footer() {
         </nav>
 
         {/* Find us */}
-        <div>
+        <div className="sm:col-span-2 lg:col-span-1">
           <h2 className={colTitle}>Find Us</h2>
           <address className="space-y-3 text-sm not-italic">
             <a href={SITE.mapsUrl} target="_blank" rel="noreferrer" className="flex gap-3 text-white/70 transition-colors hover:text-white">
@@ -162,7 +170,7 @@ export default function Footer() {
               <FaEnvelope aria-hidden="true" className="shrink-0 text-cyan-glow" /> {SITE.email}
             </a>
           </address>
-          <div className="mt-5 flex gap-2.5">
+          <div className="mt-4 flex gap-2.5">
             {socials.map(({ label, href, Icon, hover }) => (
               <a
                 key={label}
@@ -179,17 +187,25 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-white/10">
-        <div className="container flex flex-col items-center justify-between gap-2 py-5 text-center text-xs text-white/60 sm:flex-row sm:text-left">
+      <div className="relative border-t border-white/10">
+        <div className="container flex flex-col items-center justify-between gap-3 py-4 pr-4 text-center text-xs text-white/60 sm:flex-row sm:pr-24 sm:text-left">
           <p>
-            © {new Date().getFullYear()} {SITE.name}. All rights reserved.
+            © {new Date().getFullYear()} {SITE.name}. All Rights Reserved.
           </p>
-          <p>
-            Powered by{" "}
-            <a href="https://neulancers.com" target="_blank" rel="noreferrer" className="font-semibold text-cyan-glow transition-colors hover:text-white">
-              NeuLancers
+          <div className="flex items-center gap-2.5">
+            <span className="whitespace-nowrap">Powered by</span>
+            <a
+              href="https://neulancers.com"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="NeuLancers"
+              className="group relative inline-flex items-center gap-[7px] overflow-hidden rounded-full border border-[rgba(196,181,253,.35)] bg-[rgba(196,181,253,.12)] py-1.5 pl-2.5 pr-3.5 shadow-[inset_0_1px_0_rgba(255,255,255,.22)] backdrop-blur-[14px] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_18px_4px_rgba(167,139,250,.35),inset_0_1px_0_rgba(255,255,255,.28)]"
+            >
+              <span className="pointer-events-none absolute inset-0 animate-nl-shimmer rounded-[inherit] bg-[linear-gradient(105deg,transparent_30%,rgba(196,181,253,.22)_50%,transparent_70%)] bg-[length:200%_100%]" />
+              <FaBolt aria-hidden="true" className="relative animate-nl-bolt text-xs text-[#a78bfa] [filter:drop-shadow(0_0_4px_#a78bfa)]" />
+              <span className="relative whitespace-nowrap bg-gradient-to-r from-white to-[#a78bfa] bg-clip-text text-[13px] font-bold tracking-[0.04em] text-transparent">NeuLancers</span>
             </a>
-          </p>
+          </div>
         </div>
       </div>
     </footer>

@@ -1,12 +1,10 @@
-import type { CSSProperties } from "react";
-import { FaChevronLeft, FaChevronRight, FaCircleCheck, FaClock, FaRegCalendarCheck, FaShieldHalved, FaUserCheck } from "react-icons/fa6";
+import { useState, type CSSProperties } from "react";
+import { FaCircleCheck, FaClock, FaRegCalendarCheck, FaShieldHalved, FaUserCheck } from "react-icons/fa6";
 
 import delivery from "@/assets/images/delivery3.webp";
 import Button from "@/components/ui/Button";
 import Reveal from "@/components/ui/Reveal";
 import SectionHeading from "@/components/ui/SectionHeading";
-import { useCarousel } from "@/hooks/useCarousel";
-import { cn } from "@/lib/cn";
 import { useBooking } from "@/components/booking/BookingProvider";
 import { discountPercent, HEALTH_PACKAGES, type HealthPackage } from "@/data/packages";
 
@@ -67,12 +65,12 @@ function PackageCard({ pkg }: { pkg: HealthPackage }) {
   );
 }
 
+const INITIAL = 6;
+
 export default function HealthPackages() {
   const { open } = useBooking();
-  const { trackRef, active, canPrev, canNext, scrollPage, scrollTo } = useCarousel();
-
-  const arrow =
-    "absolute top-1/2 z-10 hidden h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-line bg-white text-brand shadow-card transition-all duration-300 ease-out hover:bg-brand hover:text-white disabled:pointer-events-none disabled:opacity-0 md:grid 3xl:h-14 3xl:w-14";
+  const [showAll, setShowAll] = useState(false);
+  const list = showAll ? HEALTH_PACKAGES : HEALTH_PACKAGES.slice(0, INITIAL);
 
   return (
     <section id="packages" className="section bg-white" aria-label="Health packages">
@@ -86,58 +84,27 @@ export default function HealthPackages() {
           />
         </Reveal>
 
-        <Reveal delay={120} className="relative mt-10 md:px-6">
-          <button type="button" className={cn(arrow, "left-0")} onClick={() => scrollPage(-1)} disabled={!canPrev} aria-label="Previous packages">
-            <FaChevronLeft aria-hidden="true" />
-          </button>
-
-          <div
-            ref={trackRef}
-            className="no-scrollbar flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-1 py-3"
-            role="list"
-            aria-label="Health packages"
-          >
-            {HEALTH_PACKAGES.map((p) => (
-              <div
-                key={p.id}
-                role="listitem"
-                className="w-[86%] shrink-0 snap-start xs:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] 3xl:w-[calc(25%-18px)]"
-              >
-                <PackageCard pkg={p} />
-              </div>
-            ))}
-          </div>
-
-          <button type="button" className={cn(arrow, "right-0")} onClick={() => scrollPage(1)} disabled={!canNext} aria-label="Next packages">
-            <FaChevronRight aria-hidden="true" />
-          </button>
-        </Reveal>
-
-        {/* dots */}
-        <div className="mt-4 flex flex-wrap justify-center gap-2" role="group" aria-label="Choose package">
-          {HEALTH_PACKAGES.map((p, i) => (
-            <button
-              key={p.id}
-              type="button"
-              onClick={() => scrollTo(i)}
-              aria-label={`Go to ${p.title}`}
-              aria-current={active === i}
-              className={cn(
-                "h-2.5 rounded-full transition-all duration-300 ease-out",
-                active === i ? "w-7 bg-brand" : "w-2.5 bg-line hover:bg-brand/40",
-              )}
-            />
+        <ul className="mt-8 grid items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+          {list.map((p, i) => (
+            <Reveal as="li" key={p.id} delay={(i % 3) * 90} className="h-full">
+              <PackageCard pkg={p} />
+            </Reveal>
           ))}
-        </div>
+        </ul>
 
-        <div className="mt-8 flex justify-center">
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
+          {HEALTH_PACKAGES.length > INITIAL && (
+            <Button variant="outline" onClick={() => setShowAll((v) => !v)} aria-expanded={showAll}>
+              {showAll ? "Show fewer packages" : `Show all ${HEALTH_PACKAGES.length} packages`}
+            </Button>
+          )}
           <Button to="/services" variant="dark" arrow>
             View All Tests
           </Button>
         </div>
 
         {/* Home sample collection banner — one responsive layout, one image */}
-        <Reveal delay={100} className="mt-14">
+        <Reveal delay={100} className="mt-10">
           <div className="relative overflow-hidden rounded-[2rem] bg-brand p-6 text-white shadow-lift sm:p-8 lg:px-12 lg:py-8">
             <div className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-cyan-glow/25 blur-3xl" aria-hidden="true" />
             <div className="pointer-events-none absolute -bottom-20 left-1/3 h-56 w-56 rounded-full bg-white/10 blur-3xl" aria-hidden="true" />

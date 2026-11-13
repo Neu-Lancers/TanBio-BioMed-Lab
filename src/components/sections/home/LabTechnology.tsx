@@ -22,9 +22,9 @@ export default function LabTechnology() {
           />
         </Reveal>
 
-        <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {ITEMS.map(({ icon: Icon, title, text }, i) => (
-            <Reveal as="li" key={title} delay={i * 80}>
+            <Reveal as="li" key={title} delay={i * 80} className="h-full">
               <article className="card card-hover group relative h-full overflow-hidden p-7">
                 <span
                   aria-hidden="true"

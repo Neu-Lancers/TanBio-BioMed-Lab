@@ -1,7 +1,7 @@
 import { FaBullseye, FaCircleCheck, FaEye, FaGem } from "react-icons/fa6";
 import Reveal from "@/components/ui/Reveal";
 import SectionHeading from "@/components/ui/SectionHeading";
-import Tilt3D from "@/components/ui/Tilt3D";
+import { cn } from "@/lib/cn";
 
 const values = ["Accuracy & Reliability", "Compassion & Care", "Integrity & Transparency", "Innovation & Excellence"];
 
@@ -52,18 +52,16 @@ export default function MissionVisionValues() {
         <Reveal>
           <SectionHeading eyebrow="What Drives Us" title="Purpose, Direction &" highlight="Principles" />
         </Reveal>
-        <div className="mt-12 grid gap-6 md:grid-cols-3 3xl:gap-8">
+        <div className="mt-8 grid items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-3 md:mt-10">
           {cards.map((c, i) => (
-            <Reveal key={c.title} delay={i * 120} className="h-full">
-              <Tilt3D max={6} rest={{ x: 0, y: 0 }} className="h-full">
-                <div className="card card-hover relative h-full overflow-hidden p-8">
+            <Reveal key={c.title} delay={i * 120} className={cn("h-full", i === 2 && "sm:col-span-2 lg:col-span-1")}>
+                <div className="card card-hover relative flex h-full flex-col overflow-hidden p-7">
                   <span className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-brand/5" aria-hidden="true" />
                   <span className="mb-6 grid h-14 w-14 place-items-center rounded-2xl bg-brand text-2xl text-white shadow-[0_12px_24px_-10px_rgba(10,54,200,.7)]">{c.icon}</span>
                   <span className="mb-2 block font-mono text-[.7rem] font-semibold uppercase tracking-[.2em] text-brand/70">{c.tag}</span>
                   <h3 className="mb-3 text-xl">{c.title}</h3>
                   <div className="text-[.95rem] leading-relaxed">{c.body}</div>
                 </div>
-              </Tilt3D>
             </Reveal>
           ))}
         </div>

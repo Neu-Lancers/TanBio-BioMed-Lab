@@ -15,9 +15,14 @@ export default function DiagnosticServicesGrid() {
             description="Seven specialised departments under one roof. Open any service to see every test it includes, why it matters and how to book."
           />
         </Reveal>
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:gap-8">
+        <div className="mt-8 flex flex-wrap items-stretch justify-center gap-5 md:mt-10">
           {SERVICES.map((s, i) => (
-            <ServiceCard key={s.id} service={s} delay={(i % 4) * 90} />
+            <ServiceCard
+              key={s.id}
+              service={s}
+              delay={(i % 4) * 90}
+              className="w-full sm:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)] xl:w-[calc((100%-3.75rem)/4)]"
+            />
           ))}
         </div>
       </div>

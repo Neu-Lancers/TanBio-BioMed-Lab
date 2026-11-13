@@ -33,7 +33,7 @@ export default function WhyChoose() {
           />
         </Reveal>
 
-        <div className="mt-10 grid items-stretch gap-6 lg:grid-cols-2 3xl:gap-10">
+        <div className="mt-8 grid items-stretch gap-6 lg:grid-cols-2 3xl:gap-10">
           {/* Reasons card */}
           <Reveal className="relative isolate min-h-[22rem] overflow-hidden rounded-[2rem] bg-brand shadow-lift">
             <img
@@ -63,9 +63,9 @@ export default function WhyChoose() {
           </Reveal>
 
           {/* Benefits grid */}
-          <div className="grid gap-4 xs:grid-cols-2">
+          <div className="grid auto-rows-fr gap-4 xs:grid-cols-2">
             {BENEFITS.map(({ icon: Icon, title, text }, i) => (
-              <Reveal key={title} delay={i * 90} className="card card-hover group flex flex-col p-6">
+              <Reveal key={title} delay={i * 90} className="card card-hover group flex h-full flex-col p-6">
                 <span className="mb-4 grid h-12 w-12 place-items-center rounded-2xl bg-brand/10 text-xl text-brand transition-colors duration-500 group-hover:bg-brand group-hover:text-white">
                   <Icon aria-hidden="true" />
                 </span>

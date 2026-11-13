@@ -1,15 +1,16 @@
 import { FaCheck } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import Reveal from "@/components/ui/Reveal";
+import { cn } from "@/lib/cn";
 import type { Service } from "@/data/services";
 
-type Props = { service: Service; delay?: number; compact?: boolean };
+type Props = { service: Service; delay?: number; compact?: boolean; className?: string };
 
 /** Whole-card link to /tests/:slug. `compact` = image + title only (used for "other services"). */
-export default function ServiceCard({ service: s, delay = 0, compact }: Props) {
+export default function ServiceCard({ service: s, delay = 0, compact, className }: Props) {
   const Icon = s.icon;
   return (
-    <Reveal delay={delay} className="h-full">
+    <Reveal delay={delay} className={cn("h-full", className)}>
       <Link
         to={`/tests/${s.slug}`}
         className="card card-hover group flex h-full flex-col overflow-hidden p-3 text-inherit hover:text-inherit"

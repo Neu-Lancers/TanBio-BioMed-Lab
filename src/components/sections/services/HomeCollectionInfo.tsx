@@ -15,7 +15,7 @@ export default function HomeCollectionInfo() {
   const { open } = useBooking();
   return (
     <section className="section bg-sky-soft/70" id="home-collection">
-      <div className="container grid items-center gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
+      <div className="container grid items-center gap-8 lg:grid-cols-[1fr_1.1fr] lg:gap-14">
         <Reveal>
           <SectionHeading
             align="left"
@@ -59,7 +59,7 @@ export default function HomeCollectionInfo() {
                 </ul>
               </div>
             </div>
-            <ul className="grid gap-4 sm:grid-cols-3">
+            <ul className="grid items-stretch gap-4 sm:grid-cols-3">
               {perks.map((p) => (
                 <li key={p.title} className="rounded-2xl bg-sky-soft/80 p-4">
                   <span className="mb-2 block text-xl text-brand" aria-hidden="true">

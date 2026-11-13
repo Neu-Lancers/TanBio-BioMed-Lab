@@ -1,6 +1,7 @@
 import { FaDroplet, FaFlask, FaPersonWalking, FaUtensils, FaVial } from "react-icons/fa6";
 import Reveal from "@/components/ui/Reveal";
 import SectionHeading from "@/components/ui/SectionHeading";
+import { cn } from "@/lib/cn";
 
 const guide = [
   {
@@ -61,10 +62,10 @@ export default function SamplePrep() {
           />
         </Reveal>
 
-        <div className="mt-12 grid gap-6 md:grid-cols-3 3xl:gap-8">
+        <div className="mt-8 grid items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-3 md:mt-10">
           {guide.map((g, i) => (
-            <Reveal key={g.title} delay={i * 110} className="h-full">
-              <article className="card card-hover h-full p-7">
+            <Reveal key={g.title} delay={i * 110} className={cn("h-full", i === 2 && "sm:col-span-2 lg:col-span-1")}>
+              <article className="card card-hover flex h-full flex-col p-6">
                 <div className="mb-5 flex items-center justify-between">
                   <span className="grid h-12 w-12 place-items-center rounded-2xl bg-brand text-xl text-white">{g.icon}</span>
                   <span className="rounded-full border border-brand/15 bg-white px-3 py-1 font-mono text-[.68rem] font-semibold uppercase tracking-[.16em] text-brand">
@@ -85,10 +86,10 @@ export default function SamplePrep() {
           ))}
         </div>
 
-        <div className="mt-6 grid gap-6 md:grid-cols-2 3xl:gap-8">
+        <div className="mt-5 grid items-stretch gap-5 md:grid-cols-2">
           {fasting.map((f, i) => (
-            <Reveal key={f.title} delay={i * 110}>
-              <div className="flex gap-4 rounded-3xl border border-brand/15 bg-white p-6 shadow-card">
+            <Reveal key={f.title} delay={i * 110} className="h-full">
+              <div className="flex h-full gap-4 rounded-3xl border border-brand/15 bg-white p-6 shadow-card">
                 <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-sky-soft text-xl text-brand">{f.icon}</span>
                 <div>
                   <h3 className="mb-1 text-base">{f.title}</h3>

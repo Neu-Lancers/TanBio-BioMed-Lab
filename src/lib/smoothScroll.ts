@@ -2,20 +2,26 @@ import Lenis from "lenis";
 
 let lenis: Lenis | null = null;
 
-/** Start inertia ("buttery") page scrolling once. Skipped for reduced-motion users and touch devices keep native momentum. */
+/**
+ * Start the ONE page-wide smooth scroller (Lenis). Wheel/trackpad get inertia;
+ * touch keeps native momentum (syncTouch off). Skipped for reduced-motion users.
+ */
 export function initSmoothScroll(): () => void {
   if (typeof window === "undefined") return () => {};
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return () => {};
   if (lenis) return () => {};
 
   lenis = new Lenis({
-    duration: 1.15,
-    easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    duration: 1.2,
+    // expo-out: fast response, long soft landing
+    easing: (t: number) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)),
     smoothWheel: true,
-    wheelMultiplier: 0.95,
+    wheelMultiplier: 1,
+    touchMultiplier: 1,
+    syncTouch: false,
     anchors: false,
   });
-  document.documentElement.classList.add("lenis");
+  document.documentElement.classList.add("lenis", "lenis-smooth");
 
   let raf = 0;
   const loop = (time: number) => {
@@ -28,8 +34,17 @@ export function initSmoothScroll(): () => void {
     cancelAnimationFrame(raf);
     lenis?.destroy();
     lenis = null;
-    document.documentElement.classList.remove("lenis");
+    document.documentElement.classList.remove("lenis", "lenis-smooth");
   };
+}
+
+export function isSmoothScrollActive(): boolean {
+  return lenis !== null;
+}
+
+/** Current scroll position (Lenis-animated value when active, else window.scrollY). */
+export function getScroll(): number {
+  return lenis ? lenis.scroll : window.scrollY;
 }
 
 function navOffset(): number {

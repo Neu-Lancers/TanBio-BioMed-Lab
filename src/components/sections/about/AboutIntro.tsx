@@ -9,7 +9,7 @@ const highlights = ["Modern, well-maintained equipment", "Skilled laboratory pro
 export default function AboutIntro() {
   return (
     <section className="section" id="about">
-      <div className="container grid items-center gap-12 lg:grid-cols-2 lg:gap-16 3xl:gap-24">
+      <div className="container grid items-center gap-10 lg:grid-cols-2 lg:gap-14 3xl:gap-20">
         {/* Image: fixed aspect so it never out-grows the copy */}
         <Reveal className="mx-auto w-full max-w-xl lg:max-w-none">
           <div className="relative pb-4 pl-4 sm:pb-5 sm:pl-5">

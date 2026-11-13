@@ -1,9 +1,7 @@
-import { FaChevronLeft, FaChevronRight, FaDroplet, FaRegCalendarCheck, FaRegClock } from "react-icons/fa6";
+import { FaDroplet, FaRegCalendarCheck, FaRegClock } from "react-icons/fa6";
 
 import Reveal from "@/components/ui/Reveal";
 import SectionHeading from "@/components/ui/SectionHeading";
-import { useCarousel } from "@/hooks/useCarousel";
-import { cn } from "@/lib/cn";
 import { useBooking } from "@/components/booking/BookingProvider";
 import { POPULAR_TESTS, type PopularTest } from "@/data/popularTests";
 
@@ -28,7 +26,7 @@ function TestCard({ test }: { test: PopularTest }) {
         <div className="flex flex-1 flex-col p-5">
           <h3 className="text-lg font-extrabold leading-tight">{test.name}</h3>
           <p className="mt-0.5 text-sm text-muted">{test.subtitle}</p>
-          <div className="mt-4 flex flex-wrap gap-2 text-xs">
+          <div className="mb-5 mt-4 flex flex-wrap gap-2 text-xs">
             <span className="inline-flex items-center gap-1.5 rounded-full border border-brand/10 bg-sky-soft px-3 py-1.5">
               <FaDroplet className="text-brand" aria-hidden="true" />
               <span className="text-muted">Sample:</span>
@@ -43,7 +41,7 @@ function TestCard({ test }: { test: PopularTest }) {
           <button
             type="button"
             onClick={() => open({ preselect: test.name })}
-            className="mt-5 inline-flex items-center justify-center gap-2 rounded-full bg-[#2b2f3a] px-5 py-3 text-sm font-semibold text-white transition-all duration-300 ease-out hover:bg-brand hover:shadow-lift"
+            className="mt-auto inline-flex items-center justify-center gap-2 rounded-full bg-[#2b2f3a] px-5 py-3 text-sm font-semibold text-white transition-all duration-300 ease-out hover:bg-brand hover:shadow-lift"
           >
             <FaRegCalendarCheck className="text-lg" aria-hidden="true" /> Book Test
           </button>
@@ -69,11 +67,6 @@ function TestCard({ test }: { test: PopularTest }) {
 }
 
 export default function PopularTests() {
-  const { trackRef, canPrev, canNext, scrollPage } = useCarousel();
-
-  const arrow =
-    "absolute top-1/2 z-10 hidden h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-line bg-white text-brand shadow-card transition-all duration-300 ease-out hover:bg-brand hover:text-white disabled:pointer-events-none disabled:opacity-0 md:grid 3xl:h-14 3xl:w-14";
-
   return (
     <section id="popular-tests" className="section bg-sky-soft" aria-label="Popular tests">
       <div className="container">
@@ -86,32 +79,13 @@ export default function PopularTests() {
           />
         </Reveal>
 
-        <Reveal delay={120} className="relative mt-10 md:px-6">
-          <button type="button" className={cn(arrow, "left-0")} onClick={() => scrollPage(-1)} disabled={!canPrev} aria-label="Previous tests">
-            <FaChevronLeft aria-hidden="true" />
-          </button>
-
-          <div
-            ref={trackRef}
-            className="no-scrollbar flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-1 py-3"
-            role="list"
-            aria-label="Popular tests"
-          >
-            {POPULAR_TESTS.map((t) => (
-              <div
-                key={t.name}
-                role="listitem"
-                className="w-[82%] shrink-0 snap-start xs:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] 3xl:w-[calc(25%-18px)]"
-              >
-                <TestCard test={t} />
-              </div>
-            ))}
-          </div>
-
-          <button type="button" className={cn(arrow, "right-0")} onClick={() => scrollPage(1)} disabled={!canNext} aria-label="Next tests">
-            <FaChevronRight aria-hidden="true" />
-          </button>
-        </Reveal>
+        <ul className="mt-8 grid items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+          {POPULAR_TESTS.map((t, i) => (
+            <Reveal as="li" key={t.name} delay={(i % 3) * 90} className="h-full">
+              <TestCard test={t} />
+            </Reveal>
+          ))}
+        </ul>
       </div>
     </section>
   );

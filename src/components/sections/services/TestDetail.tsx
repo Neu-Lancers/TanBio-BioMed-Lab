@@ -71,7 +71,7 @@ export function TestDetail({ service: s }: { service: Service }) {
           <SectionHeading eyebrow="What We Test" title="Detailed Tests Under" highlight={s.title} description={s.why} />
         </Reveal>
 
-        <div className="mt-12 grid items-start gap-8 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-12">
+        <div className="mt-8 grid items-start gap-6 md:mt-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-10">
           <Reveal className="card overflow-hidden lg:sticky lg:top-[calc(var(--nav-h)+1.5rem)]">
             <div className="relative">
               <img src={s.image} alt={s.title} width={800} height={500} loading="lazy" decoding="async" className="aspect-[16/10] w-full object-cover" />

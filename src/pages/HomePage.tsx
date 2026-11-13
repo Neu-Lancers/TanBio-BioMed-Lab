@@ -19,7 +19,6 @@ import OurTeam from "@/components/sections/shared/OurTeam";
 import Testimonials from "@/components/sections/shared/Testimonials";
 import HealthTips from "@/components/sections/home/HealthTips";
 import FaqSection from "@/components/sections/home/FaqSection";
-import VisitUs from "@/components/sections/home/VisitUs";
 
 const STATS: Stat[] = [
   { value: 5000, suffix: "+", label: "Happy Patients" },
@@ -45,7 +44,7 @@ export default function HomePage() {
       <PopularTests />
 
       {/* Split banner with the floating 3D report mockup */}
-      <section className="bg-white py-16 md:py-24 3xl:py-32" aria-label="Digital reports">
+      <section className="bg-white py-10 md:py-14 3xl:py-20" aria-label="Digital reports">
         <FeatureBanner
           image={bannerImg}
           imageAlt="Culture plate being examined in the microbiology laboratory"
@@ -71,7 +70,6 @@ export default function HomePage() {
       <Testimonials />
       <HealthTips />
       <FaqSection />
-      <VisitUs />
     </>
   );
 }

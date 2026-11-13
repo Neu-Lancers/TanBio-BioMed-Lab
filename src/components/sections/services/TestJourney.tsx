@@ -16,7 +16,7 @@ export default function TestJourney() {
         <Reveal>
           <SectionHeading eyebrow="Your Journey" title="How Your Test" highlight="Works" description="Four simple steps from booking to report." />
         </Reveal>
-        <ol className="relative mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4 3xl:gap-10">
+        <ol className="relative mt-10 grid items-stretch gap-x-5 gap-y-8 sm:grid-cols-2 lg:grid-cols-4 md:mt-12">
           <span
             className="absolute left-[12%] right-[12%] top-8 hidden h-px bg-gradient-to-r from-transparent via-brand/30 to-transparent lg:block"
             aria-hidden="true"

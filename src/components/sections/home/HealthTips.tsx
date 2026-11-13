@@ -1,8 +1,6 @@
-import { useState } from "react";
-import { FaChevronDown, FaRegClock } from "react-icons/fa6";
+import { FaRegClock } from "react-icons/fa6";
 import Reveal from "@/components/ui/Reveal";
 import SectionHeading from "@/components/ui/SectionHeading";
-import { cn } from "@/lib/cn";
 
 type Tip = { category: string; title: string; summary: string; minutes: number; body: string[] };
 
@@ -42,49 +40,25 @@ const TIPS: Tip[] = [
   },
 ];
 
-function TipCard({ tip, index }: { tip: Tip; index: number }) {
-  const [open, setOpen] = useState(false);
-  const panelId = `tip-panel-${index}`;
+function TipCard({ tip }: { tip: Tip }) {
   return (
-    <article className="card card-hover flex h-full flex-col p-7 sm:p-8">
+    <article className="card card-hover flex h-full flex-col p-6 sm:p-7">
       <div className="flex items-center justify-between gap-3 text-xs">
         <span className="rounded-full border border-brand/15 bg-sky-soft px-3 py-1 font-mono text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-brand">{tip.category}</span>
         <span className="inline-flex items-center gap-1.5 text-muted">
           <FaRegClock aria-hidden="true" /> {tip.minutes} min read
         </span>
       </div>
-      <h3 className="mt-5 text-xl font-extrabold leading-snug">{tip.title}</h3>
-      <p className="mt-2 text-sm">{tip.summary}</p>
-
-      <div
-        id={panelId}
-        className={cn(
-          "grid transition-[grid-template-rows,opacity] duration-500 ease-out",
-          open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
-        )}
-      >
-        <div className="overflow-hidden">
-          <div className="space-y-3 pt-4 text-sm">
-            {tip.body.map((p) => (
-              <p key={p}>{p}</p>
-            ))}
-            <p className="rounded-lg bg-sky-soft/70 p-3 text-xs text-navy">
-              This is general information, not medical advice. Please consult your doctor for guidance on your health.
-            </p>
-          </div>
-        </div>
+      <h3 className="mt-4 text-xl font-extrabold leading-snug">{tip.title}</h3>
+      <p className="mt-2 text-sm font-medium text-navy/80">{tip.summary}</p>
+      <div className="mt-3 flex-1 space-y-2.5 text-sm">
+        {tip.body.map((p) => (
+          <p key={p}>{p}</p>
+        ))}
       </div>
-
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        aria-expanded={open}
-        aria-controls={panelId}
-        className="mt-auto inline-flex items-center gap-2 pt-6 text-sm font-bold text-brand transition-colors hover:text-navy"
-      >
-        {open ? "Show less" : "Read more"}
-        <FaChevronDown className={cn("transition-transform duration-500 ease-out", open && "rotate-180")} aria-hidden="true" />
-      </button>
+      <p className="mt-5 rounded-xl bg-sky-soft/70 p-3 text-xs text-navy">
+        General information, not medical advice — please consult your doctor.
+      </p>
     </article>
   );
 }
@@ -101,13 +75,13 @@ export default function HealthTips() {
             description="Short, practical guides from our lab team to help you get the most from your tests."
           />
         </Reveal>
-        <div className="mt-12 grid items-start gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-8 grid items-stretch gap-5 md:grid-cols-2 lg:grid-cols-3 lg:gap-6 md:[&>li:last-child:nth-child(odd)]:col-span-2 lg:[&>li:last-child:nth-child(odd)]:col-span-1">
           {TIPS.map((tip, i) => (
-            <Reveal key={tip.title} delay={i * 80}>
-              <TipCard tip={tip} index={i} />
+            <Reveal as="li" key={tip.title} delay={i * 80} className="h-full">
+              <TipCard tip={tip} />
             </Reveal>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );

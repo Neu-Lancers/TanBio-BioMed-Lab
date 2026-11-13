@@ -21,9 +21,9 @@ export default function OurApproach() {
             description="A simple, careful process from sample to report."
           />
         </Reveal>
-        <ol className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <ol className="mt-10 grid items-stretch gap-x-5 gap-y-9 sm:grid-cols-2 lg:grid-cols-4 md:mt-12">
           {steps.map((s, i) => (
-            <Reveal as="li" key={s.title} delay={i * 110} className="card card-hover relative p-6 pt-9 text-center">
+            <Reveal as="li" key={s.title} delay={i * 110} className="card card-hover relative flex h-full flex-col items-center p-6 pt-9 text-center">
               <span className="absolute -top-4 left-1/2 grid h-8 w-8 -translate-x-1/2 place-items-center rounded-full bg-brand text-sm font-bold text-white shadow-card ring-4 ring-white">
                 {i + 1}
               </span>

@@ -61,7 +61,7 @@ export default function FaqSection() {
       <div className="container max-w-4xl">
         <SectionHeading eyebrow="FAQ" title="Frequently Asked" highlight="Questions" description="Quick answers about booking, preparation and reports." />
 
-        <div className="mt-10 space-y-3">
+        <div className="mt-8 space-y-3">
           {faqs.map((f, i) => {
             const isOpen = open === i;
             return (

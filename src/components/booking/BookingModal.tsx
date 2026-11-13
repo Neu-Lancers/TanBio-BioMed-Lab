@@ -191,7 +191,6 @@ export default function BookingModal({ open, onClose, preselect }: Props) {
 
   return (
     <div
-      data-lenis-prevent
       onKeyDown={onKeyDown}
       className={cn(
         "fixed inset-0 z-[100] flex items-stretch justify-center bg-ink/60 backdrop-blur-sm transition-opacity duration-200 ease-out md:items-center md:p-6",
@@ -203,6 +202,7 @@ export default function BookingModal({ open, onClose, preselect }: Props) {
     >
       <div
         ref={dialogRef}
+        data-lenis-prevent
         role="dialog"
         aria-modal="true"
         aria-labelledby={`${uid}-title`}
@@ -287,10 +287,9 @@ export default function BookingModal({ open, onClose, preselect }: Props) {
                 <div
                   id={`${uid}-tests`}
                   tabIndex={-1}
-                  data-lenis-prevent
                   aria-describedby={errors.tests ? `${uid}-tests-err` : undefined}
                   className={cn(
-                    "max-h-[17rem] space-y-5 overflow-y-auto rounded-2xl border bg-white p-4 outline-none max-sm:max-h-[14rem] max-sm:p-3",
+                    "space-y-5 rounded-2xl border bg-white p-4 outline-none max-sm:p-3",
                     errors.tests ? "border-red-500" : "border-navy/20",
                   )}
                 >
