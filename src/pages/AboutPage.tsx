@@ -6,6 +6,7 @@ import OurApproach from "@/components/sections/about/OurApproach";
 import OurTeam from "@/components/sections/shared/OurTeam";
 import Testimonials from "@/components/sections/shared/Testimonials";
 import Hero from "@/components/ui/Hero";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import StatTiles from "@/components/ui/StatTiles";
 import Seo from "@/components/ui/Seo";
 import { SITE } from "@/lib/site";
@@ -30,6 +31,7 @@ export default function AboutPage() {
         }}
       />
 
+      <Breadcrumbs items={[{ label: "About Us" }]} />
       <Hero
         eyebrow="About Us"
         title="About TANBIO"

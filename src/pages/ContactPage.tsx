@@ -5,6 +5,7 @@ import ContactInfoCards from "@/components/sections/contact/ContactInfoCards";
 import LocationMap from "@/components/sections/contact/LocationMap";
 import FaqSection from "@/components/sections/home/FaqSection";
 import Hero from "@/components/ui/Hero";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import Seo from "@/components/ui/Seo";
 import StatTiles from "@/components/ui/StatTiles";
 import { SITE } from "@/lib/site";
@@ -29,6 +30,7 @@ export default function ContactPage() {
         }}
       />
 
+      <Breadcrumbs items={[{ label: "Contact Us" }]} />
       <Hero
         eyebrow="Contact Us"
         title="We Are Here"

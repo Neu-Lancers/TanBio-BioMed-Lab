@@ -11,6 +11,7 @@ import TestsFaq from "@/components/sections/services/TestsFaq";
 import Button from "@/components/ui/Button";
 import FeatureBanner from "@/components/ui/FeatureBanner";
 import Hero from "@/components/ui/Hero";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import ReportMockup from "@/components/ui/ReportMockup";
 import Seo from "@/components/ui/Seo";
 import StatTiles from "@/components/ui/StatTiles";
@@ -42,6 +43,7 @@ export default function ServicesPage() {
         }}
       />
 
+      <Breadcrumbs items={[{ label: "Services" }]} />
       <Hero
         eyebrow="Our Services"
         title="Comprehensive Diagnostic"

@@ -5,6 +5,7 @@ import OtherServices from "@/components/sections/services/OtherServices";
 import { TestDetail } from "@/components/sections/services/TestDetail";
 import Button from "@/components/ui/Button";
 import Hero from "@/components/ui/Hero";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import Seo from "@/components/ui/Seo";
 import { getServiceBySlug } from "@/data/services";
 import { SITE } from "@/lib/site";
@@ -48,6 +49,7 @@ export default function TestPage() {
       />
       {/* key remounts on slug change so reveal/accordion state resets */}
       <div key={service.slug}>
+        <Breadcrumbs schema={false} items={[{ label: "Services", to: "/services" }, { label: service.title }]} />
         <Hero
           eyebrow="Diagnostic Service"
           title={service.title}

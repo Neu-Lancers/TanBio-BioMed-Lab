@@ -10,32 +10,43 @@ const meta = await sharp(SRC).metadata();
 
 // The round emblem lives in the left ~40% of the wordmark — crop a square around it.
 const size = Math.round(meta.height * 0.92);
-const emblem = await sharp(SRC)
-  .extract({ left: Math.round(meta.width * 0.045), top: Math.round(meta.height * 0.04), width: size, height: size })
+const cropped = await sharp(SRC)
+  .extract({ left: Math.round(meta.width * 0.03), top: 0, width: size, height: meta.height })
   .toBuffer();
+// Tight-trim the transparent margin so the emblem fills the icon (no "shrunk" look)
+const emblem = await sharp(cropped).trim({ threshold: 8 }).toBuffer();
+const em = await sharp(emblem).metadata();
+console.log("emblem trimmed to", em.width, "x", em.height);
 
-const square = (px, pad = 0.08, bg = { r: 255, g: 255, b: 255, alpha: 1 }) =>
-  sharp(emblem)
-    .resize(Math.round(px * (1 - pad * 2)), Math.round(px * (1 - pad * 2)), { fit: "contain", background: { r: 255, g: 255, b: 255, alpha: 0 } })
-    .extend({ top: Math.round(px * pad), bottom: Math.round(px * pad), left: Math.round(px * pad), right: Math.round(px * pad), background: bg })
-    .resize(px, px);
+const CLEAR = { r: 0, g: 0, b: 0, alpha: 0 };
+const WHITE = { r: 255, g: 255, b: 255, alpha: 1 };
+const square = (px, pad = 0.02, bg = CLEAR) => {
+  const inner = Math.round(px * (1 - pad * 2));
+  return sharp(emblem)
+    .resize(inner, inner, { fit: "contain", background: CLEAR })
+    .extend({
+      top: Math.floor((px - inner) / 2), bottom: Math.ceil((px - inner) / 2),
+      left: Math.floor((px - inner) / 2), right: Math.ceil((px - inner) / 2),
+      background: bg,
+    });
+};
 
 const png = (px, name, pad, bg) => square(px, pad, bg).png({ compressionLevel: 9 }).toFile(`${OUT}/${name}`);
 
 await Promise.all([
-  png(16, "favicon-16x16.png", 0.02),
-  png(32, "favicon-32x32.png", 0.02),
-  png(48, "favicon-48x48.png", 0.02),
-  png(96, "favicon-96x96.png", 0.04),
-  png(180, "apple-touch-icon.png", 0.1),
-  png(192, "icon-192.png", 0.08),
-  png(512, "icon-512.png", 0.08),
-  png(512, "icon-maskable-512.png", 0.22), // safe-zone padding for maskable icons
+  png(16, "favicon-16x16.png", 0.0),
+  png(32, "favicon-32x32.png", 0.0),
+  png(48, "favicon-48x48.png", 0.0),
+  png(96, "favicon-96x96.png", 0.02),
+  png(180, "apple-touch-icon.png", 0.1, WHITE),
+  png(192, "icon-192.png", 0.03),
+  png(512, "icon-512.png", 0.03),
+  png(512, "icon-maskable-512.png", 0.2, WHITE), // safe-zone padding for maskable icons
 ]);
 
 // favicon.ico (PNG-in-ICO, 16/32/48)
 const sizes = [16, 32, 48];
-const imgs = await Promise.all(sizes.map((s) => square(s, 0.02).png().toBuffer()));
+const imgs = await Promise.all(sizes.map((s) => square(s, 0).png().toBuffer()));
 const header = Buffer.alloc(6); header.writeUInt16LE(1, 2); header.writeUInt16LE(sizes.length, 4);
 let offset = 6 + 16 * sizes.length;
 const dir = imgs.map((b, i) => {
@@ -46,7 +57,7 @@ const dir = imgs.map((b, i) => {
 fs.writeFileSync(`${OUT}/favicon.ico`, Buffer.concat([header, ...dir, ...imgs]));
 
 // Scalable favicon wrapper (modern browsers pick the sharpest size)
-const b64 = (await square(256, 0.02).png().toBuffer()).toString("base64");
+const b64 = (await square(256, 0).png().toBuffer()).toString("base64");
 fs.writeFileSync(`${OUT}/favicon.svg`,
   `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><image width="256" height="256" href="data:image/png;base64,${b64}"/></svg>`);
 

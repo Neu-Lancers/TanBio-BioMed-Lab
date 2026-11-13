@@ -30,7 +30,9 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 8px); -w
 
 @layer base {
   body {
-    @apply bg-white font-sans text-body text-muted antialiased;
+    @apply bg-white font-sans text-muted antialiased;
+    font-size: 1rem;
+    line-height: 1.7;
     overflow-x: clip; /* `clip` (not hidden) keeps position:sticky working */
   }
   h1, h2, h3, h4 { @apply font-extrabold text-navy; }
@@ -45,7 +47,7 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 8px); -w
 @layer components {
   .section { @apply relative py-10 md:py-14 xl:py-16 3xl:py-20; }
   .eyebrow { @apply mb-3 inline-flex items-center rounded-full border border-brand/15 bg-white px-4 py-1.5 font-mono text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-brand shadow-[0_1px_0_rgba(11,22,51,.04)]; }
-  .heading { @apply text-h2 text-navy; }
+  .heading { @apply text-navy; font-size: clamp(1.65rem, 1.1rem + 1.9vw, 2.75rem); line-height: 1.15; letter-spacing: -0.025em; font-weight: 800; }
   .heading-hl { @apply text-brand; }
   .divider-glow { @apply h-0.5 w-14 rounded-full bg-gradient-to-r from-cyan-glow to-transparent; }
   .card { @apply rounded-3xl border border-line bg-white shadow-card transition-all duration-500 ease-out; }
